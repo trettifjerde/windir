@@ -1,0 +1,45 @@
+{% extends 'windir/layout.html' %}
+{% load static %}
+{% block main %}
+<main>
+    <h1>Статьи</h1>
+    <div class="grid-container">
+        <div class="grid-item">
+            <a href="/minimal_skills">
+                <div class="article-text">Программа-минимум</div>
+                <img class="article-img" src="/media/prog_min_art.jpg">
+            </a>
+        </div>
+        <div class="grid-item">
+            <a href="/radio">
+                <div class="article-text">Гайд по рации</div>
+                <img class="article-img" src="/media/radio_art.jpg">
+            </a>
+        </div>
+        <div class="grid-item">
+            <a href="/mods_tutorial">
+                <div class="article-text">Руководство по настройке модов</div>
+                <img class="article-img" src="/media/mods_art.jpg">
+            </a>
+        </div>
+        <div class="grid-item">
+            <a href="/medicine_guide">
+                <div class="article-text">Руководство по медицине ACE 3</div>
+                <img class="article-img" src="/media/combat_medic_art.jpg">
+            </a>
+        </div>
+        <div class="grid-item">
+            <a href="/rocket_launcher_guide">
+                <div class="article-text">Руководство по стрельбе из РПГ-7</div>
+                <img class="article-img" src="/media/rpg_art.jpg">
+            </a>
+            </div>
+        <div class="grid-item">
+            <a href="/map_tutorial">
+                <div class="article-text">Руководство по ориентированию</div>
+                <img class="article-img" src="/media/compas_art.jpg">
+            </a>
+        </div>
+    </div>
+</main>
+{% endblock %}

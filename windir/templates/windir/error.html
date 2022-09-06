@@ -1,0 +1,46 @@
+<html lang="ru">
+    <head>
+        <link rel="apple-touch-icon" sizes="57x57" href="/img/apple-icon-57x57.png">
+		<link rel="apple-touch-icon" sizes="60x60" href="/img/apple-icon-60x60.png">
+		<link rel="apple-touch-icon" sizes="72x72" href="/img/apple-icon-72x72.png">
+		<link rel="apple-touch-icon" sizes="76x76" href="/img/apple-icon-76x76.png">
+		<link rel="apple-touch-icon" sizes="114x114" href="/img/apple-icon-114x114.png">
+		<link rel="apple-touch-icon" sizes="120x120" href="/img/apple-icon-120x120.png">
+		<link rel="apple-touch-icon" sizes="144x144" href="/img/apple-icon-144x144.png">
+		<link rel="apple-touch-icon" sizes="152x152" href="/img/apple-icon-152x152.png">
+		<link rel="apple-touch-icon" sizes="180x180" href="/img/apple-icon-180x180.png">
+		<link rel="icon" type="image/png" sizes="192x192"  href="/img/android-icon-192x192.png">
+		<link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32x32.png">
+		<link rel="icon" type="image/png" sizes="96x96" href="/img/favicon-96x96.png">
+		<link rel="icon" type="image/png" sizes="16x16" href="/img/favicon-16x16.png">
+		<link rel="manifest" href="/js/manifest.json">
+		<meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="/css/styles.css">
+		<link rel="stylesheet" media="screen and (orientation: portrait)" href="/css/portrait.css">
+        <link href="https://fonts.googleapis.com/css?family=Oswald:300,400&display=swap&subset=cyrillic" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Fira+Sans+Condensed&display=swap" rel="stylesheet">
+        <script src="/js/javascript.js"></script>
+        <title>Windir</title>
+    </head>
+    <body>
+        <div id="cookie-agreement" class="invisible">
+            Этот сайт использует cookie<button onclick="set_cookie()">Ясно</button>
+        </div>
+        <div class="nav-white" id="nav">
+            <img class="nav-img nav-img-white" src="/img/menu_white.png" id="nav-img-menu" onclick="open_nav();">
+            <img class="nav-img nav-img-white invisible" src="/img/back.png" id="nav-img-back" onclick="scroll_up()">
+            <div class="nav-menu-white nav-menu-hide invisible" id="nav-menu">
+                <a href="/table"><div class="nav-div nav-div-white">Игры</div></a></a>
+                <a href="/radio"><div class="nav-div nav-div-white">Гайд по рации</div></a>
+                <a href="/minimal_skills"><div class="nav-div nav-div-white">Программа-минимум</div></a>
+                <a href="/about"><div class="nav-div nav-div-white">Об отряде</div></a>
+                <a href="/register"><div class="nav-div nav-div-white">Заявка в отряд</div></a>
+            </div>
+        </div>
+        <div id="header">
+            <p id="logo"><a href="/" class="error-code">%%CODE%%</a></p>
+                <div id="error-message">
+                    %%MESSAGE%%
+                </div>
+        </div>

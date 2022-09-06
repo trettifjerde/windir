@@ -1,0 +1,121 @@
+<!DOCTYPE html>{% load static %}
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{{ title|default:"Windir"}}{% endblock %}</title>
+    <script src="{% static 'windir/js.js' %}"></script>
+    <link href="https://fonts.googleapis.com/css?family=Oswald:300,400&display=swap&subset=cyrillic" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Fira+Sans+Condensed&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'windir/styles.css' %}">
+    <link rel="apple-touch-icon" sizes="57x57" href="/media/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/media/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/media/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/media/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/media/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/media/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/media/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/media/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/media/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192"  href="/media/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/media/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="/media/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/media/favicon-16x16.png">
+    <!---<link rel="manifest" href="/js/manifest.json">--->
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="/media/ms-icon-144x144.png">
+    <meta name="theme-color" content="#ffffff">
+    <meta property="og:title"       content="{{ title|default:"Windir"}}" />
+    <meta property="og:site_name"   content="Windir Squad" />
+    <meta property="og:description" content="empty" />
+    <meta property="og:type"        content="website" />
+    <meta property="og:url"         content="%%OGP_URL%%" />
+    <meta property="og:image"       content="%%OGP_IMAGE%%"/>
+    <meta name="twitter:card"       content="summary_large_image" />
+    <meta name="twitter:image"      content="%%OGP_IMAGE%%" />
+    <meta name="twitter:site"       content="@WindirSquad" />
+    <meta name="twitter:creator"    content="@g-virus" />
+</head>
+<body>
+    <nav class="nav-white">
+        <div id="nav-menu-btn" class="nav-btn" onclick="openNav();" title="открыть меню"><i>iii</i></div>
+        <div id="nav-bar" class="hidden">
+            <a class="nav-btn" href="{% url 'windir:page' 'table' %}">Игры</a>
+            <a class="nav-btn" href="{% url 'windir:page' 'mods' %}">Настройка модов</a>
+            <a class="nav-btn" href="{% url 'windir:page' 'skills' %}">Программа-минимум</a>
+            <a class="nav-btn" href="{% url 'windir:page' 'articles' %}">Статьи</a>
+            <a class="nav-btn" href="{% url 'windir:page' 'about' %}">Об отряде</a>
+            <a class="nav-btn" href="{% url 'windir:page' 'register' %}">Заявка в отряд</a>
+            {% if user.is_authenticated %}
+            <a class="nav-btn" href="/logout" href="#" onclick="logout()">Выйти</a>
+            {% endif %}
+        </div>
+        <div id="nav-up-btn" class="nav-btn" onclick="scrollUp()" title="наверх"><i>t</i></div>
+        <div id="nav-theme-btn" class="nav-btn" onclick="switchTheme()" title="сменить тему"><i>o</i></div>
+    </nav>
+
+    <header id="header"
+    {% if user.is_authenticated %}onmouseleave="hide_profile()"{% endif %}>
+        <div class="logo">windir</div>
+        {% if user.is_authenticated %}
+        <div class="profile-div">
+            <span id="username" onclick="open_profile()">{{ user.username }}</span>, ein windir
+        </div>
+        <div id="profile-form-div" class="invisible hide">
+            <form action="{% url 'windir:profile' %}" method="POST" autocomplete="off">
+                {% csrf_token %}
+                <div class="error-msg"></div>
+                <input type="password" name="old_pwd" id="old_pwd" placeholder="Текущий пароль">
+                <input type="password" name="new_pwd" id="new_pwd" placeholder="Новый пароль" >
+                <input type="password" name="new_confirm" id="new_confirm" placeholder="Еще раз" onkeyup="check_confirm()">
+                <button type="submit" class="btn-std">Сменить</button>
+            </form>
+        </div>
+        {% else %}
+        <form action="{% url 'windir:login' %}" method="POST" autocomplete="off">
+            {% csrf_token %}
+            <div class="error-msg"></div>
+            <input type="text" id="login" name="login" placeholder="Логин">
+            <input type="password" id="password" name ="password" placeholder="Пароль">
+            <div class="c">
+                <label><input type="checkbox" id="remember" name="remember">Запомнить</label>
+                <button type="submit" class="btn-std">Войти</button>
+            </div>
+
+            </div>
+        </form>
+        {% endif %}
+    </header>
+
+    {% block main %}{% endblock %}
+
+    <footer>
+        <div id="now-people" class="footer-block">
+            Now online
+        </div>
+        
+        <div id="team-contacts" class="footer-block">
+            <div class="img-div">
+                <a href="https://units.arma3.com/unit/windir">
+                    <img src="/media/arma3.png" id="units-img">
+                </a>
+            </div>
+            <div class="img-div" id="ts-container">
+                <a href="ts3server://a3-windir.club">
+                    <img src="/media/ts-img.png" id="ts-img">
+                </a>
+            </div>
+            <div class="img-div">
+                <a href="https://steamcommunity.com/groups/windir_squard">
+                    <img src="/media/steam_footer.png" id="steam-img">
+                </a>
+            </div>
+        </div>
+    </footer>
+    <div id="cookie-agreement" class="hidden">
+        Этот сайт использует cookie
+        <button class="btn-std" onclick="agreeToCookies()">Ясно</button>
+    </div>
+</body>
+</html>

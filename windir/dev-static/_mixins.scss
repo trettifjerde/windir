@@ -1,0 +1,345 @@
+@use "sass:color";
+@use "sass:map";
+@import './fonts';
+@import './normalize';
+
+$font-family: 'Oswald', Arial, sans-serif;
+$font-size-rg: 1.2rem;
+$font-size-sm: 0.9rem;
+$bold: 500;
+$border-radius: 3px;
+$bg-img: fixed 15vw repeat url("img/bg.jpg");
+
+$scrollbar-width: 10px;
+
+$light: #f8f8f8;
+$dark: #222325;
+$light-trans: color.adjust($dark, $alpha: -0.7);
+$dark-trans: color.adjust($dark, $alpha: -0.3);
+$red: #d1473d;
+
+$form-gap: 0.3rem;
+$nav-gap: 0;
+$nav-white-height: 3.5rem;
+$nav-black-height: 3rem;
+$main-line-height: 1.8rem;
+$main-gap: $main-line-height * 2;
+
+$themes: (
+    "light": (
+        "color": $light,
+        "bg-color": transparent,
+        "height": $nav-white-height,
+        "border-colors": $light,
+        "border-radius": $border-radius,
+        "mobile-bg": $bg-img,
+     ), 
+    "dark": (
+        "color": $light,
+        "bg-color": $dark,
+        "height": $nav-black-height,
+        "border-colors": transparent $light,
+        "border-radius": 0px,
+        "mobile-bg": $dark,
+    ));
+
+@function get-theme-value($theme-name, $value-name) {
+    @return map.get(map.get($themes, $theme-name), $value-name);
+}
+
+@mixin mobile() {
+    @media (orientation: portrait) {
+        @content;
+    }
+}
+
+@mixin btn($color) {
+    border: 1px solid $color;
+    color: $color;
+    background-color: transparent;
+
+    &:hover {
+        background-color: color.adjust($color, $alpha: -0.8); 
+        border: 1px solid $color;
+    }
+
+    &:active { 
+        background-color: $color;
+        color: color.invert($color);
+        opacity: 1;
+    }
+}
+
+@mixin nav-theme($name) {
+    background-color: get-theme-value($name, "bg-color");
+
+    &, #nav-bar {
+        height: get-theme-value($name, "height");
+        color: get-theme-value($name, "color");
+    }
+
+    .nav-btn {
+        color: get-theme-value($name, "color");
+        border-width: 1px;
+        border-style: solid;
+        border-color: transparent;
+        border-radius: get-theme-value($name, "border-radius");
+        min-width: get-theme-value($name, "height");
+
+        &:hover {
+            border-color: get-theme-value($name, "border-colors");
+        }
+    }
+
+    @include mobile {
+        .nav-btn {
+            height: get-theme-value($name, "height");
+            line-height: get-theme-value($name, "height");
+        }
+
+        #nav-bar {
+            bottom: calc(-100vh + get-theme-value($name, "height"));
+            height: calc(100vh - get-theme-value($name, "height"));
+            background: get-theme-value($name, "mobile-bg");
+        }
+
+        #nav-bar .nav-btn {
+            width: 100vw;
+            border-color: $light;
+        }
+    }
+}
+
+%flex-column {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+%flex-row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+%flex-row-sb {
+    @extend %flex-row;
+    justify-content: space-between;
+}
+
+%transition-ease {
+    transition: all .2s ease-in-out;
+}
+
+%form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+}
+
+//////// elements ////////
+
+* {
+    box-sizing: border-box;
+}
+
+::-webkit-scrollbar {
+    width: $scrollbar-width;
+    background-color: $dark;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: $light;
+}
+
+h1, h2, h3, h4, h5 {
+    margin-block: 2.5rem;
+    margin-inline: 0;
+    font-weight: $bold;
+
+}
+
+h1, h2, h3 {
+    text-align: center;
+}
+
+h1 {font-size: 3.5rem; line-height: 3.5rem; }
+h2 {font-size: 3rem; line-height: 3rem; }
+h3 {font-size: 2.5rem; line-height: 2.5rem; }
+h4 {font-size: 2rem; line-height: 2rem; }
+h5 {font-size: 1.5rem; line-height: 1.5rem; }
+
+a, a:visited {
+    @extend %transition-ease;
+    font-weight: 400;
+    text-decoration: none;
+
+    &:hover {
+        text-shadow: 0 0 2px gray;
+    }
+}
+
+img {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+form {
+    @extend %form;
+}
+
+button, .btn {
+    @extend %transition-ease;
+    display: inline-block;
+    text-align: center;
+    cursor: pointer;
+    text-decoration: none;
+    font-family: $font-family;
+    font-weight: 300;
+    white-space: nowrap;
+    border-radius: $border-radius;
+    padding: $form-gap 0.5rem;
+}
+
+input, textarea, select {
+    @extend %transition-ease;
+    font-weight: 300;
+    width: 100%;
+    outline: none;
+    overflow: auto;
+    padding: $form-gap;
+}
+
+input[type="checkbox"], input[type="radio"]
+{
+    width: unset;
+    margin: $form-gap;
+}
+
+
+textarea {
+    resize: none;
+}
+
+///////////////// common classes /////////////
+/// 
+
+.locked {
+    padding-right: $scrollbar-width;
+    overflow: hidden;
+
+    @include mobile {
+        padding-right: 0;
+    }
+}
+
+.desktop {
+    @include mobile {
+        display: none;
+    }
+}
+
+.btn-active {
+    cursor: default;
+}
+
+.b {
+    font-weight: $bold;
+}
+
+.c {
+    text-align: center;
+}
+
+.r {
+    text-align: right;
+}
+
+.i {
+    font-style: italic;
+}
+
+.sm {
+    font-size: $font-size-sm;
+    font-weight: 400;
+}
+
+.hidden {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.attention {
+    color: $red;
+    font-weight: $bold;
+}
+
+/////// animation classes //////////
+/// 
+@keyframes fade-in {
+    0% { opacity: 0; visibility: hidden;}
+    100% {opacity: 1; visibility: visible;}
+}
+
+@keyframes slide-in
+{
+    from {right: -100vw; opacity: 0; visibility: hidden;}
+    to {right: 0vw; opacity: 1; visibility: visible; }
+}
+
+@keyframes slide-down {
+    from {top: -100hv;}
+    to {top: 0;}
+}
+
+@keyframes slide-down-light
+{
+    from {bottom: 0;}
+    to {bottom: calc(-100vh + get-theme-value('light', 'height'));}
+}
+
+@keyframes slide-down-dark
+{
+    from {bottom: 0; opacity: 0; visibility: hidden;}
+    to {bottom: calc(-100vh + get-theme-value('dark', 'height')); opacity: 1; visibility: visible; }
+}
+
+%fade-in {
+    animation-name: fade-in;
+    animation-duration: 0.35s;
+    animation-fill-mode: forwards;
+    animation-timing-function: ease-in-out;
+}
+
+%slide-in {
+    animation-name: slide-in;
+    animation-duration: .4s;
+    animation-fill-mode: forwards;
+    animation-timing-function: ease-out;
+}
+
+.fade-in {
+    @extend %fade-in;
+}
+
+.fade-out {
+    @extend %fade-in;
+    animation-direction: reverse;
+}
+
+.slide-in {
+    @extend %slide-in;
+}
+
+.slide-out {
+    @extend %slide-in;
+    animation-direction: reverse;
+}
+
+.open-nav {
+    @extend %slide-in;
+}
+.close-nav {
+    @extend %slide-in;
+    animation-direction: reverse;
+}

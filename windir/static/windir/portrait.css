@@ -1,0 +1,254 @@
+body
+{
+    font: 100%;
+}
+
+#logo
+{
+    font-size: 9.5em;
+}
+
+#header
+{
+	background-attachment: fixed;
+}
+@media (hover: none)
+{
+    .nav-img:hover, .nav-img:active
+    {
+        background-color: inherit;
+        border-style: inherit;
+    }
+
+    .nav-div:hover, .nav-div:active
+    {
+        color: inherit;
+    }
+
+    #login-button:hover
+    {
+        background-color: inherit;
+    }
+}
+
+.nav-menu-show
+{
+    animation-name: show-nav-bar-portrait;
+    animation-duration: 0.3s;
+    animation-timing-function: ease-out;
+    animation-fill-mode: forwards;
+}
+
+@keyframes show-nav-bar-portrait
+{
+    from{top: -100vw; opacity: 0;}
+    to{top: 0vh; opacity: 1;}
+}
+
+.nav-menu-hide
+{
+    animation-name: hide-nav-bar-portrait;
+    animation-duration: 0.3s;
+    animation-timing-function: ease-in;
+    animation-fill-mode: forwards;
+}
+
+@keyframes hide-nav-bar-portrait
+{
+    from{top: 0vh; opacity: 1;}
+    to{top: -100vh; opacity: 0;}
+}
+
+#nav-img-menu
+{
+    position: fixed;
+    z-index: 5;
+}
+
+.nav-img-white
+{
+    width: 3.8em;
+}
+
+.nav-img-black
+{
+    width: 3.5em;
+}
+
+.nav-div-black
+{
+    padding: 1em;
+}
+#nav-menu
+{
+    position: fixed;
+    width: 100%;
+    font-size: 1em;
+}
+
+.logout
+{
+    float: none;
+    margin-right: 0em;
+}
+
+.nav-div
+{
+    float: none;
+}
+
+.nav-div-white, .nav-div-white:hover, .nav-div-white:active
+{
+    padding: 1.1em;
+    background-image: url("/img/bg.jpg");
+    background-size: 15vw;
+    border-top: none;
+    border-bottom: 1px solid white;
+    border-left: none;
+    border-right: none;
+}
+
+.nav-div-black, .nav-div-black:hover, .nav-div-black:active
+{
+    padding: 1em;
+    background-color: #222325;
+    border-bottom: 1px solid white;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+}
+
+.nav-menu-hide, .nav-menu-show
+{
+    animation-duration: 0.4s;
+}
+
+.main
+{
+    padding: 0;
+    box-sizing: border-box;
+    font-size: 1.3em;
+    text-align: justify;
+}
+.with-padding
+{
+    padding: 1em;
+}
+
+.without-padding
+{
+    padding: 1em 0em;
+}
+
+.main h1
+{
+    font-size: 1.7em;
+    padding: 0.5em;
+    hyphens: none;
+    -webkit-hyphens: none;
+}
+
+.main h2
+{
+    font-size: 1.5em;
+    padding: 0.5em;
+    hyphens: none;
+    -webkit-hyphens: none;
+}
+.main h3
+{
+    font-size: 1.3em;
+    padding: 0.5em;
+}
+
+.main p
+{
+    text-indent:2em;
+}
+.col-left label
+{
+    float: none;
+    padding: 0em;
+    font-weight: bold;
+}
+
+.col-left, .col-right
+{
+    float: none;
+    display: inline-block;
+    width: 100%;
+}
+
+.register-input
+{
+    width: 100%;
+    padding: 0.5em;
+    box-sizing: border-box;
+}
+
+#div-telegram-label, #div-telegram
+{
+    display: inline;
+}
+#row-telegram
+{
+    margin: 0.8em 0em;
+    text-align: right;
+}
+
+#table
+{
+    overflow-x: auto;
+}
+
+.sticky-login
+{
+    position: sticky;
+    left: 0;
+}
+
+.day .sticky-login
+{
+    background-color: white;
+}
+
+.night .sticky-login
+{
+    background-color: #4a4a4a;
+}
+
+#cookie-agreement
+{
+    height: 3.6em;
+    padding-top: 0.9em;
+}
+
+#birth-day, #birth-month, #birth-year
+{
+	width: 32%;
+}
+
+.grid-container
+{
+    padding-top: 1em;
+    grid-template-columns: none;
+}
+
+.article-text
+{
+    font-size: 1.2em;
+    hyphens: none;
+    -webkit-hyphens: none;
+}
+
+.img-center
+{
+    max-width:100%;
+    max-height:100%;
+}
+
+.modal-content
+{
+    max-height:90%;
+    image-rendering: auto;
+}

@@ -1,0 +1,347 @@
+@use 'sass:color';
+@import './mixins';
+
+$footer-height: 3rem;
+
+body {
+    position: relative;
+    font-family: $font-family;
+    font-weight: 300;
+    font-size: $font-size-rg;
+    overflow: auto;
+    color: $dark;
+    background-image: linear-gradient(to left, white, $light, white);
+    transition: background-image .2s, color .2s;
+
+    a {
+        color: #0095ff;
+        &:hover {text-shadow: 0 0 1px gray;}
+    }
+
+    img {
+        border: 2px solid $dark;
+    }
+}
+
+body.dark {
+
+    a {
+        color: #4ec4ec;
+        &:hover {text-shadow: 0 0 1px white;}
+    }
+    img {
+        border: 2px solid $light;
+    }
+}
+
+header {
+    padding: 20vh 0;
+    background: $bg-img;
+    min-height: 100vh;
+
+    form {
+        @extend %flex-column;
+        align-items: center;
+        gap: $form-gap;
+        width: 15vw;
+        margin: auto;
+    }
+
+    input
+    {
+        color: $light;
+        background-color: transparent;
+        border-radius: 0.4rem;
+        border: 1px solid $light;
+    }
+
+    label { 
+        color: $light; 
+        display: inline;
+    }
+
+    button
+    {
+        margin: $form-gap;
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+
+    @include mobile {
+        background-attachment: fixed;
+    }
+}
+
+.btn-std {
+    @include btn($light);
+    border-radius: 0.7rem;
+}
+
+nav {
+    @extend %flex-row;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 10;
+    transition: width .3s, height .3s, border .3s;
+
+    @include mobile {
+        justify-content: space-between;
+    }
+}
+
+.nav-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    padding: 0 0.5rem;
+    font-weight: 300;
+    cursor: pointer;
+    transition: all .3s ease-in-out;
+
+    &:hover {
+        background-color: color.adjust($light, $alpha: -0.7);
+    }
+    &:active {
+        color: $dark;
+        background-color: $light;
+    }
+
+    i {
+        font-family: logo-font;
+        font-size: 1.5rem;
+        font-style: normal;
+    }
+}
+
+.nav-white
+{
+    @include nav-theme("light");
+
+    #nav-up-btn, #nav-theme-btn {
+        visibility: hidden;
+        opacity: 0;
+    }
+
+    @include mobile{
+        #nav-bar.open-nav, #nav-bar.close-nav {
+            animation-name: slide-down-light;
+        }
+    }
+}
+
+.nav-black
+{
+    @include nav-theme("dark");
+    box-shadow: 0 0 5px $light;
+
+    @include mobile {
+        #nav-bar.open-nav, #nav-bar.close-nav {
+            animation-name: slide-down-dark;
+        }
+    }
+}
+
+#nav-bar {
+    @extend %flex-row;
+    position: relative;
+    flex-grow: 1;
+    transition: background .3s;
+
+    @include mobile {
+        position: absolute;
+        left: 0;
+        flex-direction: column;
+    }
+}
+#nav-bar .nav-btn {
+    @include mobile {
+        flex-grow: 1;
+    }
+}
+
+#nav-menu-btn i {
+    transform: rotateZ(90deg);
+}
+
+footer {
+    position: relative;
+    padding: 0.5rem;
+    color: #b8b8b8;
+    background-color: $dark;
+    font-size: $font-size-sm;
+    text-align: center;
+
+    .footer-block {
+        margin: 0.5rem;
+        color: #ffffffb3;
+        text-align: center;
+    }
+
+    .img-div
+    {
+        padding: 0rem 0.5rem;
+        display: inline;
+        position: relative;
+    }
+
+    img {
+        opacity: 0.7;
+        width: 2.5rem;
+        cursor: pointer;
+        transition: opacity .3s;
+
+        &:hover {
+            opacity: 1;
+        }
+    }
+
+}
+
+.logo
+{
+    color: $light;
+    font-family: logo-font, sans-serif;
+    font-size: 15vw;
+    cursor: default;
+    text-align: center;
+
+    @include mobile {
+        font-size: 9rem;
+    }
+}
+
+.error-message
+{
+    margin: auto;
+    padding: 0.3em;
+    font-size: $font-size-sm;
+    text-align: center;
+    color: $red;
+}
+
+#cookie-agreement
+{
+    position: fixed;
+    bottom: 0;
+    height: 3rem;
+    line-height: 3rem;
+    width: 100%;
+    background-color: $dark-trans;
+    color: $light;
+    text-align: center;
+    z-index: 5;
+
+    button {margin-left: 1rem;}
+}
+
+main {
+    position: relative;
+    width: 75vw;
+    margin: $main-gap auto;
+    min-height: 100vh;
+    line-height: $main-line-height;
+
+    p {
+        margin: 1rem 0;
+    }
+
+    @include mobile {
+        width: 100%;
+        margin: 1rem 0;
+        padding: 0 1rem;
+    }
+}
+
+.dark {
+    color: $light;
+    background-image: linear-gradient(to left, $dark, color.adjust($dark, $lightness: 5%), $dark);
+}
+
+.title-div {
+    @extend %flex-row;
+    justify-content: center;
+    position: relative;
+
+    div {
+        @extend %flex-column;
+        gap: 2rem;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        align-items: center;
+        justify-content: center;
+        color: $light;
+        text-shadow: -1px 0 5px black, 0 1px 5px black, 1px 0 5px black, 0 -1px 5px black;
+
+        > * {
+            margin: 0;
+        }
+    }
+}
+
+.step {
+    @extend %flex-row;
+    flex-wrap: wrap;
+    gap: 2rem;
+    padding: 2rem 0;
+    border-bottom: 1px solid $dark;
+
+    p {
+        width: calc((100% - 2rem) / 2);
+    }
+
+    img {
+        width: calc((100% - 6rem) / 4);
+    }
+
+    .fill {
+        width: 100%;
+    }
+
+    .n {
+        font-size: 4rem;
+        line-height: 4rem;
+        padding: 0 1rem;
+    }
+
+    @include mobile {
+        p { width: 100%};
+        img { width: calc((100% - 2rem) / 2);}
+    }
+}
+
+body.dark .step {
+    border-color: $light;
+}
+
+.modal {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 7;
+    width: 100vw;
+    height: 100vh;
+    background-color: $dark-trans;
+    cursor: pointer;
+
+    .img {
+        width: 80vw;
+    }
+}
+
+.thumbnail {
+    cursor: pointer;
+    transition: all .3s;
+
+    &:hover {
+        filter:brightness(120%);
+    }
+}

@@ -20,12 +20,14 @@ function getCookie(name) {
 }
 
 function openNav() {
-    const navBar = document.querySelector('#nav-bar');
+    const nav = document.querySelector('nav');
+    const navBar = document.querySelector('#nav-links');
 
-    if (navBar.classList.contains("hidden")) {
+    if (! nav.classList.contains("nav-open")) {
         // show nav bar
         event.stopPropagation();
-        navBar.classList.remove('hidden');
+        document.querySelector('html').classList.add('locked-mob');
+        nav.classList.add('nav-open');
         navBar.classList.add('open-nav');
         navBar.addEventListener('animationend', ()=> {
             navBar.classList.remove('open-nav');
@@ -35,7 +37,8 @@ function openNav() {
             navBar.classList.add('close-nav');
             navBar.addEventListener('animationend', ()=> {
                 navBar.classList.remove('close-nav');
-                navBar.classList.add('hidden');
+                document.querySelector('html').classList.remove('locked-mob');
+                nav.classList.remove('nav-open');
             }, {once: true});
         }, {once: true});
     }
@@ -43,10 +46,16 @@ function openNav() {
 
 function toggleNavBar() {
     const nav = document.querySelector('nav');
-    if (document.documentElement.scrollTop > document.querySelector('header').offsetHeight - nav.offsetHeight)
+    if (window.innerWidth > window.innerHeight) {
+        if (document.documentElement.scrollTop > document.querySelector('header').offsetHeight - nav.offsetHeight)
+            nav.classList.replace('nav-white', 'nav-black');
+        else 
+            nav.classList.replace('nav-black', 'nav-white');
+        }
+    else {
         nav.classList.replace('nav-white', 'nav-black');
-    else 
-        nav.classList.replace('nav-black', 'nav-white');
+    }
+
 }
 
 function scrollUp() {
@@ -65,7 +74,7 @@ function agreeToCookies() {
 }
 
 function switchTheme() {
-    const dark = document.querySelector('body').classList.toggle('dark');
+    const dark = document.querySelector('main').classList.toggle('dark');
     if (dark)
         addCookie('dark', 'y');
     else
@@ -83,9 +92,9 @@ function checkCookies() {
 function scrollDown() {
     if (document.querySelector('main')) {
         document.documentElement.scrollTo({
-            top: document.querySelector('main').offsetTop - document.querySelector('nav').offsetHeight, 
+            top: document.querySelector('main').offsetTop, 
             behavior: 'smooth'});
     }
-
+    toggleNavBar();
     document.addEventListener('scroll', toggleNavBar);
 }

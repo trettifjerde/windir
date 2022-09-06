@@ -321,7 +321,7 @@ template {
   align-items: flex-start;
 }
 
-.step, .title-div, #nav-bar, nav {
+.step, .title-div, #nav-links, #nav-btns {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -438,6 +438,12 @@ textarea {
 }
 
 @media (orientation: portrait) {
+  .locked-mob {
+    overflow: hidden;
+  }
+}
+
+@media (orientation: portrait) {
   .desktop {
     display: none;
   }
@@ -490,40 +496,24 @@ textarea {
 }
 @keyframes slide-in {
   from {
-    right: -100vw;
+    left: 100vw;
     opacity: 0;
     visibility: hidden;
   }
   to {
-    right: 0vw;
+    left: 3.5rem;
     opacity: 1;
     visibility: visible;
   }
 }
 @keyframes slide-down {
   from {
-    top: -100hv;
-  }
-  to {
-    top: 0;
-  }
-}
-@keyframes slide-down-light {
-  from {
-    bottom: 0;
-  }
-  to {
-    bottom: calc(-100vh + 3.5rem);
-  }
-}
-@keyframes slide-down-dark {
-  from {
-    bottom: 0;
+    top: 100vh;
     opacity: 0;
     visibility: hidden;
   }
   to {
-    bottom: calc(-100vh + 3rem);
+    top: 0;
     opacity: 1;
     visibility: visible;
   }
@@ -539,7 +529,7 @@ textarea {
   animation-name: slide-in;
   animation-duration: 0.4s;
   animation-fill-mode: forwards;
-  animation-timing-function: ease-out;
+  animation-timing-function: ease-in-out;
 }
 
 .fade-out {
@@ -550,8 +540,23 @@ textarea {
   animation-direction: reverse;
 }
 
+@media (orientation: portrait) {
+  .open-nav {
+    animation-name: slide-down;
+  }
+}
+
 .close-nav {
   animation-direction: reverse;
+}
+@media (orientation: portrait) {
+  .close-nav {
+    animation-name: slide-down;
+  }
+}
+
+html, body {
+  background-color: #222325;
 }
 
 body {
@@ -560,9 +565,6 @@ body {
   font-weight: 300;
   font-size: 1.2rem;
   overflow: auto;
-  color: #222325;
-  background-image: linear-gradient(to left, white, #f8f8f8, white);
-  transition: background-image 0.2s, color 0.2s;
 }
 body a {
   color: #0095ff;
@@ -573,15 +575,10 @@ body a:hover {
 body img {
   border: 2px solid #222325;
 }
-
-body.dark a {
-  color: #4ec4ec;
-}
-body.dark a:hover {
-  text-shadow: 0 0 1px white;
-}
-body.dark img {
-  border: 2px solid #f8f8f8;
+@media (orientation: portrait) {
+  body {
+    padding-bottom: 3rem;
+  }
 }
 
 header {
@@ -592,6 +589,7 @@ header {
 header form {
   align-items: center;
   gap: 0.3rem;
+  min-width: 15rem;
   width: 15vw;
   margin: auto;
 }
@@ -613,6 +611,9 @@ header button {
 @media (orientation: portrait) {
   header {
     background-attachment: fixed;
+  }
+  header form {
+    width: 15rem;
   }
 }
 
@@ -638,11 +639,12 @@ nav {
   left: 0;
   width: 100%;
   z-index: 10;
-  transition: width 0.3s, height 0.3s, border 0.3s;
 }
 @media (orientation: portrait) {
   nav {
-    justify-content: space-between;
+    position: fixed;
+    bottom: 0;
+    background-color: transparent !important;
   }
 }
 
@@ -654,7 +656,6 @@ nav {
   padding: 0 0.5rem;
   font-weight: 300;
   cursor: pointer;
-  transition: all 0.3s ease-in-out;
 }
 .nav-btn:hover {
   background-color: rgba(248, 248, 248, 0.3);
@@ -668,13 +669,84 @@ nav {
   font-size: 1.5rem;
   font-style: normal;
 }
+@media (orientation: portrait) {
+  .nav-btn {
+    height: 3rem;
+    line-height: 3rem;
+  }
+}
+
+.nav-btn, #nav-btns, #nav-links {
+  transition: all 0.3s;
+}
+
+@media (orientation: portrait) {
+  #nav-btns, #nav-links {
+    background-color: #222325;
+  }
+}
+
+#nav-btns .spacer {
+  flex-grow: 1;
+}
+@media (orientation: portrait) {
+  #nav-btns {
+    position: fixed;
+    bottom: 0;
+    justify-content: space-between;
+    width: 100%;
+    z-index: 15;
+  }
+  #nav-btns .spacer {
+    display: none;
+  }
+}
+
+#nav-links {
+  position: fixed;
+  width: 100%;
+  top: 0;
+  opacity: 0;
+  visibility: hidden;
+}
+@media (orientation: portrait) {
+  #nav-links {
+    left: 0 !important;
+    flex-direction: column;
+  }
+  #nav-links .nav-btn {
+    flex-grow: 1;
+    width: 100vw;
+    border-color: #f8f8f8;
+  }
+}
+
+.nav-open #nav-links {
+  opacity: 1;
+  visibility: visible;
+}
+@media (orientation: portrait) {
+  .nav-open {
+    height: 100%;
+  }
+  .nav-open #nav-links {
+    height: calc(100% - 3rem) !important;
+  }
+}
+
+#nav-menu-btn i {
+  transform: rotateZ(90deg);
+}
 
 .nav-white {
   background-color: transparent;
 }
-.nav-white, .nav-white #nav-bar {
+.nav-white #nav-btns, .nav-white #nav-links {
   height: 3.5rem;
   color: #f8f8f8;
+}
+.nav-white #nav-links {
+  left: 3.5rem;
 }
 .nav-white .nav-btn {
   color: #f8f8f8;
@@ -687,38 +759,21 @@ nav {
 .nav-white .nav-btn:hover {
   border-color: #f8f8f8;
 }
-@media (orientation: portrait) {
-  .nav-white .nav-btn {
-    height: 3.5rem;
-    line-height: 3.5rem;
-  }
-  .nav-white #nav-bar {
-    bottom: calc(-100vh + 3.5rem);
-    height: calc(100vh - 3.5rem);
-    background: fixed 15vw repeat url("img/bg.jpg");
-  }
-  .nav-white #nav-bar .nav-btn {
-    width: 100vw;
-    border-color: #f8f8f8;
-  }
-}
 .nav-white #nav-up-btn, .nav-white #nav-theme-btn {
   visibility: hidden;
   opacity: 0;
-}
-@media (orientation: portrait) {
-  .nav-white #nav-bar.open-nav, .nav-white #nav-bar.close-nav {
-    animation-name: slide-down-light;
-  }
 }
 
 .nav-black {
   background-color: #222325;
   box-shadow: 0 0 5px #f8f8f8;
 }
-.nav-black, .nav-black #nav-bar {
+.nav-black #nav-btns, .nav-black #nav-links {
   height: 3rem;
   color: #f8f8f8;
+}
+.nav-black #nav-links {
+  left: 3rem;
 }
 .nav-black .nav-btn {
   color: #f8f8f8;
@@ -732,47 +787,10 @@ nav {
   border-color: transparent #f8f8f8;
 }
 @media (orientation: portrait) {
-  .nav-black .nav-btn {
-    height: 3rem;
-    line-height: 3rem;
+  .nav-black {
+    box-shadow: none;
+    border-top: 1px solid #f8f8f8;
   }
-  .nav-black #nav-bar {
-    bottom: calc(-100vh + 3rem);
-    height: calc(100vh - 3rem);
-    background: #222325;
-  }
-  .nav-black #nav-bar .nav-btn {
-    width: 100vw;
-    border-color: #f8f8f8;
-  }
-}
-@media (orientation: portrait) {
-  .nav-black #nav-bar.open-nav, .nav-black #nav-bar.close-nav {
-    animation-name: slide-down-dark;
-  }
-}
-
-#nav-bar {
-  position: relative;
-  flex-grow: 1;
-  transition: background 0.3s;
-}
-@media (orientation: portrait) {
-  #nav-bar {
-    position: absolute;
-    left: 0;
-    flex-direction: column;
-  }
-}
-
-@media (orientation: portrait) {
-  #nav-bar .nav-btn {
-    flex-grow: 1;
-  }
-}
-
-#nav-menu-btn i {
-  transform: rotateZ(90deg);
 }
 
 footer {
@@ -838,11 +856,19 @@ footer img:hover {
 #cookie-agreement button {
   margin-left: 1rem;
 }
+@media (orientation: portrait) {
+  #cookie-agreement {
+    top: 0;
+    bottom: auto;
+  }
+}
 
 main {
   position: relative;
-  width: 75vw;
-  margin: 3.6rem auto;
+  color: #222325;
+  transition: background-image 0.2s, color 0.2s;
+  background-image: linear-gradient(to left, white, #f8f8f8, white);
+  padding: 3.6rem 10vw;
   min-height: 100vh;
   line-height: 1.8rem;
 }
@@ -852,14 +878,22 @@ main p {
 @media (orientation: portrait) {
   main {
     width: 100%;
-    margin: 1rem 0;
-    padding: 0 1rem;
+    padding: 1rem;
   }
 }
 
 .dark {
   color: #f8f8f8;
   background-image: linear-gradient(to left, #222325, #2e3032, #222325);
+}
+.dark a {
+  color: #4ec4ec;
+}
+.dark a:hover {
+  text-shadow: 0 0 1px white;
+}
+.dark img {
+  border: 2px solid #f8f8f8;
 }
 
 .title-div {

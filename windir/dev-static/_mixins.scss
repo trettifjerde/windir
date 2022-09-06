@@ -32,7 +32,6 @@ $themes: (
         "height": $nav-white-height,
         "border-colors": $light,
         "border-radius": $border-radius,
-        "mobile-bg": $bg-img,
      ), 
     "dark": (
         "color": $light,
@@ -40,7 +39,6 @@ $themes: (
         "height": $nav-black-height,
         "border-colors": transparent $light,
         "border-radius": 0px,
-        "mobile-bg": $dark,
     ));
 
 @function get-theme-value($theme-name, $value-name) {
@@ -73,9 +71,13 @@ $themes: (
 @mixin nav-theme($name) {
     background-color: get-theme-value($name, "bg-color");
 
-    &, #nav-bar {
+    #nav-btns, #nav-links {
         height: get-theme-value($name, "height");
         color: get-theme-value($name, "color");
+    }
+
+    #nav-links {
+        left: get-theme-value($name, "height");
     }
 
     .nav-btn {
@@ -88,24 +90,6 @@ $themes: (
 
         &:hover {
             border-color: get-theme-value($name, "border-colors");
-        }
-    }
-
-    @include mobile {
-        .nav-btn {
-            height: get-theme-value($name, "height");
-            line-height: get-theme-value($name, "height");
-        }
-
-        #nav-bar {
-            bottom: calc(-100vh + get-theme-value($name, "height"));
-            height: calc(100vh - get-theme-value($name, "height"));
-            background: get-theme-value($name, "mobile-bg");
-        }
-
-        #nav-bar .nav-btn {
-            width: 100vw;
-            border-color: $light;
         }
     }
 }
@@ -224,12 +208,19 @@ textarea {
 ///////////////// common classes /////////////
 /// 
 
+
 .locked {
     padding-right: $scrollbar-width;
     overflow: hidden;
 
     @include mobile {
         padding-right: 0;
+    }
+}
+
+.locked-mob {
+    @include mobile {
+        overflow: hidden;
     }
 }
 
@@ -283,25 +274,13 @@ textarea {
 
 @keyframes slide-in
 {
-    from {right: -100vw; opacity: 0; visibility: hidden;}
-    to {right: 0vw; opacity: 1; visibility: visible; }
+    from {left: 100vw; opacity: 0; visibility: hidden;}
+    to {left: 3.5rem; opacity: 1; visibility: visible; }
 }
 
 @keyframes slide-down {
-    from {top: -100hv;}
-    to {top: 0;}
-}
-
-@keyframes slide-down-light
-{
-    from {bottom: 0;}
-    to {bottom: calc(-100vh + get-theme-value('light', 'height'));}
-}
-
-@keyframes slide-down-dark
-{
-    from {bottom: 0; opacity: 0; visibility: hidden;}
-    to {bottom: calc(-100vh + get-theme-value('dark', 'height')); opacity: 1; visibility: visible; }
+    from {top: 100vh; opacity: 0; visibility: hidden;}
+    to {top: 0; opacity: 1; visibility: visible; }
 }
 
 %fade-in {
@@ -313,9 +292,9 @@ textarea {
 
 %slide-in {
     animation-name: slide-in;
-    animation-duration: .4s;
+    animation-duration: 0.4s;
     animation-fill-mode: forwards;
-    animation-timing-function: ease-out;
+    animation-timing-function: ease-in-out;
 }
 
 .fade-in {
@@ -338,8 +317,14 @@ textarea {
 
 .open-nav {
     @extend %slide-in;
+    @include mobile {
+        animation-name: slide-down;
+    }
 }
 .close-nav {
     @extend %slide-in;
     animation-direction: reverse;
+    @include mobile {
+        animation-name: slide-down;
+    }
 }

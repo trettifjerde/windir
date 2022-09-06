@@ -3,15 +3,16 @@
 
 $footer-height: 3rem;
 
+html, body {
+    background-color: $dark;
+}
+
 body {
     position: relative;
     font-family: $font-family;
     font-weight: 300;
     font-size: $font-size-rg;
     overflow: auto;
-    color: $dark;
-    background-image: linear-gradient(to left, white, $light, white);
-    transition: background-image .2s, color .2s;
 
     a {
         color: #0095ff;
@@ -21,16 +22,9 @@ body {
     img {
         border: 2px solid $dark;
     }
-}
 
-body.dark {
-
-    a {
-        color: #4ec4ec;
-        &:hover {text-shadow: 0 0 1px white;}
-    }
-    img {
-        border: 2px solid $light;
+    @include mobile {
+        padding-bottom: get-theme-value("dark", "height");
     }
 }
 
@@ -43,6 +37,7 @@ header {
         @extend %flex-column;
         align-items: center;
         gap: $form-gap;
+        min-width: 15rem;
         width: 15vw;
         margin: auto;
     }
@@ -69,6 +64,8 @@ header {
 
     @include mobile {
         background-attachment: fixed;
+
+        form {width: 15rem;}
     }
 }
 
@@ -78,16 +75,16 @@ header {
 }
 
 nav {
-    @extend %flex-row;
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     z-index: 10;
-    transition: width .3s, height .3s, border .3s;
 
     @include mobile {
-        justify-content: space-between;
+        position: fixed;
+        bottom: 0;
+        background-color: transparent !important;
     }
 }
 
@@ -99,7 +96,6 @@ nav {
     padding: 0 0.5rem;
     font-weight: 300;
     cursor: pointer;
-    transition: all .3s ease-in-out;
 
     &:hover {
         background-color: color.adjust($light, $alpha: -0.7);
@@ -114,6 +110,81 @@ nav {
         font-size: 1.5rem;
         font-style: normal;
     }
+
+    @include mobile {
+        height: get-theme-value("dark", "height");
+        line-height: get-theme-value("dark", "height");
+    }
+}
+
+.nav-btn, #nav-btns, #nav-links {
+    transition: all .3s;
+}
+
+#nav-btns, #nav-links {
+    @include mobile {
+        background-color: $dark;
+    }
+}
+
+#nav-btns {
+    @extend %flex-row;
+    
+    .spacer {
+        flex-grow: 1;
+    }
+
+    @include mobile {
+        position: fixed;
+        bottom: 0;
+        justify-content: space-between;
+        width: 100%;
+        z-index: 15;
+
+        .spacer {
+            display: none;
+        }
+    }
+}
+
+#nav-links {
+    @extend %flex-row;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    //left is assigned by theme mixin
+    opacity: 0;
+    visibility: hidden;
+
+    @include mobile {
+        left: 0 !important;
+        flex-direction: column;
+
+        .nav-btn {
+            flex-grow: 1;
+            width: 100vw;
+            border-color: $light;
+        }
+    }
+}
+
+.nav-open {
+    #nav-links {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    @include mobile {
+        height: 100%;
+
+        #nav-links {
+            height: calc(100% - get-theme-value("dark", "height")) !important;
+        }
+    }
+}
+
+#nav-menu-btn i {
+    transform: rotateZ(90deg);
 }
 
 .nav-white
@@ -124,12 +195,6 @@ nav {
         visibility: hidden;
         opacity: 0;
     }
-
-    @include mobile{
-        #nav-bar.open-nav, #nav-bar.close-nav {
-            animation-name: slide-down-light;
-        }
-    }
 }
 
 .nav-black
@@ -138,32 +203,9 @@ nav {
     box-shadow: 0 0 5px $light;
 
     @include mobile {
-        #nav-bar.open-nav, #nav-bar.close-nav {
-            animation-name: slide-down-dark;
-        }
+        box-shadow: none;
+        border-top: 1px solid $light;
     }
-}
-
-#nav-bar {
-    @extend %flex-row;
-    position: relative;
-    flex-grow: 1;
-    transition: background .3s;
-
-    @include mobile {
-        position: absolute;
-        left: 0;
-        flex-direction: column;
-    }
-}
-#nav-bar .nav-btn {
-    @include mobile {
-        flex-grow: 1;
-    }
-}
-
-#nav-menu-btn i {
-    transform: rotateZ(90deg);
 }
 
 footer {
@@ -235,12 +277,19 @@ footer {
     z-index: 5;
 
     button {margin-left: 1rem;}
+
+    @include mobile {
+        top: 0;
+        bottom: auto;
+    }
 }
 
 main {
     position: relative;
-    width: 75vw;
-    margin: $main-gap auto;
+    color: $dark;
+    transition: background-image .2s, color .2s;
+    background-image: linear-gradient(to left, white, $light, white);
+    padding: $main-gap 10vw;
     min-height: 100vh;
     line-height: $main-line-height;
 
@@ -250,14 +299,22 @@ main {
 
     @include mobile {
         width: 100%;
-        margin: 1rem 0;
-        padding: 0 1rem;
+        padding: 1rem;
     }
 }
+
 
 .dark {
     color: $light;
     background-image: linear-gradient(to left, $dark, color.adjust($dark, $lightness: 5%), $dark);
+
+    a {
+        color: #4ec4ec;
+        &:hover {text-shadow: 0 0 1px white;}
+    }
+    img {
+        border: 2px solid $light;
+    }
 }
 
 .title-div {

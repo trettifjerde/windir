@@ -3,16 +3,20 @@
 
 $footer-height: 3rem;
 
-html, body {
-    background-color: $dark;
+body {
+    background: $bg-img;
 }
 
 body {
-    position: relative;
+    display: grid;
+    grid-template-areas:    'nav'
+                            'content'
+                            'cookie';
+    grid-template-rows: auto 1fr auto;
+    height: 100vh;
     font-family: $font-family;
     font-weight: 300;
     font-size: $font-size-rg;
-    overflow: auto;
 
     a {
         color: #0095ff;
@@ -24,14 +28,18 @@ body {
     }
 
     @include mobile {
-        padding-bottom: get-theme-value("dark", "height");
+
     }
+}
+
+#content {
+    grid-area: content;
+    overflow: auto;
 }
 
 header {
     padding: 20vh 0;
-    background: $bg-img;
-    min-height: 100vh;
+    min-height: 100%;
 
     form {
         @extend %flex-column;
@@ -75,14 +83,14 @@ header {
 }
 
 nav {
-    position: fixed;
-    top: 0;
-    left: 0;
+    grid-area: nav;
     width: 100%;
     z-index: 10;
+    position: fixed;
+    top: 0;
 
     @include mobile {
-        position: fixed;
+        top: auto;
         bottom: 0;
         background-color: transparent !important;
     }
@@ -97,13 +105,16 @@ nav {
     font-weight: 300;
     cursor: pointer;
 
-    &:hover {
-        background-color: color.adjust($light, $alpha: -0.7);
+    @include hoverable {
+        &:hover {
+            background-color: color.adjust($light, $alpha: -0.7);
+        }
     }
     &:active {
-        color: $dark;
+        color: $dark !important;
         background-color: $light;
     }
+
 
     i {
         font-family: logo-font;
@@ -129,16 +140,14 @@ nav {
 
 #nav-btns {
     @extend %flex-row;
+    z-index: 15;
     
     .spacer {
         flex-grow: 1;
     }
 
     @include mobile {
-        position: fixed;
-        bottom: 0;
         justify-content: space-between;
-        width: 100%;
         z-index: 15;
 
         .spacer {
@@ -150,19 +159,20 @@ nav {
 #nav-links {
     @extend %flex-row;
     position: fixed;
-    width: 100%;
     top: 0;
-    //left is assigned by theme mixin
+    //left: next to menu btn (assigned by theme mixin)
+    width: calc(100% - 3 * get-theme-value("dark", "height"));
     opacity: 0;
     visibility: hidden;
 
     @include mobile {
+        width: 100vw;
         left: 0 !important;
         flex-direction: column;
 
         .nav-btn {
             flex-grow: 1;
-            width: 100vw;
+            width: 100%;
             border-color: $light;
         }
     }
@@ -175,8 +185,6 @@ nav {
     }
 
     @include mobile {
-        height: 100%;
-
         #nav-links {
             height: calc(100% - get-theme-value("dark", "height")) !important;
         }
@@ -190,11 +198,6 @@ nav {
 .nav-white
 {
     @include nav-theme("light");
-
-    #nav-up-btn, #nav-theme-btn {
-        visibility: hidden;
-        opacity: 0;
-    }
 }
 
 .nav-black
@@ -240,6 +243,10 @@ footer {
         }
     }
 
+    @include mobile {
+        padding-bottom: get-theme-value('dark', 'height');
+    }
+
 }
 
 .logo
@@ -266,6 +273,7 @@ footer {
 
 #cookie-agreement
 {
+    grid-area: cookie;
     position: fixed;
     bottom: 0;
     height: 3rem;
@@ -286,11 +294,11 @@ footer {
 
 main {
     position: relative;
+    min-height: 100vh;
     color: $dark;
-    transition: background-image .2s, color .2s;
+    transition: background-image .2s, color .3s;
     background-image: linear-gradient(to left, white, $light, white);
     padding: $main-gap 10vw;
-    min-height: 100vh;
     line-height: $main-line-height;
 
     p {
@@ -303,17 +311,20 @@ main {
     }
 }
 
-
 .dark {
-    color: $light;
-    background-image: linear-gradient(to left, $dark, color.adjust($dark, $lightness: 5%), $dark);
+    color: $gray;
+    background: $dark;
 
     a {
         color: #4ec4ec;
         &:hover {text-shadow: 0 0 1px white;}
     }
     img {
-        border: 2px solid $light;
+        border: 2px solid $gray;
+    }
+
+    hr {
+        border-color: $gray;
     }
 }
 
@@ -324,31 +335,38 @@ main {
 
     div {
         @extend %flex-column;
+        align-items: center;
+        justify-content: center;
         gap: 2rem;
         position: absolute;
         top: 0;
         left: 0;
         width: 100%;
         height: 100%;
-        align-items: center;
-        justify-content: center;
+        padding: 1rem;
         color: $light;
         text-shadow: -1px 0 5px black, 0 1px 5px black, 1px 0 5px black, 0 -1px 5px black;
 
         > * {
             margin: 0;
+            text-align: center;
         }
     }
 }
 
+section {
+    margin: $main-gap 0;
+}
+
 .step {
+    width: 100%;
     @extend %flex-row;
     flex-wrap: wrap;
     gap: 2rem;
-    padding: 2rem 0;
-    border-bottom: 1px solid $dark;
+    margin: 3rem 0;
 
     p {
+        margin: 0;
         width: calc((100% - 2rem) / 2);
     }
 
@@ -367,13 +385,10 @@ main {
     }
 
     @include mobile {
+        margin: 2rem 0;
         p { width: 100%};
         img { width: calc((100% - 2rem) / 2);}
     }
-}
-
-body.dark .step {
-    border-color: $light;
 }
 
 .modal {

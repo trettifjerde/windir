@@ -14,6 +14,7 @@ $scrollbar-width: 10px;
 
 $light: #f8f8f8;
 $dark: #222325;
+$gray: #d2d2d2;
 $light-trans: color.adjust($dark, $alpha: -0.7);
 $dark-trans: color.adjust($dark, $alpha: -0.3);
 $red: #d1473d;
@@ -22,7 +23,7 @@ $form-gap: 0.3rem;
 $nav-gap: 0;
 $nav-white-height: 3.5rem;
 $nav-black-height: 3rem;
-$main-line-height: 1.8rem;
+$main-line-height: 1.7rem;
 $main-gap: $main-line-height * 2;
 
 $themes: (
@@ -45,9 +46,34 @@ $themes: (
     @return map.get(map.get($themes, $theme-name), $value-name);
 }
 
+@mixin hoverable() {
+    @media (pointer:fine) {
+        @content
+    }
+}
+
 @mixin mobile() {
     @media (orientation: portrait) {
         @content;
+    }
+}
+
+@mixin h($size) {
+    font-size: $size; 
+    line-height: $size; 
+    margin-block: $size * 0.5;
+    margin-inline: 0;
+    font-weight: $bold;
+
+    @if $size > 2.4rem {
+        text-align: center;
+    } @else {
+        text-align: left;
+    }
+
+    @include mobile {
+        font-size: $size * 0.8;
+        line-height: $size * 0.8; 
     }
 }
 
@@ -56,11 +82,12 @@ $themes: (
     color: $color;
     background-color: transparent;
 
-    &:hover {
-        background-color: color.adjust($color, $alpha: -0.8); 
-        border: 1px solid $color;
+    @include hoverable {
+        &:hover {
+            background-color: color.adjust($color, $alpha: -0.8); 
+            border: 1px solid $color;
+        }
     }
-
     &:active { 
         background-color: $color;
         color: color.invert($color);
@@ -88,8 +115,10 @@ $themes: (
         border-radius: get-theme-value($name, "border-radius");
         min-width: get-theme-value($name, "height");
 
-        &:hover {
-            border-color: get-theme-value($name, "border-colors");
+        @include hoverable {
+            &:hover {
+                border-color: get-theme-value($name, "border-colors");
+            }
         }
     }
 }
@@ -136,22 +165,11 @@ $themes: (
     background-color: $light;
 }
 
-h1, h2, h3, h4, h5 {
-    margin-block: 2.5rem;
-    margin-inline: 0;
-    font-weight: $bold;
-
-}
-
-h1, h2, h3 {
-    text-align: center;
-}
-
-h1 {font-size: 3.5rem; line-height: 3.5rem; }
-h2 {font-size: 3rem; line-height: 3rem; }
-h3 {font-size: 2.5rem; line-height: 2.5rem; }
-h4 {font-size: 2rem; line-height: 2rem; }
-h5 {font-size: 1.5rem; line-height: 1.5rem; }
+h1 { @include h(3.5rem)};
+h2 { @include h(3rem)};
+h3 { @include h(2.5rem)};
+h4 { @include h(2rem)};
+h5 { @include h(1.7rem)};
 
 a, a:visited {
     @extend %transition-ease;
@@ -170,6 +188,12 @@ img {
 
 form {
     @extend %form;
+}
+
+hr {
+    border: 0;
+    margin: 0;
+    border-top: 1px solid $dark;
 }
 
 button, .btn {
@@ -215,12 +239,6 @@ textarea {
 
     @include mobile {
         padding-right: 0;
-    }
-}
-
-.locked-mob {
-    @include mobile {
-        overflow: hidden;
     }
 }
 

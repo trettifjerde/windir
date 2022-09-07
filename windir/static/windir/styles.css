@@ -350,39 +350,79 @@ form {
   background-color: #f8f8f8;
 }
 
-h1, h2, h3, h4, h5 {
-  margin-block: 2.5rem;
-  margin-inline: 0;
-  font-weight: 500;
-}
-
-h1, h2, h3 {
-  text-align: center;
-}
-
 h1 {
   font-size: 3.5rem;
   line-height: 3.5rem;
+  margin-block: 1.75rem;
+  margin-inline: 0;
+  font-weight: 500;
+  text-align: center;
+}
+@media (orientation: portrait) {
+  h1 {
+    font-size: 2.8rem;
+    line-height: 2.8rem;
+  }
 }
 
 h2 {
   font-size: 3rem;
   line-height: 3rem;
+  margin-block: 1.5rem;
+  margin-inline: 0;
+  font-weight: 500;
+  text-align: center;
+}
+@media (orientation: portrait) {
+  h2 {
+    font-size: 2.4rem;
+    line-height: 2.4rem;
+  }
 }
 
 h3 {
   font-size: 2.5rem;
   line-height: 2.5rem;
+  margin-block: 1.25rem;
+  margin-inline: 0;
+  font-weight: 500;
+  text-align: center;
+}
+@media (orientation: portrait) {
+  h3 {
+    font-size: 2rem;
+    line-height: 2rem;
+  }
 }
 
 h4 {
   font-size: 2rem;
   line-height: 2rem;
+  margin-block: 1rem;
+  margin-inline: 0;
+  font-weight: 500;
+  text-align: left;
+}
+@media (orientation: portrait) {
+  h4 {
+    font-size: 1.6rem;
+    line-height: 1.6rem;
+  }
 }
 
 h5 {
-  font-size: 1.5rem;
-  line-height: 1.5rem;
+  font-size: 1.7rem;
+  line-height: 1.7rem;
+  margin-block: 0.85rem;
+  margin-inline: 0;
+  font-weight: 500;
+  text-align: left;
+}
+@media (orientation: portrait) {
+  h5 {
+    font-size: 1.36rem;
+    line-height: 1.36rem;
+  }
 }
 
 a, a:visited {
@@ -396,6 +436,12 @@ a:hover, a:visited:hover {
 img {
   max-width: 100%;
   max-height: 100%;
+}
+
+hr {
+  border: 0;
+  margin: 0;
+  border-top: 1px solid #222325;
 }
 
 button, .btn {
@@ -434,12 +480,6 @@ textarea {
 @media (orientation: portrait) {
   .locked {
     padding-right: 0;
-  }
-}
-
-@media (orientation: portrait) {
-  .locked-mob {
-    overflow: hidden;
   }
 }
 
@@ -555,16 +595,18 @@ textarea {
   }
 }
 
-html, body {
-  background-color: #222325;
+body {
+  background: fixed 15vw repeat url("img/bg.jpg");
 }
 
 body {
-  position: relative;
+  display: grid;
+  grid-template-areas: "nav" "content" "cookie";
+  grid-template-rows: auto 1fr auto;
+  height: 100vh;
   font-family: "Oswald", Arial, sans-serif;
   font-weight: 300;
   font-size: 1.2rem;
-  overflow: auto;
 }
 body a {
   color: #0095ff;
@@ -575,16 +617,14 @@ body a:hover {
 body img {
   border: 2px solid #222325;
 }
-@media (orientation: portrait) {
-  body {
-    padding-bottom: 3rem;
-  }
+#content {
+  grid-area: content;
+  overflow: auto;
 }
 
 header {
   padding: 20vh 0;
-  background: fixed 15vw repeat url("img/bg.jpg");
-  min-height: 100vh;
+  min-height: 100%;
 }
 header form {
   align-items: center;
@@ -623,9 +663,11 @@ header button {
   background-color: transparent;
   border-radius: 0.7rem;
 }
-.btn-std:hover {
-  background-color: rgba(248, 248, 248, 0.2);
-  border: 1px solid #f8f8f8;
+@media (pointer: fine) {
+  .btn-std:hover {
+    background-color: rgba(248, 248, 248, 0.2);
+    border: 1px solid #f8f8f8;
+  }
 }
 .btn-std:active {
   background-color: #f8f8f8;
@@ -634,15 +676,15 @@ header button {
 }
 
 nav {
-  position: fixed;
-  top: 0;
-  left: 0;
+  grid-area: nav;
   width: 100%;
   z-index: 10;
+  position: fixed;
+  top: 0;
 }
 @media (orientation: portrait) {
   nav {
-    position: fixed;
+    top: auto;
     bottom: 0;
     background-color: transparent !important;
   }
@@ -657,11 +699,13 @@ nav {
   font-weight: 300;
   cursor: pointer;
 }
-.nav-btn:hover {
-  background-color: rgba(248, 248, 248, 0.3);
+@media (pointer: fine) {
+  .nav-btn:hover {
+    background-color: rgba(248, 248, 248, 0.3);
+  }
 }
 .nav-btn:active {
-  color: #222325;
+  color: #222325 !important;
   background-color: #f8f8f8;
 }
 .nav-btn i {
@@ -686,15 +730,15 @@ nav {
   }
 }
 
+#nav-btns {
+  z-index: 15;
+}
 #nav-btns .spacer {
   flex-grow: 1;
 }
 @media (orientation: portrait) {
   #nav-btns {
-    position: fixed;
-    bottom: 0;
     justify-content: space-between;
-    width: 100%;
     z-index: 15;
   }
   #nav-btns .spacer {
@@ -704,19 +748,20 @@ nav {
 
 #nav-links {
   position: fixed;
-  width: 100%;
   top: 0;
+  width: calc(100% - 9rem);
   opacity: 0;
   visibility: hidden;
 }
 @media (orientation: portrait) {
   #nav-links {
+    width: 100vw;
     left: 0 !important;
     flex-direction: column;
   }
   #nav-links .nav-btn {
     flex-grow: 1;
-    width: 100vw;
+    width: 100%;
     border-color: #f8f8f8;
   }
 }
@@ -726,9 +771,6 @@ nav {
   visibility: visible;
 }
 @media (orientation: portrait) {
-  .nav-open {
-    height: 100%;
-  }
   .nav-open #nav-links {
     height: calc(100% - 3rem) !important;
   }
@@ -756,12 +798,10 @@ nav {
   border-radius: 3px;
   min-width: 3.5rem;
 }
-.nav-white .nav-btn:hover {
-  border-color: #f8f8f8;
-}
-.nav-white #nav-up-btn, .nav-white #nav-theme-btn {
-  visibility: hidden;
-  opacity: 0;
+@media (pointer: fine) {
+  .nav-white .nav-btn:hover {
+    border-color: #f8f8f8;
+  }
 }
 
 .nav-black {
@@ -783,8 +823,10 @@ nav {
   border-radius: 0px;
   min-width: 3rem;
 }
-.nav-black .nav-btn:hover {
-  border-color: transparent #f8f8f8;
+@media (pointer: fine) {
+  .nav-black .nav-btn:hover {
+    border-color: transparent #f8f8f8;
+  }
 }
 @media (orientation: portrait) {
   .nav-black {
@@ -820,6 +862,11 @@ footer img {
 footer img:hover {
   opacity: 1;
 }
+@media (orientation: portrait) {
+  footer {
+    padding-bottom: 3rem;
+  }
+}
 
 .logo {
   color: #f8f8f8;
@@ -843,6 +890,7 @@ footer img:hover {
 }
 
 #cookie-agreement {
+  grid-area: cookie;
   position: fixed;
   bottom: 0;
   height: 3rem;
@@ -865,12 +913,12 @@ footer img:hover {
 
 main {
   position: relative;
-  color: #222325;
-  transition: background-image 0.2s, color 0.2s;
-  background-image: linear-gradient(to left, white, #f8f8f8, white);
-  padding: 3.6rem 10vw;
   min-height: 100vh;
-  line-height: 1.8rem;
+  color: #222325;
+  transition: background-image 0.2s, color 0.3s;
+  background-image: linear-gradient(to left, white, #f8f8f8, white);
+  padding: 3.4rem 10vw;
+  line-height: 1.7rem;
 }
 main p {
   margin: 1rem 0;
@@ -883,8 +931,8 @@ main p {
 }
 
 .dark {
-  color: #f8f8f8;
-  background-image: linear-gradient(to left, #222325, #2e3032, #222325);
+  color: #d2d2d2;
+  background: #222325;
 }
 .dark a {
   color: #4ec4ec;
@@ -893,7 +941,10 @@ main p {
   text-shadow: 0 0 1px white;
 }
 .dark img {
-  border: 2px solid #f8f8f8;
+  border: 2px solid #d2d2d2;
+}
+.dark hr {
+  border-color: #d2d2d2;
 }
 
 .title-div {
@@ -901,28 +952,35 @@ main p {
   position: relative;
 }
 .title-div div {
+  align-items: center;
+  justify-content: center;
   gap: 2rem;
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  align-items: center;
-  justify-content: center;
+  padding: 1rem;
   color: #f8f8f8;
   text-shadow: -1px 0 5px black, 0 1px 5px black, 1px 0 5px black, 0 -1px 5px black;
 }
 .title-div div > * {
   margin: 0;
+  text-align: center;
+}
+
+section {
+  margin: 3.4rem 0;
 }
 
 .step {
+  width: 100%;
   flex-wrap: wrap;
   gap: 2rem;
-  padding: 2rem 0;
-  border-bottom: 1px solid #222325;
+  margin: 3rem 0;
 }
 .step p {
+  margin: 0;
   width: calc((100% - 2rem) / 2);
 }
 .step img {
@@ -937,16 +995,15 @@ main p {
   padding: 0 1rem;
 }
 @media (orientation: portrait) {
+  .step {
+    margin: 2rem 0;
+  }
   .step p {
     width: 100%;
   }
   .step img {
     width: calc((100% - 2rem) / 2);
   }
-}
-
-body.dark .step {
-  border-color: #f8f8f8;
 }
 
 .modal {

@@ -2,8 +2,8 @@
 {% extends 'windir/layout.html' %}
 {% load static %}
 {% block main %}
-<div class="modal"><img/></div>
 <main>
+    <div class="modal"><img/></div>
 	<script src="{% static 'windir/load_images.js' %}" async defer></script>
 
 	<div class="title-div">
@@ -13,43 +13,49 @@
             <h5>Исчерпывающий гайд, доступный даже для танков</h5>
         </div>
 	</div>
-    <p>Для начала хочу отметить, что наилучший способ поставить моды — это чтение руководств на сайтах тех проектов, где играет отряд. 
-        Хотя бы потому, что там, скорее всего, при изменениях информация будет свежее, нежели здесь. 
-        Поэтому приведу ниже ссылки на руководства проектов, на которых играет наш отряд:
-        <ul>
-            <p>SolidGames <a href="https://solidgames.ru/viewtopic.php?f=11&t=23">Resilio Sync</a> | <a href="https://solidgames.ru/viewtopic.php?f=11&t=22">Arma 2 Manager/Yoma AddonSync 2009</a></p>
-        </ul>
-    </p>
-    <p>А ниже будет руководство по установке модов с помощью проги 
-        <span class="b">Resilio Sync</span>, 
-    которой пользуется большинство в нашем отряде.</p>
+    <section>
+        <p>Для начала хочу отметить, что самые точные инструкции для установки модов вы найдете на сайтах проектов, где играет отряд. 
+            Скорее всего, информация там будет свежее, чем здесь. 
+            Поэтому ниже оставлю ссылки на руководства проектов, на которых играет Windir.
+            <ul>
+                <p>SolidGames <a href="https://solidgames.ru/guide/resilio">Resilio Sync</a> | <a href="https://solidgames.ru/viewtopic.php?f=11&t=22">Arma 2 Manager/Yoma AddonSync 2009</a></p>
+            </ul>
+        </p>
+        <p>Ниже будет руководство по установке модов с помощью проги 
+            <span class="b">Resilio Sync</span>, 
+        которой пользуется большинство в нашем отряде.</p>
+    </section>
 
-    <h2>Resilio Sync</h2>
+    <section>
+        <h2>Resilio Sync</h2>
 
-    <p>
-        <span class="b i">Resilio Sync</span> 
-        (ранее <span class="b i">BitTorrent Sync</span>) 
-        — сервис для синхронизации файлов и резервного копирования по протоколу BitTorrent между произвольными устройствами. 
-        Поддерживается компанией Resilio, Inc., выделенной из BitTorrent, Inc. 
-        BitTorrent Sync был разработан для того, чтобы решить фундаментальные проблемы синхронизации данных: 
-        ограничения на скорость, размер и пространство; ограничения на безопасность файла и зависимость от облачной инфраструктуры. 
-        С BitTorrent Sync можно синхронизировать файлы любых размеров. Трансферы происходят в зашифрованном виде, 
-        и информация не сохраняется на каком-либо сервере или в облаке. Ваше содержимое принадлежит 
-        вам и остается на устройстве по вашему выбору. (<a href="https://ru.wikipedia.org/wiki/Resilio_Sync">wiki</a>)
-    </p>
+        <p>
+            <span class="b i">Resilio Sync</span> 
+            (ранее <span class="b i">BitTorrent Sync</span>) 
+            — сервис для синхронизации файлов и резервного копирования по протоколу BitTorrent между произвольными устройствами. 
+            Поддерживается компанией Resilio, Inc., выделенной из BitTorrent, Inc. 
+        </p>
+        <p>
+            BitTorrent Sync был разработан для того, чтобы решить фундаментальные проблемы синхронизации данных: 
+            ограничения на скорость, размер и пространство; ограничения на безопасность файла и зависимость от облачной инфраструктуры. 
+            С BitTorrent Sync можно синхронизировать файлы любых размеров. Трансферы происходят в зашифрованном виде, 
+            и информация не сохраняется на каком-либо сервере или в облаке. Ваше содержимое принадлежит 
+            вам и остается на устройстве по вашему выбору. (<a href="https://ru.wikipedia.org/wiki/Resilio_Sync">wiki</a>)
+        </p>
+    </section>
+    <section>
+        <h4>Актуальные ключи</h4>
 
-    <h4>Актуальные ключи</h4>
+        <p>SolidGames - <span class="b">B7AQISCCIN5SMGBIBDQ6C27BJUID4YN2B</span></p>
+        <p>
+            <span class="attention">ВНИМАНИЕ!</span> 
+            Если вы устанавливаете несколько сборок с помощью ресилио, 
+            убедитесь, что каждая раздача сохраняется в <u>отдельную</u> папку!
+        </p>
+    </section>
 
-    <p>SolidGames - <span class="b">B7AQISCCIN5SMGBIBDQ6C27BJUID4YN2B</span></p>
-    <p>
-        <span class="attention">ВНИМАНИЕ!</span> 
-        Если вы устанавливаете несколько сборок с помощью ресилио, 
-        убедитесь, что каждая раздача сохраняется в <u>отдельную</u> папку!
-    </p>
-
-
-    <h4>Порядок действий</h4>
-    <div>
+    <section>
+        <h4>Порядок действий</h4>
         <div class="step">
             <p class="fill">
                 <span class="n">1.</span>
@@ -57,6 +63,7 @@
                 (кнопка <b>Free Download</b>)
             </p>    
         </div>
+        <hr>
         <div class="step">
             <p class>
                 <span class="n">2.</span>
@@ -66,6 +73,7 @@
             <img class="lazy thumbnail" data-src="/media/resilio_setts_id.png"/>
             <img class="lazy thumbnail" data-src="/media/resilio_setts_name.png"/>
         </div>
+        <hr>
         <div class="step">
             <p class="fill">
                 <span class="n">3.</span>
@@ -78,6 +86,7 @@
             <img class="lazy thumbnail" data-src="/media/resilio_new_entry.png"/>
             <img class="lazy thumbnail" data-src="/media/resilio_key_input.png"/>
         </div>
+        <hr>
         <div class="step">
             <p>
                 <span class="n">4.</span>
@@ -85,6 +94,7 @@
             </p>
             <img class="lazy thumbnail" data-src="/media/resilio_entry.png"/>
         </div>
+        <hr>
         <div class="step">
             <p>
                 <span class="n">5.</span>
@@ -94,9 +104,12 @@
             <img class="lazy thumbnail" data-src="/media/resilio_entry_setts.png"/>
             <img class="lazy thumbnail" data-src="/media/resilio_entry_required.png"/>
         </div>
-        <p>Это все. Теперь ресилио будет автоматически обновлять моды и раздавать другим на максимальной скорости. 
+        <hr>
+        <div class="step">
+                    <p class="fill">Это все. Теперь ресилио будет автоматически обновлять моды и раздавать другим на максимальной скорости. 
             Включайте периодически, чтобы быть синхронизированными и помогать другим.</p>
-    </div>
+        </div>
+    </section>
 </main>
 {% endblock %}
 

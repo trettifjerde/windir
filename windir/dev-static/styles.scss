@@ -364,12 +364,9 @@ main {
     }
 }
 
-section {
+section, article {
     margin: $main-gap 0;
-}
-
-article {
-    margin: $main-gap 0;
+    @include mobile { margin: $mobile-gap 0}
 }
 
 .skill {
@@ -386,16 +383,26 @@ article {
         order: -1;
     }
 
+    @extend %img-mobile;
+
     @include mobile {
         flex-direction: column;
         gap: 0.5rem;
         margin: $mg-div-mobile;
 
-        img { max-width: 100%; max-height: 50vh;}
         &:nth-of-type(even) img {
             order: 0;
         }
     }
+}
+
+.img-shrink {
+    text-align: center;
+    margin: $mg-div-desktop;
+
+    img {max-width: 60vw; max-height: 70vh;}
+
+    @extend %img-mobile;
 }
 
 .step {
@@ -450,17 +457,15 @@ article {
 
 .two-imgs {
     @extend %flex-row;
-    gap: 2rem;
-    align-items: flex-start;
+    justify-content: space-evenly;
+    margin: $mg-div-desktop;
 
-    &-text {
-        align-self: stretch;
-        @extend %flex-column;
-        justify-content: space-evenly;
-    }
-    &-pics {
-        @extend %flex-column;
-        gap: 0.5rem;
+    img { max-width: 49%; max-height: 50vh;}
+
+    @extend %img-mobile;
+    @include mobile {
+        gap: 1rem;
+        flex-wrap: wrap;
     }
 }
 
@@ -487,6 +492,8 @@ article {
 
     @include mobile {
         top: 0;
+        align-items: center;
+        img {padding: 0;}
     }
 }
 

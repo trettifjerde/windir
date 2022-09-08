@@ -27,10 +27,11 @@ $nav-gap: 0;
 $nav-white-height: 3.5rem;
 $nav-black-height: 3rem;
 $main-line-height: 1.7rem;
-$main-gap: $main-line-height * 2;
+$main-gap: 3rem;
+$mobile-gap: 2rem;
 $title-img-height: 700px;
-$mg-div-desktop: 3rem 0;
-$mg-div-mobile: 2rem 0;
+$mg-div-desktop: 2rem 0;
+$mg-div-mobile: 1rem 0;
 
 $themes: (
     "light": (
@@ -157,6 +158,13 @@ $themes: (
     gap: 0.2rem;
 }
 
+%img-mobile {
+    @include mobile {
+        margin: $mg-div-mobile !important;
+        img { max-width: 100% !important; max-height: 50vh !important;}
+    }
+}
+
 //////// elements ////////
 
 * {
@@ -247,6 +255,17 @@ ol, ul {
         font-size: $font-size-rg * 1.2;
         line-height: $main-line-height * 1.2;
 
+    }
+}
+
+.cols {
+    column-count: 2;
+    column-gap: 4rem;
+    margin: 2rem 0;
+
+    @include mobile {
+        column-count: 1;
+        margin: 0;
     }
 }
 

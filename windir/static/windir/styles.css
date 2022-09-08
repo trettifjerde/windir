@@ -315,7 +315,7 @@ template {
   display: none;
 }
 
-.two-imgs-pics, .two-imgs-text, header form {
+header form {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -335,6 +335,16 @@ form {
   display: flex;
   flex-direction: column;
   gap: 0.2rem;
+}
+
+@media (orientation: portrait) {
+  .two-imgs, .img-shrink, .skill {
+    margin: 1rem 0 !important;
+  }
+  .two-imgs img, .img-shrink img, .skill img {
+    max-width: 100% !important;
+    max-height: 50vh !important;
+  }
 }
 
 * {
@@ -488,6 +498,18 @@ ol li, ul li {
 ol li::marker, ul li::marker {
   font-size: 1.44rem;
   line-height: 2.04rem;
+}
+
+.cols {
+  column-count: 2;
+  column-gap: 4rem;
+  margin: 2rem 0;
+}
+@media (orientation: portrait) {
+  .cols {
+    column-count: 1;
+    margin: 0;
+  }
 }
 
 .locked {
@@ -932,7 +954,7 @@ main {
   color: #222325;
   transition: background-image 0.2s, color 0.3s;
   background-image: linear-gradient(to left, white, #f8f8f8, white);
-  padding: 3.4rem 10vw;
+  padding: 3rem 10vw;
   line-height: 1.7rem;
 }
 main a {
@@ -994,23 +1016,24 @@ main p {
 .title-div {
   justify-content: center;
   position: relative;
-  margin: 3rem 0;
+  margin: 2rem 0;
 }
 .title-div img {
   max-height: 700px;
 }
 
-section {
-  margin: 3.4rem 0;
+section, article {
+  margin: 3rem 0;
 }
-
-article {
-  margin: 3.4rem 0;
+@media (orientation: portrait) {
+  section, article {
+    margin: 2rem 0;
+  }
 }
 
 .skill {
-  gap: 3.4rem;
-  margin: 3rem 0;
+  gap: 3rem;
+  margin: 2rem 0;
 }
 .skill img {
   max-height: 490px;
@@ -1023,22 +1046,27 @@ article {
   .skill {
     flex-direction: column;
     gap: 0.5rem;
-    margin: 2rem 0;
-  }
-  .skill img {
-    max-width: 100%;
-    max-height: 50vh;
+    margin: 1rem 0;
   }
   .skill:nth-of-type(even) img {
     order: 0;
   }
 }
 
+.img-shrink {
+  text-align: center;
+  margin: 2rem 0;
+}
+.img-shrink img {
+  max-width: 60vw;
+  max-height: 70vh;
+}
+
 .step {
   width: 100%;
   flex-wrap: wrap;
   gap: 2rem;
-  margin: 3rem 0;
+  margin: 2rem 0;
 }
 .step p {
   margin: 0;
@@ -1057,7 +1085,7 @@ article {
 }
 @media (orientation: portrait) {
   .step {
-    margin: 2rem 0;
+    margin: 1rem 0;
   }
   .step p {
     width: 100%;
@@ -1085,15 +1113,18 @@ article {
 }
 
 .two-imgs {
-  gap: 2rem;
-  align-items: flex-start;
-}
-.two-imgs-text {
-  align-self: stretch;
   justify-content: space-evenly;
+  margin: 2rem 0;
 }
-.two-imgs-pics {
-  gap: 0.5rem;
+.two-imgs img {
+  max-width: 49%;
+  max-height: 50vh;
+}
+@media (orientation: portrait) {
+  .two-imgs {
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
 }
 
 .modal {
@@ -1118,6 +1149,10 @@ article {
 @media (orientation: portrait) {
   .modal {
     top: 0;
+    align-items: center;
+  }
+  .modal img {
+    padding: 0;
   }
 }
 

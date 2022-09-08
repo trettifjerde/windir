@@ -33,7 +33,6 @@ function showImg() {
         modal.addEventListener('animationend', () => {
             modal.classList.remove('fade-out');
             modal.style.display = 'none';
-            document.querySelector('html').classList.remove('locked');
         }, {once: true});
     }, {once: true});
 }

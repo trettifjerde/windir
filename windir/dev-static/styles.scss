@@ -18,17 +18,14 @@ body {
     font-weight: 300;
     font-size: $font-size-rg;
 
-    a {
-        color: #0095ff;
-        &:hover {text-shadow: 0 0 1px gray;}
-    }
-
     img {
         border: 2px solid $dark;
     }
 
     @include mobile {
-
+        grid-template-areas:    'cookie'
+        'content'
+        'nav';
     }
 }
 
@@ -301,6 +298,11 @@ main {
     padding: $main-gap 10vw;
     line-height: $main-line-height;
 
+    a {
+        color: $blue;
+        &:hover {text-shadow: 0 0 1px gray;}
+    }
+
     p {
         margin: 1rem 0;
     }
@@ -316,7 +318,7 @@ main {
     background: $dark;
 
     a {
-        color: #4ec4ec;
+        color: $light-blue;
         &:hover {text-shadow: 0 0 1px white;}
     }
     img {
@@ -326,31 +328,39 @@ main {
     hr {
         border-color: $gray;
     }
+
+    h1, h2, h3, h4, h5 {text-shadow: -1px 0 5px black, 0 1px 5px black, 1px 0 5px black, 0 -1px 5px black;}
+}
+
+.on-pic-text {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    padding: 1rem;
+    color: $light;
+
+    > * {
+        margin: 0;
+        text-align: center;
+        text-shadow: -1px 0 5px black, 0 1px 5px black, 1px 0 5px black, 0 -1px 5px black;
+    }
 }
 
 .title-div {
     @extend %flex-row;
     justify-content: center;
     position: relative;
+    margin: $mg-div-desktop;
 
-    div {
-        @extend %flex-column;
-        align-items: center;
-        justify-content: center;
-        gap: 2rem;
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        padding: 1rem;
-        color: $light;
-        text-shadow: -1px 0 5px black, 0 1px 5px black, 1px 0 5px black, 0 -1px 5px black;
-
-        > * {
-            margin: 0;
-            text-align: center;
-        }
+    img {
+        max-height: $title-img-height;
     }
 }
 
@@ -358,12 +368,42 @@ section {
     margin: $main-gap 0;
 }
 
+article {
+    margin: $main-gap 0;
+}
+
+.skill {
+    @extend %flex-row;
+    gap: $main-gap;
+    margin: $mg-div-desktop;
+
+    img {
+        max-height: $title-img-height * 0.7;
+        max-width: $title-img-height;
+    }
+
+    &:nth-of-type(even) img {
+        order: -1;
+    }
+
+    @include mobile {
+        flex-direction: column;
+        gap: 0.5rem;
+        margin: $mg-div-mobile;
+
+        img { max-width: 100%; max-height: 50vh;}
+        &:nth-of-type(even) img {
+            order: 0;
+        }
+    }
+}
+
 .step {
     width: 100%;
     @extend %flex-row;
     flex-wrap: wrap;
     gap: 2rem;
-    margin: 3rem 0;
+    margin: $mg-div-desktop;
 
     p {
         margin: 0;
@@ -385,35 +425,115 @@ section {
     }
 
     @include mobile {
-        margin: 2rem 0;
+        margin: $mg-div-mobile;
         p { width: 100%};
         img { width: calc((100% - 2rem) / 2);}
     }
 }
 
-.modal {
-    display: none;
-    align-items: center;
+.articles {
+    @extend %flex-row;
+    flex-wrap: wrap;
+    gap: 0.5rem;
     justify-content: center;
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 7;
-    width: 100vw;
-    height: 100vh;
-    background-color: $dark-trans;
-    cursor: pointer;
 
-    .img {
-        width: 80vw;
+    > div { 
+        position: relative; max-width: 400px;
+
+        &:hover img {
+            filter: none;
+        }
+    }
+
+    img {filter: contrast(75%); transition: all .3s;}
+}
+
+.two-imgs {
+    @extend %flex-row;
+    gap: 2rem;
+    align-items: flex-start;
+
+    &-text {
+        align-self: stretch;
+        @extend %flex-column;
+        justify-content: space-evenly;
+    }
+    &-pics {
+        @extend %flex-column;
+        gap: 0.5rem;
     }
 }
 
-.thumbnail {
+
+.modal {
+    display: none;
+    align-items: flex-start;
+    justify-content: center;
+    position: fixed;
+    top: get-theme-value("dark", "height");
+    left: 0;
+    z-index: 7;
+    width: 100vw;
+    height: calc(100vh - get-theme-value("dark", "height"));
+    overflow: auto;
+    background-color: $dark-trans;
     cursor: pointer;
+
+    img {
+        padding: 2rem;
+        border: none;
+        max-height: unset;
+    }
+
+    @include mobile {
+        top: 0;
+    }
+}
+
+.thumbnail{
+    cursor: pointer;
+    transition: all .3s;
+    filter: contrast(75%);
     transition: all .3s;
 
     &:hover {
-        filter:brightness(120%);
+        filter: none;
+    }
+
+    @include mobile {
+        filter: none;
+    }
+}
+
+.about {
+
+    section p, section ul {
+        margin-left: 2rem;
+
+        @include mobile {
+            margin-left: 0;
+        }
+    }
+
+    &-sigil {
+        position: relative;
+        text-align: center; 
+
+        img {
+            border: none !important;
+            max-height: $title-img-height * 0.8;
+        }
+
+        h2 {
+            position: absolute;
+            width: 100%;
+            bottom: 0;
+        }
+    }
+
+    &-closing {
+        width: 100%;
+        text-align: center;
+        img { max-height: $title-img-height * 0.7;}
     }
 }

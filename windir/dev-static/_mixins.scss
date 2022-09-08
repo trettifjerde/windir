@@ -17,7 +17,10 @@ $dark: #222325;
 $gray: #d2d2d2;
 $light-trans: color.adjust($dark, $alpha: -0.7);
 $dark-trans: color.adjust($dark, $alpha: -0.3);
-$red: #d1473d;
+$red: #cf4c4c;
+$green: #32a852;
+$blue: #0095ff;
+$light-blue: #4ec4ec;
 
 $form-gap: 0.3rem;
 $nav-gap: 0;
@@ -25,6 +28,9 @@ $nav-white-height: 3.5rem;
 $nav-black-height: 3rem;
 $main-line-height: 1.7rem;
 $main-gap: $main-line-height * 2;
+$title-img-height: 700px;
+$mg-div-desktop: 3rem 0;
+$mg-div-mobile: 2rem 0;
 
 $themes: (
     "light": (
@@ -64,6 +70,7 @@ $themes: (
     margin-block: $size * 0.5;
     margin-inline: 0;
     font-weight: $bold;
+    text-shadow: -1px 0 5px $light, 0 1px 5px $light, 1px 0 5px $light, 0 -1px 5px $light;
 
     @if $size > 2.4rem {
         text-align: center;
@@ -229,17 +236,26 @@ textarea {
     resize: none;
 }
 
+ol, ul {
+    padding-inline-start: $font-size-rg * 1.2;
+    li {
+        padding-inline-start: $font-size-rg * 1.2;
+        margin-block: $font-size-rg * 0.5;
+    }
+
+    li::marker {
+        font-size: $font-size-rg * 1.2;
+        line-height: $main-line-height * 1.2;
+
+    }
+}
+
 ///////////////// common classes /////////////
 /// 
 
 
 .locked {
-    padding-right: $scrollbar-width;
     overflow: hidden;
-
-    @include mobile {
-        padding-right: 0;
-    }
 }
 
 .desktop {
@@ -283,6 +299,9 @@ textarea {
     font-weight: $bold;
 }
 
+.green {
+    color: $green;
+}
 /////// animation classes //////////
 /// 
 @keyframes fade-in {

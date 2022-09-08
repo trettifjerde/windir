@@ -2,135 +2,193 @@
 {% load static %}
 {% block main %}
 <main>
-    <script async defer src="{% static 'windir/load_images.js' %}"></script>
-    <h1>Программа-минимум</h1>
-    <h4 style='text-align:center;color:grey;'>Или знания, без которых тебе желательно не появляться на играх</h4>
-    <img class="lazy title-image img-center" data-src="/media/lessons.jpg"/>
+    <div class="modal"><img/></div>
+	<script src="{% static 'windir/load_images.js' %}" async defer></script>
 
-    <h2>Не ронять случайно гранаты под ноги себе и товарищам</h2>
-    <p class="minimum-p">В настройках управления сменить бросок гранаты с G на GG, то есть <b>двойное G</b>. Это первое, что ты должен сделать.</p>
-    <img class="lazy img-center thumbnail" data-src="/media/monkey.jpg"/>
-    <div class="modal">
-        <img class="modal-content">
+    <div class="title-div">
+        <img class="lazy" data-src="/media/lessons.jpg"/>
+        <div class="on-pic-text">
+            <h1>Программа-минимум</h1>
+        </div>
     </div>
 
-    <h2>Определять азимут направления</h2>
-    <p class="minimum-p">Открываешь компас (Клавиша "К"), смотришь на градус, на который указывает стрелка (один из 360), это и есть азимут.</p>
-    <img class="lazy img-center thumbnail" data-src="/media/azimut.png"/>
-    <div class="modal">
-        <img class="modal-content">
-    </div>
+    <section>
+        <hr>
+        <article class="skill">
+            <div><h4>Не ронять гранаты под ноги себе и товарищам</h4>
+            <p>В настройках управления сменить бросок гранаты с G на GG, то есть <span class="b">двойное G</span>. 
+                Это первое, что ты должен сделать.</p></div>
+            <img class="lazy" data-src="/media/monkey.jpg"/>
+        </article>
 
-    <h2>Уметь пользоваться картой</h2>
-    <p class="minimum-p">Определять свое местоположение на карте, ставить на себя метку, ставить метку на врага, на объект, на кролика. Различать типы и цвета меток и для чего они предназначены.
-        Можно изучить наш <a href="/map_tutorial">гайд</a> по использованию карты.</p>
-    <img class="lazy img-center thumbnail" data-src="/media/map.gif"/>
-    <div class="modal">
-        <img class="modal-content">
-    </div>
+        <hr>
 
-    <h2>Использовать меню взаимодействия ACE с собой, другими и техникой</h2>
-    <p class="minimum-p">
-        Взаимодействие с собой: Ctrl+Windows, со всем остальным: Windows или колесико мышки (Ванильное меню). Выход из меню взаимодействия — правая кнопка мыши. Если тебя попросили сделать что-то необычное и ты не понимаешь как это делается — скорее всего через кнопки взаимодействия :) Например: перепаковать магазины, одеть беруши, перенести, выгрузить/загузить, отремонтировать, раскрыть парашют и т.п.
-    </p>
-    <img class="lazy img-center thumbnail" data-src="/media/ace_menu.png" />
-    <div class="modal">
-        <img class="modal-content">
-    </div>
+        <article class="skill">
+            <div><h4>Определять азимут</h4>
+            <p>
+                Открываешь компас (Клавиша "К"), смотришь на градус, 
+                на который указывает стрелка (один из 360). Это и есть азимут.
+            </p></div>
+            <img class="lazy" data-src="/media/azimut.png"/>
+        </article>
 
-    <h2>Перезапускать плагин TaskForceRadio в Teamspeak и понимать, когда это необходимо сделать</h2>
-    <p class="minimum-p">Инструменты -> Параметры -> Аддоны -> «Загрузить заново» на нужном плагине. К примеру, если вы в игре, но в Тимспике вас по какой-то причине не перекинуло в канал TaskForceRadio. После перезагрузки плагина вас должно автоматически вернуть в канал ТаскФорса.</p>
-    <img class="lazy img-center thumbnail" data-src="/media/tfar_reload.png"/>
-    <div class="modal">
-        <img class="modal-content">
-    </div>
+        <hr>
 
-    <h2>Прицельно бросать гранаты</h2>
-    <p class="minimum-p">Shift+G, появляется траектория броска. Наводим, бросаем.</p>
-    <img class="lazy img-center thumbnail" data-src="/media/aimed_grenade.jpg"/>
-    <div class="modal">
-        <img class="modal-content">
-    </div>
+        <article class="skill">
+            <div><h4>Уметь пользоваться картой</h4>
+            <p>Определять свое местоположение на карте, ставить метку на себя, на врага, на объект, на кролика. 
+                Различать типы и цвета меток, знать, для чего они предназначены.
+                Можно изучить наш <a href="{% url 'windir:page' 'map_tutorial' %}">гайд</a> по использованию карты.
+            </p></div>
+            <img class="lazy" data-src="/media/map.gif"/>
+        </article>
 
-    <h2>Указывать пальцем</h2>
-    <p class="minimum-p">По умолчанию shift+Ё (~). Куда вы показали пальцем увидят те, кто не дальше полутора-двух метров от вас.
-    </p>
-    <img class="lazy img-center thumbnail" data-src="/media/pointing.png" />
-    <div class="modal">
-        <img class="modal-content">
-    </div>
+        <hr>
 
-    <h2>Менять прицельную дальность на оружии</h2>
-    <p class="minimum-p">По умолчанию page up/ page down или Ctrl + Скролл мыши. Дальность отображается в левом верхнем углу рядом с режимом огня.</p>
-    <img class="lazy img-center thumbnail" data-src="/media/distance.png" />
-    <div class="modal">
-        <img class="modal-content">
-    </div>
+        <article class="skill">
+            <div><h4>Использовать меню взаимодействия ACE</h4>
+            <p>
+                Взаимодействие с собой: Ctrl+Windows, со всем остальным: Windows или колесико мышки (Ванильное меню). 
+                Выход из меню взаимодействия — правая кнопка мыши. 
+                Если тебя попросили сделать что-то необычное и ты не понимаешь как это делается 
+                — скорее всего, делается это через кнопки взаимодействия :) 
+                Например: перепаковать магазины, одеть беруши, перенести, выгрузить/загузить, 
+                отремонтировать, раскрыть парашют и т.п.
+            </p></div>
+            <img class="lazy" data-src="/media/ace_menu.png" />
+        </article>
 
-    <h2>Определять вес собственного снаряжения и понимать, на что это влияет</h2>
-    <p class="minimum-p">Указан в килограммах в инвентаре. Чем больше вес, тем быстрее выдыхаешься, меньше бегаешь, сильнее трясет прицел. Вплоть до того, что передвигаться можешь только пешком. Прям как в жизни, офигеть.</p>
-    <img class="lazy img-center thumbnail" data-src="/media/weight.jpg" />
-    <div class="modal">
-        <img class="modal-content">
-    </div>
+        <hr>
 
-    <h2>Исправлять заклинивание оружия</h2>
-    <p class="minimum-p">По умолчанию Shift+R.</p>
-    <img class="lazy img-center thumbnail" data-src="/media/failure.jpg" />
-    <div class="modal">
-        <img class="modal-content">
-    </div>
+        <article class="skill">
+            <div><h4>Перезапускать плагин TaskForceRadio в Teamspeak и понимать, когда это нужно делать</h4>
+            <p>Инструменты -> Параметры -> Аддоны -> «Загрузить заново» на нужном плагине. </p>
+            <p>К примеру, если ты в игре, но в Тимспике тебя по какой-то причине не перекинуло в канал TaskForceRadio. 
+                После перезагрузки плагина тебя должно автоматически вернуть в канал ТаскФорса.</p></div>
+            <img class="lazy" data-src="/media/tfar_reload.png"/>
+        </article>
 
-    <h2>Не умирать и не убивать товарищей при использовании гранатометов</h2>
-    <p class="minimum-p">У граника сзади реактивный выхлоп. Во время выстрела тех, кто стоит сзади или сбоку, калечит или убивает. Если стреляешь, стоя спиной к стене, то выхлоп отражается, и калечит или убивает тебя. Сам виноват.</p>
-    <img class="lazy img-center thumbnail" data-src="/media/rpg.png" />
-    <div class="modal">
-        <img class="modal-content">
-    </div>
+        <hr>
 
-    <h2>Понимать разницу видов снарядов для РПГ-7</h2>
-    <p class="minimum-p">Можно почитать Вики или же наш <a href="/rocket_launcher_guide">гайд</a></p>
-    <img class="lazy img-center thumbnail" data-src="/media/rpg_shots.jpg" />
-    <div class="modal">
-        <img class="modal-content">
-    </div>
+        <article class="skill">
+            <div><h4>Прицельно бросать гранаты</h4>
+            <p>Shift+G, появляется траектория броска. Наводим, бросаем.</p></div>
+            <img class="lazy" data-src="/media/aimed_grenade.jpg"/>
+        </article>
 
-    <h2>Уметь пользоваться КВ и ДВ рацией</h2>
-    <p class="minimum-p">Клавиши по умолчанию:</p>
-    <ul class="minimum-p">
-        <li>говорить в КВ рацию — Caps Lock</li>
-        <li>открыть интерфейс КВ рации — Ctrl+P</li>
-        <li>говорить в ДВ рацию — Ctrl+Caps Lock</li>
-        <li>интерфейс — Alt+P</li>
-        <li>менять канал КВ рации — цифра на NumPad</li>
-        <li>ДВ рации — Ctrl + цифра на NumPad</li>
-    </ul>
-    <p class="minimum-p">В командирской КВ рации и в любой ДВ рации есть функция <b>дополнительного канала</b>, чтобы можно было слушать одновременно два канала. Переключаетесь на другой канал, нажимаете кнопку "Доп.Канал" (канал меняется с С2 на А2, к примеру) и — опционально — меняете частоту. Затем переключаетесь обратно на основной канал и вуаля — вы слышите оба канала. Клавиша "Т" — говорить в дополнительный канал.
-    </p>
-    <img class="lazy img-center thumbnail" data-src="/media/radio.png" />
-    <div class="modal">
-        <img class="modal-content">
-    </div>
+        <hr>
 
-    <h2>Понимать как узнать частоту основного и резервных радиоканалов</h2>
-    <p class="minimum-p">Карта -> Инструктаж -> Частоты -> Ищешь свой отряд, там и указаны частоты. Если такого нет, то ищешь на карте скраю, прописанные вручную. Если нет и там — спроси КО.</p>
-    <img class="lazy img-center thumbnail" data-src="/media/frequencies.jpg" />
-    <div class="modal">
-        <img class="modal-content">
-    </div>
+        <article class="skill">
+            <div><h4>Указывать пальцем</h4>
+            <p>По умолчанию shift+Ё (~). Куда ты показал пальцем увидят те, кто не дальше полутора-двух метров от тебя.</p></div>
+            <img class="lazy" data-src="/media/pointing.png" />
+        </article>
 
-    <h2>Говорить без рации голосом разной громкости (шепот, норма, крик) и понимать, на что это влияет</h2>
-    <p class="minimum-p">Регулировать громкость голоса по умолчанию — Ctrl+TAB. Чем громче голос, тем на большем расстоянии тебя всем слышно. Не влияет на дальность работы раций. Если в игре у всех рации, то желательно пользоваться шепотом, потому что, говоря по рации, ты также говоришь и голосом, представляешь?</p>
-    <img class="lazy img-center thumbnail" data-src="/media/voice.png" />
-    <div class="modal">
-        <img class="modal-content">
-    </div>
+        <hr>
 
-    <h2>Понимать общие принципы оказания мед.помощи</h2>
-    <p class="minimum-p">Читать официальную документацию ACE3 Medicine или наш <a href="/medicine_guide">гайд</a></p>
-    <img class="lazy img-center thumbnail" data-src="/media/medicine.jpg" />
-    <div class="modal">
-        <img class="modal-content">
-    </div>
+        <article class="skill">
+            <div><h4>Менять прицельную дальность на оружии</h4>
+            <p>По умолчанию page up/ page down или Ctrl + Скролл мыши. 
+                Дальность отображается в левом верхнем углу рядом с режимом огня.</p></div>
+            <img class="lazy" data-src="/media/distance.png" />
+        </article>
+
+        <hr>
+
+        <article class="skill">
+            <div><h4>Определять вес снаряжения и понимать, на что это влияет</h4>
+            <p>Указан в килограммах в инвентаре. 
+                Чем больше вес, тем быстрее выдыхаешься, меньше бегаешь, сильнее трясет прицел. 
+                Вплоть до того, что передвигаться можешь только пешком. 
+                Прям как в жизни, офигеть.
+            </p></div>
+            <img class="lazy" data-src="/media/weight.jpg" />
+        </article>
+
+        <hr>
+
+        <article class="skill">
+            <div><h4>Исправлять заклинивание оружия</h4>
+            <p>По умолчанию Shift+R.</p></div>
+            <img class="lazy" data-src="/media/failure.jpg" />
+        </article>
+
+        <hr>
+
+        <article class="skill">
+            <div><h4>Не умирать и не убивать товарищей при использовании гранатометов</h4>
+            <p>У граника сзади реактивный выхлоп. 
+                Тех, кто во время выстрела стоит сзади или сбоку, калечит или убивает. 
+                Если стреляешь, стоя спиной к стене, то выхлоп отражается и калечит или убивает тебя. 
+                Сам виноват.
+            </p></div>
+            <img class="lazy" data-src="/media/rpg.png" />
+        </article>
+
+        <hr>
+
+        <article class="skill">    
+            <div><h4>Понимать разницу видов снарядов для РПГ-7</h4>
+            <p>Можно почитать Вики или наш <a href="{% url 'windir:page' 'rocket_launcher_guide' %}">гайд</a></p></div>
+            <img class="lazy" data-src="/media/rpg_shots.jpg" />
+        </article>
+
+        <hr>
+
+        <article class="skill">    
+            <div><h4>Уметь пользоваться КВ и ДВ рацией</h4>
+            <p>
+                Клавиши по умолчанию:
+                <ul class="minimum-p">
+                    <li>говорить в КВ рацию — Caps Lock</li>
+                    <li>открыть интерфейс КВ рации — Ctrl+P</li>
+                    <li>говорить в ДВ рацию — Ctrl+Caps Lock</li>
+                    <li>интерфейс — Alt+P</li>
+                    <li>менять канал КВ рации — цифра на NumPad</li>
+                    <li>ДВ рации — Ctrl + цифра на NumPad</li>
+                </ul>
+                В командирской КВ рации и в любой ДВ рации есть функция <span class="b">дополнительного канала</span>, 
+                чтобы можно было слушать одновременно два канала. 
+                Переключаетешься на другой канал, нажимаешь кнопку "Доп.Канал" 
+                (канал меняется с С2 на А2, к примеру) и — опционально — меняешь частоту. 
+                Затем переключаешься обратно на основной канал и вуаля — слышишь оба канала. 
+                Клавиша "Т" — говорить в дополнительный канал.
+            </p></div>
+            <img class="lazy" data-src="/media/radio.png" />
+        </article>
+
+        <hr>
+
+        <article class="skill">
+            <div><h4>Понимать, как узнать частоту основного и резервных радиоканалов</h4>
+            <p>
+                Карта -> Инструктаж -> Частоты -> Ищешь свой отряд, там и указаны частоты. 
+                Если такого нет, то ищешь на карте с краю, прописанные вручную. Если нет и там — спроси КО.
+            </p></div>
+            <img class="lazy" data-src="/media/frequencies.jpg" />
+        </article>
+
+        <hr>
+
+        <article class="skill">
+            <div><h4>Говорить без рации голосом разной громкости (шепот, норма, крик) и понимать, на что это влияет</h4>
+            <p>
+                Регулировать громкость голоса по умолчанию — Ctrl+TAB. 
+                Чем громче голос, тем больше расстояние, на котором тебя всем слышно. 
+                Не влияет на дальность работы раций. 
+                Если в игре у всех рации, то желательно пользоваться шепотом, потому что, говоря по рации, 
+                ты также говоришь и голосом (внезапно).
+            </p></div>
+            <img class="lazy" data-src="/media/voice.png" />
+        </article>
+
+        <hr>
+
+        <article class="skill">
+            <div><h4>Понимать общие принципы оказания мед.помощи</h4>
+            <p>Читать официальную документацию ACE3 Medicine или наш <a href="{% url 'windir:page' 'medicine_guide' %}">гайд</a></p></div>
+            <img class="lazy" data-src="/media/medicine.jpg" />
+        </article>
+    </section>
 </main>
 {% endblock %}

@@ -469,6 +469,8 @@ button, .btn {
   white-space: nowrap;
   border-radius: 3px;
   padding: 0.3rem 0.5rem;
+  width: fit-content;
+  border: 1px solid #222325;
 }
 
 input, textarea, select {
@@ -477,6 +479,8 @@ input, textarea, select {
   outline: none;
   overflow: auto;
   padding: 0.3rem;
+  border: 1px solid #222325;
+  border-radius: 3px;
 }
 
 input[type=checkbox], input[type=radio] {
@@ -544,7 +548,6 @@ ol li::marker, ul li::marker {
 
 .sm {
   font-size: 0.9rem;
-  font-weight: 400;
 }
 
 .hidden {
@@ -552,13 +555,25 @@ ol li::marker, ul li::marker {
   visibility: hidden;
 }
 
+.none {
+  display: none;
+}
+
 .attention {
   color: #cf4c4c;
   font-weight: 500;
 }
 
+.red {
+  color: #cf4c4c;
+}
+
 .green {
   color: #32a852;
+}
+
+.gray {
+  color: #d2d2d2;
 }
 
 @keyframes fade-in {
@@ -918,12 +933,19 @@ footer img:hover {
   }
 }
 
-.error-message {
-  margin: auto;
-  padding: 0.3em;
+.error-msg, .form-error {
   font-size: 0.9rem;
-  text-align: center;
   color: #cf4c4c;
+}
+
+.error-msg {
+  text-align: center;
+  margin: auto;
+  padding: 0.3rem;
+}
+
+.input-red {
+  border-color: #cf4c4c !important;
 }
 
 #cookie-agreement {
@@ -1174,30 +1196,129 @@ section, article {
 .about section p, .about section ul {
   margin-left: 2rem;
 }
-@media (orientation: portrait) {
-  .about section p, .about section ul {
-    margin-left: 0;
-  }
-}
 .about-sigil {
-  position: relative;
   text-align: center;
+  height: 420px;
 }
 .about-sigil img {
-  border: none !important;
-  max-height: 560px;
-}
-.about-sigil h2 {
-  position: absolute;
-  width: 100%;
-  bottom: 0;
+  border: none;
 }
 .about-closing {
   width: 100%;
   text-align: center;
 }
-.about-closing img {
-  max-height: 490px;
+@media (orientation: portrait) {
+  .about section p, .about section ul {
+    margin-left: 0;
+  }
+  .about-sigil {
+    height: unset;
+  }
+}
+
+#register-form > div {
+  display: grid;
+  grid-template-columns: 15rem 15rem 15rem;
+  gap: 1rem;
+  justify-content: center;
+  margin: 0.5rem 0;
+}
+@media (orientation: portrait) {
+  #register-form > div {
+    display: block;
+  }
+}
+#register-form input:not([type=checkbox]), #register-form select {
+  padding: 0 0.5rem;
+  height: 2rem;
+}
+#register-form label {
+  text-align: right;
+  vertical-align: middle;
+}
+#register-form hr {
+  margin: 1rem 0;
+  border-top: 0;
+  background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0));
+  height: 1px;
+}
+#register-form .switch {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+@media (orientation: portrait) {
+  #register-form .switch {
+    margin: 0 1rem;
+  }
+}
+#register-form .switch input {
+  display: none;
+}
+#register-form .switch .slider {
+  position: relative;
+  cursor: pointer;
+  width: 4rem;
+  height: 2rem;
+  background-color: #ccc;
+  transition: 0.4s;
+  padding: 0;
+  margin: 0;
+  border-radius: 15px;
+}
+#register-form .switch .slider:before {
+  position: absolute;
+  content: "";
+  height: calc(2rem - 2px);
+  width: calc(2rem - 2px);
+  left: 1px;
+  top: 1px;
+  background-color: white;
+  transition: 0.4s;
+  border-radius: 50%;
+}
+#register-form .switch input:checked + .slider {
+  background-color: #0095ff;
+}
+#register-form .switch input:focus + .slider {
+  box-shadow: none;
+}
+#register-form .switch input:checked + .slider:before {
+  transform: translateX(2rem);
+}
+#register-form .checks {
+  grid-column: 2/4;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 0.5rem;
+}
+#register-form .checks label {
+  flex-basis: calc((100% - 0.5rem) * 0.3);
+  text-align: left;
+}
+#register-form .checks input[type=checkbox] {
+  margin: 0;
+}
+@media (orientation: portrait) {
+  #register-form .checks label {
+    flex-basis: calc((100% - 0.5rem) * 0.5);
+  }
+  #register-form .checks input[type=checkbox] {
+    margin: unset;
+  }
+}
+#register-form .other-proj {
+  width: 15rem;
+  margin: 1rem 0;
+}
+@media (orientation: portrait) {
+  #register-form .other-proj {
+    width: 100%;
+  }
+}
+#register-form button {
+  padding-block: 0.7rem;
+  margin: 1rem auto;
 }
 
 /*# sourceMappingURL=styles.css.map */

@@ -110,7 +110,7 @@
             <a class="nav-btn" href="{% url 'windir:page' 'skills' %}">Программа-минимум</a>
             <a class="nav-btn" href="{% url 'windir:page' 'articles' %}">Статьи</a>
             <a class="nav-btn" href="{% url 'windir:page' 'about' %}">Об отряде</a>
-            <a class="nav-btn" href="{% url 'windir:page' 'register' %}">Заявка в отряд</a>
+            <a class="nav-btn" href="{% url 'windir:register' %}">Заявка в отряд</a>
             {% if user.is_authenticated %}
             <a class="nav-btn" href="/logout" href="#" onclick="logout()">Выйти</a>
             {% endif %}

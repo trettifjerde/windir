@@ -222,6 +222,8 @@ button, .btn {
     white-space: nowrap;
     border-radius: $border-radius;
     padding: $form-gap 0.5rem;
+    width: fit-content;
+    border: 1px solid $dark;
 }
 
 input, textarea, select {
@@ -231,6 +233,8 @@ input, textarea, select {
     outline: none;
     overflow: auto;
     padding: $form-gap;
+    border: 1px solid $dark;
+    border-radius: $border-radius;
 }
 
 input[type="checkbox"], input[type="radio"]
@@ -305,7 +309,6 @@ ol, ul {
 
 .sm {
     font-size: $font-size-sm;
-    font-weight: 400;
 }
 
 .hidden {
@@ -313,13 +316,25 @@ ol, ul {
     visibility: hidden;
 }
 
+.none {
+    display: none;
+}
+
 .attention {
     color: $red;
     font-weight: $bold;
 }
 
+.red {
+    color: $red;
+}
+
 .green {
     color: $green;
+}
+
+.gray {
+    color: $gray;
 }
 /////// animation classes //////////
 /// 

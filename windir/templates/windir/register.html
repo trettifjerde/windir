@@ -1,7 +1,7 @@
 {% extends 'windir/layout.html' %}
 {% load static %}
 {% block main %}
-<script src="https://www.google.com/recaptcha/api.js?hl=ru" async defer></script>
+<!--- <script src="https://www.google.com/recaptcha/api.js?hl=ru" async defer></script>
 <script type="text/javascript">
 function captchaAnswer(token)
 {
@@ -14,141 +14,123 @@ function captchaAnswer(token)
     document.getElementById("register-form").appendChild(hidden);
     document.getElementById("warning").style = "text-align: center; display: inherit;"
 }
-</script>
+</script>--->
 <main>
-    <h1>Заявление на вступление в отряд</h1>
-    <div id="register-error" class="page-error">
-	</div>
-    <div class="register-container">
-        <form action="" method="POST" id="register-form" name="register-form">
-            <div class="row">
-                <div class="col-left">
-                    <label for="username">Позывной</label>
-                </div>
-                <div class="col-right">
-                    <input type="text" class="req register-input" id="username" name="username" maxlength="15"
-                    placeholder="" onfocus="hide_red(this)" onkeyup="check_login_format(this)">
-                    <span class="footnote">Допустимые сиволы: A-Z, a-z, 0-9, _ , -</span>
-                </div>
+    <h1>Заявка на вступление в отряд</h1>
+    <form action="{% url 'windir:register' %}" method="POST" id="register-form" autocomplete="off">
+        <div>
+            <label for="username">Позывной</label>
+            <input type="text" id="username" name="username" maxlength="15" oninput="check_login_format()" required>
+            <span class="form-error none">Допустимые сиволы: A-Z a-z 0-9 _ -</span>
+        </div>
+        <div>
+            <label for="reg-password">Пароль</label>
+            <input type="password" id="reg-password" name="password" required>
+        </div>
+        <div>
+            <label for="confirm">Подтверждение пароля</label>
+            <input type="password" id="confirm" name="confirm" onfocusout="check_confirm()" oninput="check_confirm()" required>
+            <span class="form-error none">Пароли не совпадают</span>
+        </div>
+        <hr class="hr">
+        <div id="dob">
+            <label for="birth-day">Дата рождения</label>
+            <div>
+                <input type="date" lang="ru" required>
             </div>
-			<div class="row">
-                <div class="col-left">
-                    <label for="username">Пароль</label>
-                </div>
-                <div class="col-right">
-                    <input type="password" class="req register-input" id="reg_password" name="password" maxlength="15"
-                    placeholder="" onfocus="hide_red(this)">
-                </div>
+        </div>
+        <div id="row-telegram">
+            <label for="telegram">Есть в Telegram</label>
+            <label class="switch">
+                <input type="checkbox" id="telegram" name="telegram" 
+                onclick="switchContact()">
+                <span class="slider"></span>
+            </label>
+        </div>
+        <div>
+            <label for="contact" id="contact-label">Электронная почта</label>
+            <input type="email" id="contact" maxlength="30" name="contact" required>
+            <span class="error-msg none"></span>
+        </div>
+        <div>
+            <label for="UTC">Часовой пояс</label>
+            <select  id="UTC" name="UTC">
+                <option disabled selected></option>
+                <option value="0">0 (Западная Европа)</option>
+                <option value="1">+1 (Центральная Европа)</option>
+                <option value="2">+2 (Восточная Европа)</option>
+                <option value="3">+3 (Москва) </option>
+                <option value="4">+4 (Самара, Волгоград)</option>
+                <option value="5">+5 (Екатеринбург)</option>
+                <option value="6">+6 (Омск, Астана)</option>
+                <option value="7">+7 (Новосибирск)</option>
+                <option value="8">+8 (Иркутск)</option>
+                <option value="9">+9 (Якутск)</option>
+                <option value="10">+10 (Владивосток)</option>
+                <option value="11">+11 (Магадан)</option>
+                <option value="12">+12 (Камчатка)</option>
+                <option value="-1">-1 (Кабо Верде)</option>
+                <option value="-2">-2 (острова Бразилии)</option>
+                <option value="-3">-3 (Бразилия, Аргентина)</option>
+                <option value="-4">-4 (Венесуэла, Чили)</option>
+                <option value="-5">-5 (Нью-Йорк, Торонто)</option>
+                <option value="-6">-6 (Чикаго, Мексика)</option>
+                <option value="-7">-7 (Денвер, Фарго)</option>
+                <option value="-8">-8 (Лос-Анджелес)</option>
+                <option value="-9">-9 (Аляска)</option>
+                <option value="-10">-10 (Гавайи)</option>
+            </select>
+        </div>
+        <hr>
+        <div>
+            <label for="hours">Количество наигранных часов</label>
+            <input type="number" id="hours" name="hours" min="0" required>
+        </div>
+        <div id="role-list">
+            <label>Предпочитаемая специализация</label>
+            <div class="checks">
+                {% for spec in specs %}
+                <label>
+                    <input type="checkbox" name="project" value="{{ spec.id }}">
+                    {{ spec.name }}
+                </label>
+                {% endfor %}
             </div>
-			<div class="row">
-                <div class="col-left">
-                    <label for="username">Подтверждение пароля</label>
-                </div>
-                <div class="col-right">
-                    <input type="password" class="req register-input" id="confirm" name="confirm" maxlength="15"
-                    placeholder="" onfocus="hide_red(this)" onkeyup="check_confirm('reg_password', 'confirm')">
-                </div>
+        </div>
+        <div>
+            <label>Проекты, на которых вы играли</label>
+            <div class="checks">
+                {% for proj in projects %}
+                <label>
+                    <input type="checkbox" name="project" value="{{ proj.id }}">
+                    {{ proj.name }}
+                </label>
+                {% endfor %}
+                <label>
+                    <input type="checkbox" name="project-other" onclick="showOtherProjects()">
+                    Другое
+                </label>
+                <input class="other-proj none" type="text" placeholder="Перечислите другие">
             </div>
-			<hr class="hr">
-            <div class="row">
-                <div class="col-left">
-                    <label for="born">Дата рождения</label>
-                </div>
-                <div class="col-right">
-                    <input type="text" id="birth-day" name="birth-day" class="req register-input"
-                    size="2" placeholder="дд" onfocus="hide_red(this)" onkeyup="start_dob(this)"
-                    onchange="check_dob(this)">.<input type="text" id="birth-month" name="birth-month"
-                    class="req register-input" size="2" placeholder="мм" onfocus="hide_red(this)"
-                    onkeyup="start_dob(this)" onchange="check_dob(this)">.<input type="text"
-                    id="birth-year" name="birth-year" class="req register-input" size="4"
-                    placeholder="гггг" onfocus="hide_red(this)" onkeyup="start_dob(this)" onchange="check_dob(this)">
-                </div>
-            </div>
-            <div class="row" id="row-telegram">
-                <div class="col-left" id="div-telegram-label">
-                    <label for="telegram">Есть в Telegram</label>
-                </div>
-                <div class="col-right" id="div-telegram">
-                    <label class="switch">
-                        <input type="checkbox" id="telegram" name="telegram" value="true" onclick="switch_contact()"><span class="slider"></span>
-                    </label>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-left">
-                    <label for="contact" id="contact-label">Электронная почта</label>
-                </div>
-                <div class="col-right">
-                    <input type="text" class="req register-input" id="contact" maxlength="30" name="contact" onfocus="hide_red(this)">
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-left">
-                    <label for="UTC">Часовой пояс</label>
-                </div>
-                <div class="col-right">
-                    <select class="req register-input" id="UTC" name="UTC" onfocus="hide_red(this)">
-                        <option disabled selected></option>
-                        <option value="0">0 (Западная Европа)</option>
-                        <option value="1">+1 (Центральная Европа)</option>
-                        <option value="2">+2 (Восточная Европа)</option>
-                        <option value="3">+3 (Москва) </option>
-                        <option value="4">+4 (Самара, Волгоград)</option>
-                        <option value="5">+5 (Екатеринбург)</option>
-                        <option value="6">+6 (Омск, Астана)</option>
-                        <option value="7">+7 (Новосибирск)</option>
-                        <option value="8">+8 (Иркутск)</option>
-                        <option value="9">+9 (Якутск)</option>
-                        <option value="10">+10 (Владивосток)</option>
-                        <option value="11">+11 (Магадан)</option>
-                        <option value="12">+12 (Камчатка)</option>
-                        <option value="-1">-1 (Кабо Верде)</option>
-                        <option value="-2">-2 (острова Бразилии)</option>
-                        <option value="-3">-3 (Бразилия, Аргентина)</option>
-                        <option value="-4">-4 (Венесуэла, Чили)</option>
-                        <option value="-5">-5 (Нью-Йорк, Торонто)</option>
-                        <option value="-6">-6 (Чикаго, Мексика)</option>
-                        <option value="-7">-7 (Денвер, Фарго)</option>
-                        <option value="-8">-8 (Лос-Анджелес)</option>
-                        <option value="-9">-9 (Аляска)</option>
-                        <option value="-10">-10 (Гавайи)</option>
-                    </select>
-                </div>
-            </div>
-			<hr class="hr">
-			<div class="row">
-                <div class="col-left">
-                    <label for="hours">Количество наигранных часов</label>
-                </div>
-                <div class="col-right">
-                    <input type="number" class="req register-input" id="hours" name="hours" min="0" placeholder="" onfocus="hide_red(this)">
-                </div>
-            </div>
-            <div class="row" id="role-list">
-                <script>get_role_list();</script>
-            </div>
-            <div class="row">
-                <div class="col-left">
-                    <label>Проекты, на которых вы играли</label>
-                </div>
-                <div class="col-right" id="projects-list">
-                    <script>get_projects_list();</script>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-left">
-                    <label for="teams">Отряды, в которых вы состояли</label>
-                </div>
-                <div class="col-right">
-                    <input type="text" class="register-input" id="teams" maxlength="30" name="teams">
-                </div>
-            </div>
-            <center><div class="g-recaptcha" data-sitekey="6LcJLdsUAAAAAAUMB6spZRi_bosNh9t5bZFa_mNZ" data-callback="captchaAnswer"></div></center>
-            <div class="button">
-                <input type="submit" disabled id="register-submit" class="register-button" value="Отправить заявку" onclick="if(!check_confirm('reg_password', 'confirm')){send_form(this.parentNode.parentNode, '/newmember');}else{scroll_up();}">
-            </div>
-            <p id="warning" style="display: none;"><span class="footnote">Нажимая "Отправить", вы подтверждаете, что ознакомились с <a href="/about">информацией об отряде и его правилами</a></span></p>
-        </form>
-    </div>
+        </div>
+        <div>
+            <label for="teams">Отряды, в которых вы состояли</label>
+            <input type="text" class="register-input" id="teams" maxlength="30" name="teams">
+        </div>
+        <center><div class="g-recaptcha" data-sitekey="6LcJLdsUAAAAAAUMB6spZRi_bosNh9t5bZFa_mNZ" data-callback="captchaAnswer"></div></center>
+        
+        <button type="submit" disabled id="register-submit" class="register-button" 
+            onclick="if(!check_confirm('reg_password', 'confirm')){send_form(this.parentNode.parentNode, '/newmember');}else{scroll_up();}">
+            Отправить заявку</button>
+        <p id="warning" style="display: none;"><span class="footnote">
+            Нажимая "Отправить", вы подтверждаете, что ознакомились с 
+            <a href="/about">информацией об отряде и его правилами</a></span>
+        </p>
+    </form>
+    <script>
+        document.querySelectorAll('#register-form input').forEach(
+            input => input.addEventListener('focus', hideRed)
+        );
+    </script>
 </main>
 {% endblock %}

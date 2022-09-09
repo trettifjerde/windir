@@ -116,3 +116,54 @@ function scrollDown() {
     if (window.innerHeight > window.innerWidth)
         document.querySelector('nav').classList.replace('nav-white', 'nav-black');
 }
+
+function hideRed() {
+    this.classList.remove('input-red');
+    if (this.nextElementSibling?.classList.contains('form-error'))
+        this.nextElementSibling.classList.add('hidden');
+}
+
+function markRed() {
+    this.classList.add('input-red');
+    const sib = this.nextElementSibling;
+    if (sib && sib.tagName === 'SPAN')
+        sib.classList.remove('hidden');;
+}
+
+function check_login_format() {
+    const login = event.target;
+    let reg = /^[A-Za-z0-9-_]+$/;
+    if (login.value && !reg.test(login.value))
+        markRed.bind(login)();
+    else
+        hideRed.bind(login)();
+}
+
+function check_confirm()
+{
+    const pass = document.getElementById('reg-password');
+    const confirm = document.getElementById('confirm');
+    if (pass.value === confirm.value)
+        hideRed.bind(confirm)()
+    else if (event.type === "focusout")
+        markRed.bind(confirm)();
+}
+
+function switchContact() {
+    const contact = document.querySelector('#contact');
+    if (event.target.checked) {
+        contact.type = "text";
+        document.getElementById("contact-label").innerHTML = "Никнейм";
+    }
+    else {
+        contact.type = "email";
+        document.getElementById("contact-label").innerHTML = "Электронная почта";
+    }
+    contact.value = "";
+    contact.focus();
+}
+
+function showOtherProjects() {
+    document.querySelector('.other-proj').classList.toggle('none');
+}
+

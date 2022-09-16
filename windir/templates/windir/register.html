@@ -17,27 +17,30 @@ function captchaAnswer(token)
 </script>--->
 <main>
     <h1>Заявка на вступление в отряд</h1>
-    <form action="{% url 'windir:register' %}" method="POST" id="register-form" autocomplete="off">
+    <form id="register-form" autocomplete="off">
+        <p class="error-msg"></p>
+        {% csrf_token %}
         <div>
             <label for="username">Позывной</label>
-            <input type="text" id="username" name="username" maxlength="15" oninput="check_login_format()" required>
-            <span class="form-error none">Допустимые сиволы: A-Z a-z 0-9 _ -</span>
+            <input class="input" type="text" id="username" name="username" maxlength="15" oninput="check_login_format()" required>
+            <span class="form-error"></span>
         </div>
         <div>
             <label for="reg-password">Пароль</label>
-            <input type="password" id="reg-password" name="password" required>
+            <input class="input" type="password" id="reg-password" name="password1" required>
         </div>
         <div>
             <label for="confirm">Подтверждение пароля</label>
-            <input type="password" id="confirm" name="confirm" onfocusout="check_confirm()" oninput="check_confirm()" required>
-            <span class="form-error none">Пароли не совпадают</span>
+            <input class="input" type="password" id="confirm" name="password2" 
+            onfocusout="check_confirm('reg-password', 'confirm')" 
+            oninput="check_confirm('reg-password', 'confirm')">
+            <span class="form-error"></span>
         </div>
         <hr class="hr">
         <div id="dob">
             <label for="birth-day">Дата рождения</label>
-            <div>
-                <input type="date" lang="ru" required>
-            </div>
+            <input class="input" name="dob" type="date" lang="ru" required>
+            <span class="form-error"></span>
         </div>
         <div id="row-telegram">
             <label for="telegram">Есть в Telegram</label>
@@ -49,12 +52,12 @@ function captchaAnswer(token)
         </div>
         <div>
             <label for="contact" id="contact-label">Электронная почта</label>
-            <input type="email" id="contact" maxlength="30" name="contact" required>
-            <span class="error-msg none"></span>
+            <input class="input" type="email" id="contact" maxlength="30" name="contact" required>
+            <span class="form-error"></span>
         </div>
         <div>
             <label for="UTC">Часовой пояс</label>
-            <select  id="UTC" name="UTC">
+            <select class="input" id="UTC" name="UTC">
                 <option disabled selected></option>
                 <option value="0">0 (Западная Европа)</option>
                 <option value="1">+1 (Центральная Европа)</option>
@@ -84,14 +87,15 @@ function captchaAnswer(token)
         <hr>
         <div>
             <label for="hours">Количество наигранных часов</label>
-            <input type="number" id="hours" name="hours" min="0" required>
+            <input class="input" type="number" id="hours" name="hours" required>
+            <span class="form-error"></span>
         </div>
         <div id="role-list">
             <label>Предпочитаемая специализация</label>
             <div class="checks">
                 {% for spec in specs %}
                 <label>
-                    <input type="checkbox" name="project" value="{{ spec.id }}">
+                    <input type="checkbox" name="specs" value="{{ spec.id }}">
                     {{ spec.name }}
                 </label>
                 {% endfor %}
@@ -102,7 +106,7 @@ function captchaAnswer(token)
             <div class="checks">
                 {% for proj in projects %}
                 <label>
-                    <input type="checkbox" name="project" value="{{ proj.id }}">
+                    <input type="checkbox" name="projects" value="{{ proj.id }}">
                     {{ proj.name }}
                 </label>
                 {% endfor %}
@@ -110,27 +114,20 @@ function captchaAnswer(token)
                     <input type="checkbox" name="project-other" onclick="showOtherProjects()">
                     Другое
                 </label>
-                <input class="other-proj none" type="text" placeholder="Перечислите другие">
+                <input class="other-proj none" type="text" name="other-proj" placeholder="Перечислите другие">
             </div>
         </div>
         <div>
             <label for="teams">Отряды, в которых вы состояли</label>
-            <input type="text" class="register-input" id="teams" maxlength="30" name="teams">
+            <input class="input" type="text" class="register-input" id="teams" name="teams">
         </div>
         <center><div class="g-recaptcha" data-sitekey="6LcJLdsUAAAAAAUMB6spZRi_bosNh9t5bZFa_mNZ" data-callback="captchaAnswer"></div></center>
         
-        <button type="submit" disabled id="register-submit" class="register-button" 
-            onclick="if(!check_confirm('reg_password', 'confirm')){send_form(this.parentNode.parentNode, '/newmember');}else{scroll_up();}">
-            Отправить заявку</button>
-        <p id="warning" style="display: none;"><span class="footnote">
+        <button type="button" onclick="register()">Отправить заявку</button>
+        <p class="sm c">
             Нажимая "Отправить", вы подтверждаете, что ознакомились с 
-            <a href="/about">информацией об отряде и его правилами</a></span>
+            <a href="/about">информацией об отряде и его правилами</a>
         </p>
     </form>
-    <script>
-        document.querySelectorAll('#register-form input').forEach(
-            input => input.addEventListener('focus', hideRed)
-        );
-    </script>
 </main>
 {% endblock %}

@@ -22,7 +22,6 @@
     <link rel="icon" type="image/png" sizes="32x32" href="/media/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="96x96" href="/media/favicon-96x96.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/media/favicon-16x16.png">
-    <!---<link rel="manifest" href="/js/manifest.json">--->
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="msapplication-TileImage" content="/media/ms-icon-144x144.png">
     <meta name="theme-color" content="#ffffff">
@@ -39,34 +38,35 @@
 </head>
 <body>
     <div id="content">
-        <header id="header"
-        {% if user.is_authenticated %}onmouseleave="hide_profile()"{% endif %}>
+        <header id="header">
             <div class="logo">windir</div>
             {% if user.is_authenticated %}
             <div class="profile-div">
-                <span id="username" onclick="open_profile()">{{ user.username }}</span>, ein windir
+                <div><span id="username" onclick="openProfile()">{{ user.username }}</span>, ein windir</div>
+                <div class="error-msg"></div>
             </div>
-            <div id="profile-form-div" class="invisible hide">
-                <form action="{% url 'windir:profile' %}" method="POST" autocomplete="off">
+            <div id="profile-form-div" class="hidden">
+                <form id="profile-form" autocomplete="off">
                     {% csrf_token %}
                     <div class="error-msg"></div>
-                    <input type="password" name="old_pwd" id="old_pwd" placeholder="Текущий пароль">
-                    <input type="password" name="new_pwd" id="new_pwd" placeholder="Новый пароль" >
-                    <input type="password" name="new_confirm" id="new_confirm" placeholder="Еще раз" onkeyup="check_confirm()">
-                    <button type="submit" class="btn-std">Сменить</button>
+                    <input class="input" type="password" name="old_pwd" id="old_pwd" placeholder="Текущий пароль" required>
+                    <input class="input" type="password" name="password" id="new_pwd" placeholder="Новый пароль" required>
+                    <input class="input" type="password" name="confirm" id="new_confirm" placeholder="Еще раз" 
+                    oninput="check_confirm('new_pwd', 'new_confirm')"
+                    onfocusout="check_confirm('new_pwd', 'new_confirm')" required>
+                    <button type="button" class="btn-std">Сменить</button>
                 </form>
             </div>
             {% else %}
-            <form action="{% url 'windir:login' %}" method="POST" autocomplete="off">
+            <form autocomplete="off" id="login-form">
                 {% csrf_token %}
                 <div class="error-msg"></div>
-                <input type="text" id="login" name="login" placeholder="Логин">
-                <input type="password" id="password" name ="password" placeholder="Пароль">
+                <input class="input" type="text" name="username" placeholder="Логин" required>
+                <input class="input" type="password" name ="password" placeholder="Пароль" required>
                 <div class="c">
                     <label><input type="checkbox" id="remember" name="remember">Запомнить</label>
-                    <button type="submit" class="btn-std">Войти</button>
+                    <button type="button" class="btn-std" onclick="login()">Войти</button>
                 </div>
-
             </form>
             {% endif %}
         </header>
@@ -112,7 +112,8 @@
             <a class="nav-btn" href="{% url 'windir:page' 'about' %}">Об отряде</a>
             <a class="nav-btn" href="{% url 'windir:register' %}">Заявка в отряд</a>
             {% if user.is_authenticated %}
-            <a class="nav-btn" href="/logout" href="#" onclick="logout()">Выйти</a>
+                <div class="spacer"></div>
+                <a class="nav-btn" href="/logout" onclick="logout(); return false;">Выйти</a>
             {% endif %}
         </div>
         

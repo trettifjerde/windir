@@ -1,7 +1,31 @@
 window.addEventListener('load', ()=> {
     checkCookies();
     scrollDown();
+    document.querySelectorAll('form').forEach(form => {
+        form.querySelectorAll('.input').forEach(input => input.addEventListener('focus', ()=> hideRed(input)));
+    })
 })
+
+async function getData(url, method="GET", data=null, toJson=true) {
+    const headers = {'X-Requested-With': 'XMLHttpRequest'};
+    const body = data && toJson ? JSON.stringify(data) : data;
+
+    if (method !== "GET")
+        headers['X-CSRFToken'] = document.querySelector('input[name="csrfmiddlewaretoken"]').value;
+
+    try 
+    {
+        return await fetch(url, {
+            method: method,  
+            headers: headers,
+            body: body
+        })
+        .then(res => res.json())
+    }
+    catch {
+        return {error: 'Проблема с интернет-подключением'};
+    };
+}
 
 
 function addCookie(name, value) {
@@ -17,6 +41,46 @@ function getCookie(name) {
         .split('; ')
         .find(entry => entry.startsWith(name))
         ?.split('=')[1];
+}
+
+async function login() {
+    const btn = event.target;
+    const form = event.target.form;
+    btn.disabled = true;
+    let valid = true;
+
+    for (const el of form.elements) {
+        if (! el.checkValidity()) {
+            markRed(el);
+            valid = false;
+        }
+    }
+
+    if (!valid) btn.disabled = false;
+    else {
+        const res = await getData('/login/', 'POST', {'username': form.username.value, 'password': form.password.value});
+
+        if ('success' in res) location.reload(true);
+        else {
+            if ('error' in res) form.querySelector('.error-msg').innerHTML = res.error;
+            else if ('user-error' in res) {
+                form.querySelector('.error-msg').innerHTML = res['user-error'];
+                markRed(form.username);
+                markRed(form.password);
+            }
+            else {
+                form.querySelector('.error-msg').innerHTML = "Произошла ошибка, свяжитесь с администратором";
+                console.log(res);
+            };
+            btn.disabled = false;
+        }
+    }
+}
+
+async function logout() {
+    const res = await getData('/logout/');
+    if ('error' in res) document.querySelector('.error-msg').innerHTML = res.error;
+    else window.location.reload(true);
 }
 
 function openNav() {
@@ -117,36 +181,39 @@ function scrollDown() {
         document.querySelector('nav').classList.replace('nav-white', 'nav-black');
 }
 
-function hideRed() {
-    this.classList.remove('input-red');
-    if (this.nextElementSibling?.classList.contains('form-error'))
-        this.nextElementSibling.classList.add('hidden');
+function hideRed(input) {
+    input.classList.remove('invalid');
 }
 
-function markRed() {
-    this.classList.add('input-red');
-    const sib = this.nextElementSibling;
-    if (sib && sib.tagName === 'SPAN')
-        sib.classList.remove('hidden');;
+function markRed(input, msg=null) {
+    input.classList.add('invalid');
+    if (input.nextElementSibling?.classList.contains('form-error')) {
+        input.nextElementSibling.innerHTML = msg ? msg : 'Это обязательно';
+    }
 }
 
 function check_login_format() {
     const login = event.target;
     let reg = /^[A-Za-z0-9-_]+$/;
     if (login.value && !reg.test(login.value))
-        markRed.bind(login)();
+        markRed(login, 'Допустимые сиволы: A-Z a-z 0-9 _ -');
     else
-        hideRed.bind(login)();
+        hideRed(login);
 }
 
-function check_confirm()
+function check_confirm(passwordId, confirmId)
 {
-    const pass = document.getElementById('reg-password');
-    const confirm = document.getElementById('confirm');
+    const pass = document.getElementById(passwordId);
+    const confirm = document.getElementById(confirmId);
     if (pass.value === confirm.value)
-        hideRed.bind(confirm)()
-    else if (event.type === "focusout")
-        markRed.bind(confirm)();
+    {
+        hideRed(confirm);
+        return true;
+    }
+    else if (event.type !== "input"){
+        markRed(confirm, 'Пароли не совпадают');
+        return false;
+    }
 }
 
 function switchContact() {
@@ -167,3 +234,48 @@ function showOtherProjects() {
     document.querySelector('.other-proj').classList.toggle('none');
 }
 
+function openProfile() {
+    document.querySelector('#profile-form-div').classList.toggle('hidden');
+}
+
+async function register() {
+    const btn = event.target;
+    const form = event.target.form;
+    btn.disabled = true;
+
+    let valid = check_confirm('reg-password', 'confirm');
+    /*
+    for (const el of form.elements){
+        if (!el.checkValidity())
+        {
+            markRed(el);
+            valid = false;
+        }
+    }
+    */
+
+    if (valid) {
+        const res = await getData('/register/', 'POST', new FormData(form), false);
+        if ('success' in res) {
+            document.querySelector('main').innerHTML = "<h3>Заявка отправлена</h3>";
+            document.querySelector('main').scrollIntoView({behavior:'smooth'});
+        }
+        else if ('errors' in res) {
+            console.log(res);
+            markFormInvalid(form, btn, errors=res.errors);
+        }
+        else markFormInvalid(form, btn, msg='Произошла ошибка. Повторите позже.')
+    }
+    else markFormInvalid(form, btn);
+}
+
+function markFormInvalid(form, btn, errors=null, msg=null) {
+    if (errors) {
+        for (let name in errors) {
+            markRed(form[name], errors[name]);
+        }
+    }
+    btn.disabled = false;
+    form.querySelector('.error-msg').innerHTML = msg? msg : "Не все поля заполнены верно";
+    document.querySelector('main').scrollIntoView({behavior:'smooth'});
+}

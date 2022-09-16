@@ -1,10 +1,17 @@
 from django.contrib import admin
-from .models import WindirMember
-from django.contrib.auth.admin import UserAdmin
+from .models import WindirMember, Spec, Project
 
 # Register your models here.
 
 class MemberAdmin(admin.ModelAdmin):
     model = WindirMember
 
+class SpecAdmin(admin.ModelAdmin):
+    model = Spec
+
+class ProjectAdmin(admin.ModelAdmin):
+    model = Project
+
 admin.site.register(WindirMember, MemberAdmin)
+admin.site.register(Spec, SpecAdmin)
+admin.site.register(Project, ProjectAdmin)

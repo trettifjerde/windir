@@ -1,44 +1,52 @@
-from django.shortcuts import render
-from django.http import HttpResponse, HttpResponseNotFound
+import json
+from django.shortcuts import render, redirect
+from django.contrib.auth import authenticate, login, logout
+from django.http import HttpResponse, HttpResponseNotFound, JsonResponse
+from windir.models import Spec, Project
+from windir.forms import MemberForm
+
+def is_ajax(function):
+    def inner(request):
+        if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+            return function(request)
+        else:
+            return redirect('windir:index')
+    return inner
 
 def index(request):
     return render(request, 'windir/index.html')
 
-def login(request):
-    return HttpResponse('')
+@is_ajax
+def login_view(request):
+    if request.method == "POST":
+        data = json.loads(request.body)
+        username = data["username"]
+        password = data["password"]
 
-def logout(request):
-    return HttpResponse('')
+        user = authenticate(request, username=username, password=password)
 
-def register(request):
-    specs = [
-        {"id": 100, "name": "КС"},
-        {"id": 101, "name": "КО"},
-        {"id": 102, "name": "ЗамКО"},
-        {"id": 103, "name": "Стрелок ГП"},
-        {"id": 104, "name": "Пулеметчик"},
-        {"id": 105, "name": "Медик"},
-        {"id": 106, "name": "Гранатометчик"},
-        {"id": 107, "name": "Снайпер"},
-        {"id": 108, "name": "Стрелок"},
-        {"id": 109, "name": "Инженер"},
-        {"id": 110, "name": "Пилот"},
-        {"id": 111, "name": "Мехвод"},
-        {"id": 112, "name": "Наводчик"},
-        {"id": 113, "name": "Сапер"},
-        {"id": 114, "name": "Артиллерист"},
-    ]
-    projects = [
-        {"id": 53, "name": "RedBear"},
-        {"id": 50, "name": "WOG"},
-        {"id": 51, "name": "WOG3"},
-        {"id": 54, "name": "SquadGames"},
-        {"id": 52, "name": "HMG"},
-        {"id": 55, "name": "Tushino"},
-        {"id": 56, "name": "FT-2"},
-        {"id": 57, "name": "Domination"},
-    ]
-    return render(request, 'windir/register.html', {"specs": specs, "projects": projects})
+        if user is not None:
+            login(request, user)
+            return JsonResponse({'success': ''})
+        else:
+            return JsonResponse({'user-error': 'Неверный логин или пароль'})
+
+    return JsonResponse({'site-error': 'Must be POST'})
+
+@is_ajax
+def logout_view(request):
+    logout(request)
+    return JsonResponse({'success': ''})
+
+def register_view(request):
+    if request.method == "POST":
+        form = MemberForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return JsonResponse({'success': ''})
+        else:
+            return JsonResponse({'errors': form.errors})
+    return render(request, 'windir/register.html', {"specs": Spec.objects.all(), "projects": Project.objects.all()})
 
 def profile(request):
     return HttpResponse('')

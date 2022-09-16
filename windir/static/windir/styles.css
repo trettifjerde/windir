@@ -327,7 +327,7 @@ header form {
   align-items: center;
 }
 
-input, textarea, select, button, .btn, a, a:visited {
+.input, button, .btn, a, a:visited {
   transition: all 0.2s ease-in-out;
 }
 
@@ -335,6 +335,11 @@ form {
   display: flex;
   flex-direction: column;
   gap: 0.2rem;
+}
+
+.form-error, .error-msg {
+  font-size: 0.9rem;
+  color: #db3c3c;
 }
 
 @media (orientation: portrait) {
@@ -473,7 +478,7 @@ button, .btn {
   border: 1px solid #222325;
 }
 
-input, textarea, select {
+.input {
   font-weight: 300;
   width: 100%;
   outline: none;
@@ -560,12 +565,12 @@ ol li::marker, ul li::marker {
 }
 
 .attention {
-  color: #cf4c4c;
+  color: #db3c3c;
   font-weight: 500;
 }
 
 .red {
-  color: #cf4c4c;
+  color: #db3c3c;
 }
 
 .green {
@@ -685,7 +690,7 @@ header form {
   width: 15vw;
   margin: auto;
 }
-header input {
+header .input {
   color: #f8f8f8;
   background-color: transparent;
   border-radius: 0.4rem;
@@ -725,6 +730,10 @@ header button {
   background-color: #f8f8f8;
   color: #070707;
   opacity: 1;
+}
+.btn-std:disabled {
+  background-color: transparent !important;
+  color: #222325;
 }
 
 nav {
@@ -782,19 +791,21 @@ nav {
   }
 }
 
+.spacer {
+  flex-grow: 1;
+}
+@media (orientation: portrait) {
+  .spacer {
+    display: none;
+  }
+}
+
 #nav-btns {
   z-index: 15;
-}
-#nav-btns .spacer {
-  flex-grow: 1;
 }
 @media (orientation: portrait) {
   #nav-btns {
     justify-content: space-between;
-    z-index: 15;
-  }
-  #nav-btns .spacer {
-    display: none;
   }
 }
 
@@ -933,9 +944,18 @@ footer img:hover {
   }
 }
 
-.error-msg, .form-error {
-  font-size: 0.9rem;
-  color: #cf4c4c;
+.profile-div {
+  font-size: 1.2rem;
+  color: #f8f8f8;
+  text-align: center;
+}
+.profile-div #username {
+  color: gray;
+  cursor: pointer;
+}
+
+#profile-form-div {
+  transition: all 0.4s;
 }
 
 .error-msg {
@@ -944,8 +964,15 @@ footer img:hover {
   padding: 0.3rem;
 }
 
-.input-red {
-  border-color: #cf4c4c !important;
+.form-error {
+  display: none;
+}
+
+.invalid {
+  border-color: #db3c3c !important;
+}
+.invalid + .form-error {
+  display: block;
 }
 
 #cookie-agreement {

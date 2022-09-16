@@ -17,7 +17,7 @@ $dark: #222325;
 $gray: #d2d2d2;
 $light-trans: color.adjust($dark, $alpha: -0.7);
 $dark-trans: color.adjust($dark, $alpha: -0.3);
-$red: #cf4c4c;
+$red: #db3c3c;
 $green: #32a852;
 $blue: #0095ff;
 $light-blue: #4ec4ec;
@@ -101,6 +101,11 @@ $themes: (
         color: color.invert($color);
         opacity: 1;
     }
+
+    &:disabled {
+        background-color: transparent !important;
+        color: $dark;
+    }
 }
 
 @mixin nav-theme($name) {
@@ -156,6 +161,11 @@ $themes: (
     display: flex;
     flex-direction: column;
     gap: 0.2rem;
+}
+
+%error-msg {
+    font-size: $font-size-sm;
+    color: $red;
 }
 
 %img-mobile {
@@ -226,7 +236,7 @@ button, .btn {
     border: 1px solid $dark;
 }
 
-input, textarea, select {
+.input {
     @extend %transition-ease;
     font-weight: 300;
     width: 100%;
@@ -236,6 +246,7 @@ input, textarea, select {
     border: 1px solid $dark;
     border-radius: $border-radius;
 }
+
 
 input[type="checkbox"], input[type="radio"]
 {

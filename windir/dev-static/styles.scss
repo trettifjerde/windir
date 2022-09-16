@@ -47,7 +47,7 @@ header {
         margin: auto;
     }
 
-    input
+    .input
     {
         color: $light;
         background-color: transparent;
@@ -135,21 +135,17 @@ nav {
     }
 }
 
+.spacer {
+    flex-grow: 1;
+    @include mobile { display: none;}
+}
+
 #nav-btns {
     @extend %flex-row;
     z-index: 15;
-    
-    .spacer {
-        flex-grow: 1;
-    }
 
     @include mobile {
         justify-content: space-between;
-        z-index: 15;
-
-        .spacer {
-            display: none;
-        }
     }
 }
 
@@ -259,20 +255,36 @@ footer {
     }
 }
 
-.error-msg, .form-error
-{
-    font-size: $font-size-sm;
-    color: $red;
+.profile-div {
+    font-size: 1.2rem;
+    color: $light;
+    text-align: center;
+
+    #username { color: gray; cursor: pointer;}
+}
+
+#profile-form-div {
+    transition: all .4s;
 }
 
 .error-msg {
+    @extend %error-msg;
     text-align: center;
     margin: auto;
     padding: 0.3rem;
 }
 
-.input-red {
+.form-error {
+    @extend %error-msg;
+    display: none;
+}
+
+.invalid {
     border-color: $red !important;
+
+    & + .form-error {
+        display: block;
+    }
 }
 
 #cookie-agreement

@@ -5,7 +5,16 @@
 	<h1>Расписание игр</h1>
 	<div class="c remark">Доступно для заполнения с воскресенья по среду (сброс таблицы в воскресенье в 16:00 по мск)</div>
 	<div id="table-error" class="error-msg"></div>
-	<div id="table"></div>
-	<script src="{% static 'windir/get_table.js'%}" async></script>
+	<div id="table">
+		{% for game in games %}
+		<div>
+			<div>{{ game.project }}</div>
+			{% if game.project.image %}<img src="{{ game.project.image.url }}">
+			{% else %}<img src="">
+			{% endif %}
+		</div>
+		{% endfor %}
+	</div>
+	
 </main>
 {% endblock %}

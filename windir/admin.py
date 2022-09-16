@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import WindirMember, Spec, Project
+from .models import WindirMember, Spec, Project, Game
 
 # Register your models here.
 
@@ -15,3 +15,4 @@ class ProjectAdmin(admin.ModelAdmin):
 admin.site.register(WindirMember, MemberAdmin)
 admin.site.register(Spec, SpecAdmin)
 admin.site.register(Project, ProjectAdmin)
+admin.site.register(Game)

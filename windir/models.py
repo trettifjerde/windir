@@ -11,6 +11,7 @@ class Spec(models.Model):
 
 class Project(models.Model):
     name = models.CharField(max_length=50)
+    image = models.ImageField(upload_to='project-imgs/', blank=True)
 
     def __str__(self):
         return f'{self.name}'
@@ -38,4 +39,14 @@ class WindirMember(AbstractBaseUser, PermissionsMixin):
 
     def __str__(self):
         return f'{self.username}'
+
+class Game(models.Model):
+    project = models.ForeignKey(Project, on_delete=models.CASCADE)
+    weekday = models.IntegerField(unique=True)
+    time = models.IntegerField()
+    first = models.ManyToManyField(WindirMember, blank=True, related_name="game_first")
+    second = models.ManyToManyField(WindirMember, blank=True, related_name="game_second")
+
+    def __str__(self):
+        return f'#{self.id}: {self.project} at {self.time}'
 

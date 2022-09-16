@@ -2,7 +2,7 @@ import json
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponse, HttpResponseNotFound, JsonResponse
-from windir.models import Spec, Project
+from windir.models import Spec, Project, Game
 from windir.forms import MemberForm
 
 def is_ajax(function):
@@ -50,6 +50,9 @@ def register_view(request):
 
 def profile(request):
     return HttpResponse('')
+
+def table(request):
+    return render(request, 'windir/table.html', {'games': Game.objects.all()})
 
 def page(request, page_name): 
     try: 

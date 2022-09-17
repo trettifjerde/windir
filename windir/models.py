@@ -26,8 +26,8 @@ class WindirMember(AbstractBaseUser, PermissionsMixin):
     dob = models.DateField()
     utc = models.IntegerField(null=True, blank=True)
     hours = models.IntegerField()
-    specs = models.ManyToManyField(Spec, blank=True)
-    projects = models.ManyToManyField(Project, blank=True)
+    spec = models.ManyToManyField(Spec, blank=True)
+    project = models.ManyToManyField(Project, blank=True)
     other = models.CharField(max_length=100, null=True, blank=True)
     teams = models.CharField(max_length=100, null=True, blank=True)
 

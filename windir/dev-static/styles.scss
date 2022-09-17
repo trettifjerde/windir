@@ -332,25 +332,6 @@ main {
     }
 }
 
-.dark {
-    color: $gray;
-    background: $dark;
-
-    a {
-        color: $light-blue;
-        &:hover {text-shadow: 0 0 1px white;}
-    }
-    img {
-        border: 2px solid $gray;
-    }
-
-    hr {
-        border-color: $gray;
-    }
-
-    h1, h2, h3, h4, h5 {text-shadow: -1px 0 5px black, 0 1px 5px black, 1px 0 5px black, 0 -1px 5px black;}
-}
-
 .on-pic-text {
     display: flex;
     flex-direction: column;
@@ -654,8 +635,11 @@ section, article {
     }
 }
 
+.table-container {
+    overflow: auto;
+}
 #table {
-    width: 100%;
+    min-width: 100%;
     table-layout: fixed;
 
     thead td { text-align: center;}
@@ -663,9 +647,15 @@ section, article {
     td { 
         border: 1px solid $dark;
         border-radius: 3px;
-        width: 2rem;
+        min-width: 4rem;
         text-align: center;
         padding: 0.2rem;
+    }
+
+    .membername {
+        position: sticky;
+        left: 0;
+        background-color: $light;
     }
 
     img {border: 1px solid transparent;}
@@ -676,6 +666,8 @@ section, article {
 
         img { 
             width: 5rem;
+            max-width: none;
+            max-height: none;
             height: 5rem;
             padding: 1.5rem;
             border-radius: 5px;
@@ -684,6 +676,7 @@ section, article {
                 border: 1px solid $dark;
                 cursor: pointer;
             }
+            &:active { background-color: white; filter: invert(1);}
         }
     }
 
@@ -693,8 +686,32 @@ section, article {
     .own { cursor: pointer;}
     .own:hover {background-color: #fadee0;}
     .own.present:hover {background-color: #e4ffe5;}
+}
 
+.dark {
+    color: $gray;
+    background: $dark;
 
+    a {
+        color: $light-blue;
+        &:hover {text-shadow: 0 0 1px white;}
+    }
+    img {
+        border: 2px solid $gray;
+    }
+
+    hr {
+        border-color: $gray;
+    }
+
+    h1, h2, h3, h4, h5 {text-shadow: -1px 0 5px black, 0 1px 5px black, 1px 0 5px black, 0 -1px 5px black;}
+
+    .membername { background-color: $dark !important;}
+
+    #table td {border-color: $light;}
+
+    #table #refresh-btn img { filter:invert(1);}
+    #table #refresh-btn img:active { filter: invert(0);}
 }
 
 

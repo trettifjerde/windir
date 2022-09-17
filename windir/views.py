@@ -41,8 +41,15 @@ def logout_view(request):
 def register_view(request):
     if request.method == "POST":
         form = MemberForm(request.POST)
+        print(request.POST.getlist('project'))
+        print(request.POST.getlist('spec'))
         if form.is_valid():
-            form.save()
+            model = form.save()
+            for spec in request.POST.getlist('spec'):
+                model.spec.add(spec)
+            for proj in request.POST.getlist('project'):
+                model.project.add(proj)
+            model.save()
             return JsonResponse({'success': ''})
         else:
             return JsonResponse({'errors': form.errors})

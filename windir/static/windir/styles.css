@@ -358,6 +358,7 @@ form {
 
 ::-webkit-scrollbar {
   width: 10px;
+  height: 10px;
   background-color: #222325;
 }
 
@@ -1024,26 +1025,6 @@ main p {
   }
 }
 
-.dark {
-  color: #d2d2d2;
-  background: #222325;
-}
-.dark a {
-  color: #4ec4ec;
-}
-.dark a:hover {
-  text-shadow: 0 0 1px white;
-}
-.dark img {
-  border: 2px solid #d2d2d2;
-}
-.dark hr {
-  border-color: #d2d2d2;
-}
-.dark h1, .dark h2, .dark h3, .dark h4, .dark h5 {
-  text-shadow: -1px 0 5px black, 0 1px 5px black, 1px 0 5px black, 0 -1px 5px black;
-}
-
 .on-pic-text {
   display: flex;
   flex-direction: column;
@@ -1350,8 +1331,12 @@ section, article {
   margin: 1rem auto;
 }
 
+.table-container {
+  overflow: auto;
+}
+
 #table {
-  width: 100%;
+  min-width: 100%;
   table-layout: fixed;
 }
 #table thead td {
@@ -1360,9 +1345,14 @@ section, article {
 #table td {
   border: 1px solid #222325;
   border-radius: 3px;
-  width: 2rem;
+  min-width: 4rem;
   text-align: center;
   padding: 0.2rem;
+}
+#table .membername {
+  position: sticky;
+  left: 0;
+  background-color: #f8f8f8;
 }
 #table img {
   border: 1px solid transparent;
@@ -1375,6 +1365,8 @@ section, article {
 }
 #table #refresh-btn img {
   width: 5rem;
+  max-width: none;
+  max-height: none;
   height: 5rem;
   padding: 1.5rem;
   border-radius: 5px;
@@ -1382,6 +1374,10 @@ section, article {
 #table #refresh-btn img:hover {
   border: 1px solid #222325;
   cursor: pointer;
+}
+#table #refresh-btn img:active {
+  background-color: white;
+  filter: invert(1);
 }
 #table .cell {
   background-color: #ffc2c8;
@@ -1400,6 +1396,38 @@ section, article {
 }
 #table .own.present:hover {
   background-color: #e4ffe5;
+}
+
+.dark {
+  color: #d2d2d2;
+  background: #222325;
+}
+.dark a {
+  color: #4ec4ec;
+}
+.dark a:hover {
+  text-shadow: 0 0 1px white;
+}
+.dark img {
+  border: 2px solid #d2d2d2;
+}
+.dark hr {
+  border-color: #d2d2d2;
+}
+.dark h1, .dark h2, .dark h3, .dark h4, .dark h5 {
+  text-shadow: -1px 0 5px black, 0 1px 5px black, 1px 0 5px black, 0 -1px 5px black;
+}
+.dark .membername {
+  background-color: #222325 !important;
+}
+.dark #table td {
+  border-color: #f8f8f8;
+}
+.dark #table #refresh-btn img {
+  filter: invert(1);
+}
+.dark #table #refresh-btn img:active {
+  filter: invert(0);
 }
 
 /*# sourceMappingURL=styles.css.map */

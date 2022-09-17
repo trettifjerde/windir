@@ -95,7 +95,7 @@ function captchaAnswer(token)
             <div class="checks">
                 {% for spec in specs %}
                 <label>
-                    <input type="checkbox" name="specs" value="{{ spec.id }}">
+                    <input type="checkbox" name="spec" value="{{ spec.id }}">
                     {{ spec.name }}
                 </label>
                 {% endfor %}
@@ -106,7 +106,7 @@ function captchaAnswer(token)
             <div class="checks">
                 {% for proj in projects %}
                 <label>
-                    <input type="checkbox" name="projects" value="{{ proj.id }}">
+                    <input type="checkbox" name="project" value="{{ proj.id }}">
                     {{ proj.name }}
                 </label>
                 {% endfor %}
@@ -114,7 +114,7 @@ function captchaAnswer(token)
                     <input type="checkbox" name="project-other" onclick="showOtherProjects()">
                     Другое
                 </label>
-                <input class="other-proj none" type="text" name="other-proj" placeholder="Перечислите другие">
+                <input class="other-proj none" type="text" name="other" placeholder="Перечислите другие">
             </div>
         </div>
         <div>

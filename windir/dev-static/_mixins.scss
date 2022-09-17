@@ -183,6 +183,7 @@ $themes: (
 
 ::-webkit-scrollbar {
     width: $scrollbar-width;
+    height: $scrollbar-width;
     background-color: $dark;
 }
 

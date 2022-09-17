@@ -2,12 +2,12 @@ from django import forms
 from django.core.validators import validate_email, ValidationError
 from django.contrib.auth.forms import UserCreationForm
 from django.utils.translation import gettext_lazy as _
-from windir.models import WindirMember
+from windir.models import WindirMember, Spec, Project
 
 class MemberForm(UserCreationForm):
     class Meta:
         model = WindirMember
-        fields = ['username', 'dob', 'telegram', 'contact', 'utc', 'hours', 'specs', 'projects', 'teams', 'other']
+        fields = ['username', 'dob', 'telegram', 'contact', 'utc', 'hours', 'spec', 'project', 'teams', 'other']
         error_messages = {
             'username': {
                 'required': 'Обязательное поле',

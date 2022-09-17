@@ -5,47 +5,50 @@
 	<h1>Расписание игр</h1>
 	<div class="c remark">Доступно для заполнения с воскресенья по среду (сброс таблицы в воскресенье в 16:00 по мск)</div>
 	<div id="table-error" class="error-msg"></div>
-	<table id="table">
-		<thead>
-			<tr>
-				<td rowspan="2" id="refresh-btn">
-					<img src="/media/refresh.png" onclick="getCellsInfo()">
-				</td>
-				{% for game in games %}
-				<td colspan="2" class="game-th">
-					{% if game.project.image %}<img src="{{ game.project.image.url }}">
-					{% else %}<img src="/media/project-imgs/windir.png">
+	<div class="table-container">
+
+		<table id="table">
+			<thead>
+				<tr>
+					<td rowspan="2" id="refresh-btn">
+						<img src="/media/refresh.png" onclick="getCellsInfo()">
+					</td>
+					{% for game in games %}
+					<td colspan="2" class="game-th">
+						{% if game.project.image %}<img src="{{ game.project.image.url }}">
+						{% else %}<img src="/media/project-imgs/windir.png">
+						{% endif %}
+						<div>{{ game.dayname }}</div>
+						<div>{{ game.time }}</div>
+					</td>
+					{% endfor %}
+				</tr>
+				<tr>
+					{% for game in games %}
+					<td>I</td><td>II</td>
+					{% endfor %}
+				</tr>
+			</thead>
+			<tbody>
+			{% for member in members %}
+				<tr>
+					<td class="membername">{{ member.username }}</td>
+					{% if user.is_authenticated and user == member %}
+						{% for game in games %}
+							<td class="cell own" onclick="updateCell({{ member.id }}, {{ game.id }}, 1)"></td>
+							<td class="cell own" onclick="updateCell({{ member.id }}, {{ game.id }}, 2)"></td>
+						{% endfor %}
+					{% else %} 
+						{% for game in games %}
+							<td class="cell"></td>
+							<td class="cell"></td>
+						{% endfor %}
 					{% endif %}
-					<div>{{ game.dayname }}</div>
-					<div>{{ game.time }}</div>
-				</td>
-				{% endfor %}
-			</tr>
-			<tr>
-				{% for game in games %}
-				<td>I</td><td>II</td>
-				{% endfor %}
-			</tr>
-		</thead>
-		<tbody>
-		{% for member in members %}
-			<tr>
-				<td class="membername">{{ member.username }}</td>
-				{% if user.is_authenticated and user == member %}
-					{% for game in games %}
-						<td class="cell own" onclick="updateCell({{ member.id }}, {{ game.id }}, 1)"></td>
-						<td class="cell own" onclick="updateCell({{ member.id }}, {{ game.id }}, 2)"></td>
-					{% endfor %}
-				{% else %} 
-					{% for game in games %}
-						<td class="cell"></td>
-						<td class="cell"></td>
-					{% endfor %}
-				{% endif %}
-			</tr>
-		{% endfor %}
-		</tbody>
-	</table>
+				</tr>
+			{% endfor %}
+			</tbody>
+		</table>
+	</div>
 	<script src="{% static 'windir/table.js' %}" async></script>
 	
 </main>

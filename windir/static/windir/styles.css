@@ -507,6 +507,8 @@ ol li, ul li {
 ol li::marker, ul li::marker {
   font-size: 1.44rem;
   line-height: 2.04rem;
+  font-family: "logo-font";
+  content: "o";
 }
 
 .cols {
@@ -1346,6 +1348,58 @@ section, article {
 #register-form button {
   padding-block: 0.7rem;
   margin: 1rem auto;
+}
+
+#table {
+  width: 100%;
+  table-layout: fixed;
+}
+#table thead td {
+  text-align: center;
+}
+#table td {
+  border: 1px solid #222325;
+  border-radius: 3px;
+  width: 2rem;
+  text-align: center;
+  padding: 0.2rem;
+}
+#table img {
+  border: 1px solid transparent;
+}
+#table .game-th img {
+  max-width: 3.5rem;
+}
+#table #refresh-btn {
+  border: 1px solid transparent;
+}
+#table #refresh-btn img {
+  width: 5rem;
+  height: 5rem;
+  padding: 1.5rem;
+  border-radius: 5px;
+}
+#table #refresh-btn img:hover {
+  border: 1px solid #222325;
+  cursor: pointer;
+}
+#table .cell {
+  background-color: #ffc2c8;
+}
+#table .pending {
+  background-color: #fff9c2;
+}
+#table .present {
+  background-color: #c0ffc1;
+}
+#table .own {
+  cursor: pointer;
+}
+#table .own:hover {
+  background-color: #fadee0;
+}
+#table .own.present:hover {
+  background-color: #e4ffe5;
 }
 
 /*# sourceMappingURL=styles.css.map */

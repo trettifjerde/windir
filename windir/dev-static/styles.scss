@@ -654,3 +654,47 @@ section, article {
     }
 }
 
+#table {
+    width: 100%;
+    table-layout: fixed;
+
+    thead td { text-align: center;}
+
+    td { 
+        border: 1px solid $dark;
+        border-radius: 3px;
+        width: 2rem;
+        text-align: center;
+        padding: 0.2rem;
+    }
+
+    img {border: 1px solid transparent;}
+    .game-th img { max-width: 3.5rem;}
+
+    #refresh-btn {
+        border: 1px solid transparent;
+
+        img { 
+            width: 5rem;
+            height: 5rem;
+            padding: 1.5rem;
+            border-radius: 5px;
+
+            &:hover{
+                border: 1px solid $dark;
+                cursor: pointer;
+            }
+        }
+    }
+
+    .cell {background-color: #ffc2c8;}
+    .pending {background-color: #fff9c2;}
+    .present { background-color: #c0ffc1;}
+    .own { cursor: pointer;}
+    .own:hover {background-color: #fadee0;}
+    .own.present:hover {background-color: #e4ffe5;}
+
+
+}
+
+

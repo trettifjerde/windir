@@ -1,3 +1,5 @@
+const disabled = new Set();
+
 window.addEventListener('load', ()=> {
     checkCookies();
     scrollDown();
@@ -72,8 +74,8 @@ async function login() {
                 form.querySelector('.error-msg').innerHTML = "Произошла ошибка, свяжитесь с администратором";
                 console.log(res);
             };
-            btn.disabled = false;
         }
+        btn.disabled = false;
     }
 }
 
@@ -244,7 +246,7 @@ async function register() {
     btn.disabled = true;
 
     let valid = check_confirm('reg-password', 'confirm');
-    /*
+    
     for (const el of form.elements){
         if (!el.checkValidity())
         {
@@ -252,7 +254,6 @@ async function register() {
             valid = false;
         }
     }
-    */
 
     if (valid) {
         const res = await getData('/register/', 'POST', new FormData(form), false);
@@ -261,21 +262,23 @@ async function register() {
             document.querySelector('main').scrollIntoView({behavior:'smooth'});
         }
         else if ('errors' in res) {
-            console.log(res);
-            markFormInvalid(form, btn, errors=res.errors);
+            markFormInvalid(form, errors=res.errors);
         }
-        else markFormInvalid(form, btn, msg='Произошла ошибка. Повторите позже.')
+        else markFormInvalid(form, msg='Произошла ошибка. Повторите позже.')
+        btn.disabled = false;
     }
-    else markFormInvalid(form, btn);
+    else {
+        markFormInvalid(form);
+        btn.disabled = false;
+    }
 }
 
-function markFormInvalid(form, btn, errors=null, msg=null) {
+function markFormInvalid(form, errors=null, msg=null) {
     if (errors) {
         for (let name in errors) {
             markRed(form[name], errors[name]);
         }
     }
-    btn.disabled = false;
     form.querySelector('.error-msg').innerHTML = msg? msg : "Не все поля заполнены верно";
     document.querySelector('main').scrollIntoView({behavior:'smooth'});
 }

@@ -269,7 +269,8 @@ ol, ul {
     li::marker {
         font-size: $font-size-rg * 1.2;
         line-height: $main-line-height * 1.2;
-
+        font-family: 'logo-font';
+        content: 'o';
     }
 }
 

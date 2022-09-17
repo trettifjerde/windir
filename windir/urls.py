@@ -10,5 +10,7 @@ urlpatterns = [
     path('register/', views.register_view, name="register"),
     path('profile/', views.profile, name="profile"),
     path('table/', views.table, name="table"),
+    path('tableupd/', views.update_table, name="update_table"),
+    path('cellsinfo/', views.cells_info, name='cells_info'),
     path('page/<str:page_name>', views.page, name="page"),
 ]

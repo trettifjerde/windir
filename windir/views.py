@@ -1,7 +1,7 @@
 import json
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
-from django.http import HttpResponse, HttpResponseNotFound, JsonResponse
+from django.http import HttpResponse, Http404, JsonResponse
 from windir.models import Spec, Project, Game, WindirMember
 from windir.forms import MemberForm
 
@@ -71,7 +71,7 @@ def page(request, page_name):
     try: 
         return render(request, f'windir/{page_name}.html')
     except:
-        return HttpResponseNotFound("Страница не найдена")
+        raise Http404
 
 @is_ajax
 def update_table(request):
@@ -104,4 +104,7 @@ def cells_info(request):
         return JsonResponse({'info': info})
     except:
         return JsonResponse({'error': 'Сейчас информация недоступна.'})
+
+def handler404(request, exception):
+    return render(request, 'windir/404.html', status=404)
     

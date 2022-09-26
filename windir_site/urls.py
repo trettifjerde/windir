@@ -18,6 +18,8 @@ from django.urls import path, include
 from django.conf.urls.static import static
 from windir_site import settings
 
+handler404 = 'windir.views.handler404'
+
 urlpatterns = [
     path('', include('windir.urls')),
     path('admin/', admin.site.urls),

@@ -39,6 +39,7 @@
 <body>
     <div id="content">
         <header id="header">
+        {% block header %}
             <div class="logo">windir</div>
             {% if user.is_authenticated %}
             <div class="profile-div">
@@ -69,13 +70,14 @@
                 </div>
             </form>
             {% endif %}
+        {% endblock %}
         </header>
 
         {% block main %}{% endblock %}
 
         <footer>
             <div id="now-people" class="footer-block">
-                Now online
+                
             </div>
             
             <div id="team-contacts" class="footer-block">

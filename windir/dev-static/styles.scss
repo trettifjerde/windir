@@ -99,6 +99,7 @@ nav {
     justify-content: center;
     height: 100%;
     padding: 0 0.5rem;
+    white-space: nowrap;
     font-weight: 300;
     cursor: pointer;
 
@@ -245,7 +246,7 @@ footer {
 .logo
 {
     color: $light;
-    font-family: logo-font, sans-serif;
+    font-family: logo-font, $font-family, sans-serif;
     font-size: 15vw;
     cursor: default;
     text-align: center;
@@ -314,7 +315,7 @@ main {
     color: $dark;
     transition: background-image .2s, color .3s;
     background-image: linear-gradient(to left, white, $light, white);
-    padding: $main-gap 10vw;
+    padding: $main-gap 17vw;
     line-height: $main-line-height;
 
     a {
@@ -376,7 +377,7 @@ section, article {
 
     img {
         max-height: $title-img-height * 0.7;
-        max-width: $title-img-height;
+        max-width: 66%;
     }
 
     &:nth-of-type(even) img {
@@ -426,8 +427,7 @@ section, article {
     }
 
     .n {
-        font-size: 4rem;
-        line-height: 4rem;
+        font-weight: 500;
         padding: 0 1rem;
     }
 
@@ -472,7 +472,7 @@ section, article {
 
 .modal {
     display: none;
-    align-items: flex-start;
+    align-items: center;
     justify-content: center;
     position: fixed;
     top: get-theme-value("dark", "height");
@@ -524,13 +524,15 @@ section, article {
     }
 
     &-closing {
-        width: 100%;
+        width: 50%;
         text-align: center;
+        margin: auto;
     }
 
     @include mobile {
         section p, section ul { margin-left: 0;}
         &-sigil { height: unset; }
+        &-closing { width: 100%;}
     }
 }
 
@@ -647,7 +649,7 @@ section, article {
     td { 
         border: 1px solid $dark;
         border-radius: 3px;
-        min-width: 4rem;
+        min-width: 3.5rem;
         text-align: center;
         padding: 0.2rem;
     }

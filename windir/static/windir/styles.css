@@ -342,7 +342,7 @@ form {
   color: #db3c3c;
 }
 
-@media (orientation: portrait) {
+@media (max-width: 700px) {
   .two-imgs, .img-shrink, .skill {
     margin: 1rem 0 !important;
   }
@@ -375,7 +375,7 @@ h1 {
   text-shadow: -1px 0 5px #f8f8f8, 0 1px 5px #f8f8f8, 1px 0 5px #f8f8f8, 0 -1px 5px #f8f8f8;
   text-align: center;
 }
-@media (orientation: portrait) {
+@media (max-width: 700px) {
   h1 {
     font-size: 2.8rem;
     line-height: 2.8rem;
@@ -391,7 +391,7 @@ h2 {
   text-shadow: -1px 0 5px #f8f8f8, 0 1px 5px #f8f8f8, 1px 0 5px #f8f8f8, 0 -1px 5px #f8f8f8;
   text-align: center;
 }
-@media (orientation: portrait) {
+@media (max-width: 700px) {
   h2 {
     font-size: 2.4rem;
     line-height: 2.4rem;
@@ -407,7 +407,7 @@ h3 {
   text-shadow: -1px 0 5px #f8f8f8, 0 1px 5px #f8f8f8, 1px 0 5px #f8f8f8, 0 -1px 5px #f8f8f8;
   text-align: center;
 }
-@media (orientation: portrait) {
+@media (max-width: 700px) {
   h3 {
     font-size: 2rem;
     line-height: 2rem;
@@ -423,7 +423,7 @@ h4 {
   text-shadow: -1px 0 5px #f8f8f8, 0 1px 5px #f8f8f8, 1px 0 5px #f8f8f8, 0 -1px 5px #f8f8f8;
   text-align: left;
 }
-@media (orientation: portrait) {
+@media (max-width: 700px) {
   h4 {
     font-size: 1.6rem;
     line-height: 1.6rem;
@@ -439,7 +439,7 @@ h5 {
   text-shadow: -1px 0 5px #f8f8f8, 0 1px 5px #f8f8f8, 1px 0 5px #f8f8f8, 0 -1px 5px #f8f8f8;
   text-align: left;
 }
-@media (orientation: portrait) {
+@media (max-width: 700px) {
   h5 {
     font-size: 1.36rem;
     line-height: 1.36rem;
@@ -517,7 +517,7 @@ ol li::marker, ul li::marker {
   column-gap: 4rem;
   margin: 2rem 0;
 }
-@media (orientation: portrait) {
+@media (max-width: 700px) {
   .cols {
     column-count: 1;
     margin: 0;
@@ -528,7 +528,7 @@ ol li::marker, ul li::marker {
   overflow: hidden;
 }
 
-@media (orientation: portrait) {
+@media (max-width: 700px) {
   .desktop {
     display: none;
   }
@@ -640,7 +640,7 @@ ol li::marker, ul li::marker {
   animation-direction: reverse;
 }
 
-@media (orientation: portrait) {
+@media (max-width: 700px) {
   .open-nav {
     animation-name: slide-down;
   }
@@ -649,7 +649,7 @@ ol li::marker, ul li::marker {
 .close-nav {
   animation-direction: reverse;
 }
-@media (orientation: portrait) {
+@media (max-width: 700px) {
   .close-nav {
     animation-name: slide-down;
   }
@@ -671,7 +671,7 @@ body {
 body img {
   border: 2px solid #222325;
 }
-@media (orientation: portrait) {
+@media (max-width: 700px) {
   body {
     grid-template-areas: "cookie" "content" "nav";
   }
@@ -708,7 +708,7 @@ header button {
   padding-left: 1rem;
   padding-right: 1rem;
 }
-@media (orientation: portrait) {
+@media (max-width: 700px) {
   header {
     background-attachment: fixed;
   }
@@ -746,7 +746,7 @@ nav {
   position: fixed;
   top: 0;
 }
-@media (orientation: portrait) {
+@media (max-width: 700px) {
   nav {
     top: auto;
     bottom: 0;
@@ -760,6 +760,7 @@ nav {
   justify-content: center;
   height: 100%;
   padding: 0 0.5rem;
+  white-space: nowrap;
   font-weight: 300;
   cursor: pointer;
 }
@@ -777,7 +778,7 @@ nav {
   font-size: 1.5rem;
   font-style: normal;
 }
-@media (orientation: portrait) {
+@media (max-width: 700px) {
   .nav-btn {
     height: 3rem;
     line-height: 3rem;
@@ -788,7 +789,7 @@ nav {
   transition: all 0.3s;
 }
 
-@media (orientation: portrait) {
+@media (max-width: 700px) {
   #nav-btns, #nav-links {
     background-color: #222325;
   }
@@ -797,7 +798,7 @@ nav {
 .spacer {
   flex-grow: 1;
 }
-@media (orientation: portrait) {
+@media (max-width: 700px) {
   .spacer {
     display: none;
   }
@@ -806,7 +807,7 @@ nav {
 #nav-btns {
   z-index: 15;
 }
-@media (orientation: portrait) {
+@media (max-width: 700px) {
   #nav-btns {
     justify-content: space-between;
   }
@@ -819,7 +820,7 @@ nav {
   opacity: 0;
   visibility: hidden;
 }
-@media (orientation: portrait) {
+@media (max-width: 700px) {
   #nav-links {
     width: 100vw;
     left: 0 !important;
@@ -836,7 +837,7 @@ nav {
   opacity: 1;
   visibility: visible;
 }
-@media (orientation: portrait) {
+@media (max-width: 700px) {
   .nav-open #nav-links {
     height: calc(100% - 3rem) !important;
   }
@@ -894,7 +895,7 @@ nav {
     border-color: transparent #f8f8f8;
   }
 }
-@media (orientation: portrait) {
+@media (max-width: 700px) {
   .nav-black {
     box-shadow: none;
     border-top: 1px solid #f8f8f8;
@@ -928,7 +929,7 @@ footer img {
 footer img:hover {
   opacity: 1;
 }
-@media (orientation: portrait) {
+@media (max-width: 700px) {
   footer {
     padding-bottom: 3rem;
   }
@@ -936,12 +937,12 @@ footer img:hover {
 
 .logo {
   color: #f8f8f8;
-  font-family: logo-font, sans-serif;
+  font-family: logo-font, "Oswald", Arial, sans-serif, sans-serif;
   font-size: 15vw;
   cursor: default;
   text-align: center;
 }
-@media (orientation: portrait) {
+@media (max-width: 700px) {
   .logo {
     font-size: 9rem;
   }
@@ -993,7 +994,7 @@ footer img:hover {
 #cookie-agreement button {
   margin-left: 1rem;
 }
-@media (orientation: portrait) {
+@media (max-width: 700px) {
   #cookie-agreement {
     top: 0;
     bottom: auto;
@@ -1006,7 +1007,7 @@ main {
   color: #222325;
   transition: background-image 0.2s, color 0.3s;
   background-image: linear-gradient(to left, white, #f8f8f8, white);
-  padding: 3rem 10vw;
+  padding: 3rem 17vw;
   line-height: 1.7rem;
 }
 main a {
@@ -1018,7 +1019,7 @@ main a:hover {
 main p {
   margin: 1rem 0;
 }
-@media (orientation: portrait) {
+@media (max-width: 700px) {
   main {
     width: 100%;
     padding: 1rem;
@@ -1057,7 +1058,7 @@ main p {
 section, article {
   margin: 3rem 0;
 }
-@media (orientation: portrait) {
+@media (max-width: 700px) {
   section, article {
     margin: 2rem 0;
   }
@@ -1069,12 +1070,12 @@ section, article {
 }
 .skill img {
   max-height: 490px;
-  max-width: 700px;
+  max-width: 66%;
 }
 .skill:nth-of-type(even) img {
   order: -1;
 }
-@media (orientation: portrait) {
+@media (max-width: 700px) {
   .skill {
     flex-direction: column;
     gap: 0.5rem;
@@ -1111,11 +1112,10 @@ section, article {
   width: 100%;
 }
 .step .n {
-  font-size: 4rem;
-  line-height: 4rem;
+  font-weight: 500;
   padding: 0 1rem;
 }
-@media (orientation: portrait) {
+@media (max-width: 700px) {
   .step {
     margin: 1rem 0;
   }
@@ -1152,7 +1152,7 @@ section, article {
   max-width: 49%;
   max-height: 50vh;
 }
-@media (orientation: portrait) {
+@media (max-width: 700px) {
   .two-imgs {
     gap: 1rem;
     flex-wrap: wrap;
@@ -1161,7 +1161,7 @@ section, article {
 
 .modal {
   display: none;
-  align-items: flex-start;
+  align-items: center;
   justify-content: center;
   position: fixed;
   top: 3rem;
@@ -1178,7 +1178,7 @@ section, article {
   border: none;
   max-height: unset;
 }
-@media (orientation: portrait) {
+@media (max-width: 700px) {
   .modal {
     top: 0;
     align-items: center;
@@ -1197,7 +1197,7 @@ section, article {
 .thumbnail:hover {
   filter: none;
 }
-@media (orientation: portrait) {
+@media (max-width: 700px) {
   .thumbnail {
     filter: none;
   }
@@ -1214,15 +1214,19 @@ section, article {
   border: none;
 }
 .about-closing {
-  width: 100%;
+  width: 50%;
   text-align: center;
+  margin: auto;
 }
-@media (orientation: portrait) {
+@media (max-width: 700px) {
   .about section p, .about section ul {
     margin-left: 0;
   }
   .about-sigil {
     height: unset;
+  }
+  .about-closing {
+    width: 100%;
   }
 }
 
@@ -1233,7 +1237,7 @@ section, article {
   justify-content: center;
   margin: 0.5rem 0;
 }
-@media (orientation: portrait) {
+@media (max-width: 700px) {
   #register-form > div {
     display: block;
   }
@@ -1257,7 +1261,7 @@ section, article {
   display: inline-flex;
   align-items: center;
 }
-@media (orientation: portrait) {
+@media (max-width: 700px) {
   #register-form .switch {
     margin: 0 1rem;
   }
@@ -1309,7 +1313,7 @@ section, article {
 #register-form .checks input[type=checkbox] {
   margin: 0;
 }
-@media (orientation: portrait) {
+@media (max-width: 700px) {
   #register-form .checks label {
     flex-basis: calc((100% - 0.5rem) * 0.5);
   }
@@ -1321,7 +1325,7 @@ section, article {
   width: 15rem;
   margin: 1rem 0;
 }
-@media (orientation: portrait) {
+@media (max-width: 700px) {
   #register-form .other-proj {
     width: 100%;
   }
@@ -1345,7 +1349,7 @@ section, article {
 #table td {
   border: 1px solid #222325;
   border-radius: 3px;
-  min-width: 4rem;
+  min-width: 3.5rem;
   text-align: center;
   padding: 0.2rem;
 }

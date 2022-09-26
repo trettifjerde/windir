@@ -111,7 +111,7 @@ function openNav() {
 function toggleNavBar() {
     const nav = document.querySelector('nav');
     const content = document.querySelector('#content');
-    if (window.innerWidth > window.innerHeight) {
+    if (window.innerWidth > 700) {
 
         if (content.scrollTop > content.querySelector('header').offsetHeight - nav.offsetHeight)
         {
@@ -190,7 +190,7 @@ function hideRed(input) {
 function markRed(input, msg=null) {
     input.classList.add('invalid');
     if (input.nextElementSibling?.classList.contains('form-error')) {
-        input.nextElementSibling.innerHTML = msg ? msg : 'Это обязательно';
+        input.nextElementSibling.innerHTML = msg ? msg.join(' ') : 'Обязательное поле';
     }
 }
 
@@ -237,7 +237,7 @@ function showOtherProjects() {
 }
 
 function openProfile() {
-    document.querySelector('#profile-form-div').classList.toggle('hidden');
+    //document.querySelector('#profile-form-div').classList.toggle('hidden');
 }
 
 async function register() {

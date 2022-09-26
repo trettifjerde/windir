@@ -10,25 +10,9 @@ class MemberForm(UserCreationForm):
         fields = ['username', 'dob', 'telegram', 'contact', 'utc', 'hours', 'spec', 'project', 'teams', 'other']
         error_messages = {
             'username': {
-                'required': 'Обязательное поле',
                 'invalid': 'Допустимые сиволы: A-Z a-z 0-9 _ -',
                 'unique': 'Позывной уже занят'
             },
-            'password': {
-                'password_too_short': 'Минимальная длина: 8 символов',
-                'password_too_common': 'Пароль слишком распространенный',
-                'password_entirely_numeric': 'Пароль должен содержать буквы',
-            },
-            'dob': {
-                'required': 'Обязательное поле',
-            },
-            'hours': {
-                'required': 'Обязательное поле',
-            },
-            'contact' : {
-                'required': 'Обязательное поле',
-                'invalid': 'Неверный формат адреса'
-            }
         }
 
     def clean(self):

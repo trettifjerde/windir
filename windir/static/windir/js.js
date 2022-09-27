@@ -60,7 +60,7 @@ async function login() {
 
     if (!valid) btn.disabled = false;
     else {
-        const res = await getData('/login/', 'POST', {'username': form.username.value, 'password': form.password.value});
+        const res = await getData('/login/', 'POST', new FormData(form), false);
 
         if ('success' in res) location.reload(true);
         else {
@@ -166,7 +166,7 @@ function switchTheme() {
 
 function checkCookies() {
     if (getCookie('dark'))
-        document.querySelector('main').classList.add('dark');
+        document.querySelector('main')?.classList.add('dark');
 
     if (!getCookie('agree'))
         document.querySelector('#cookie-agreement').classList.remove('hidden');
@@ -213,7 +213,7 @@ function check_confirm(passwordId, confirmId)
         return true;
     }
     else if (event.type !== "input"){
-        markRed(confirm, 'Пароли не совпадают');
+        markRed(confirm, ['Пароли не совпадают']);
         return false;
     }
 }
@@ -236,8 +236,17 @@ function showOtherProjects() {
     document.querySelector('.other-proj').classList.toggle('none');
 }
 
-function openProfile() {
-    //document.querySelector('#profile-form-div').classList.toggle('hidden');
+async function openProfile() {
+    document.querySelector('#profile-form-div').classList.toggle('hidden');
+    const select = document.querySelector('.profile-form select');
+    const timezones = await getData('/changezone');
+    for (const z of timezones.timezones) {
+        const o = document.createElement('option');
+        o.value = z;
+        o.innerHTML = z;
+        o.selected = z === timezones.selected;
+        select.append(o);
+    }
 }
 
 async function register() {
@@ -281,4 +290,54 @@ function markFormInvalid(form, errors=null, msg=null) {
     }
     form.querySelector('.error-msg').innerHTML = msg? msg : "Не все поля заполнены верно";
     document.querySelector('main').scrollIntoView({behavior:'smooth'});
+}
+
+async function changePass() {
+    const form = event.target.form;
+    const result = document.querySelector('.profile-div .error-msg');
+
+    let valid = check_confirm('new_pwd', 'new_confirm');
+    for (const el of form.elements) {
+        if (!el.checkValidity()) {
+            markRed(el);
+            valid = false;
+        }
+    }
+
+    if (valid) {
+        const res = await getData('/changepass/', 'POST', new FormData(form), false);
+        if ('success' in res) {
+            result.innerHTML = res.success;
+            result.classList.add('green');
+        }
+        else {
+            result.classList.remove('green');
+
+            if ('old_password' in res) {
+                result.innerHTML = res['old_password'].join(' ');
+                markRed(form.old_password);
+                result.classList.remove('green');
+            }
+            else if ('new_password2' in res) {
+                result.innerHTML = res['new_password2'].join(' ');
+                result.classList.remove('green');
+            }
+        }   
+    }
+}
+
+async function changeZone() {
+    const form = event.target.form;
+    const res = await getData('/changezone/', 'POST', {utc: form.utc.value});
+    const resultDiv = document.querySelector('.profile-div .error-msg');
+
+    if ('success' in res) {
+        resultDiv.innerHTML = res.success;
+        resultDiv.classList.add('green');
+    }
+    else {
+        resultDiv.innerHTML = 'Произошла ошибка';
+        resultDiv.classList.remove('green');
+    }
+
 }

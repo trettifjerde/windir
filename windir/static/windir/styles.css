@@ -315,7 +315,7 @@ template {
   display: none;
 }
 
-header form {
+#login-form {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -340,6 +340,7 @@ form {
 .form-error, .error-msg {
   font-size: 0.9rem;
   color: #db3c3c;
+  line-height: 2rem;
 }
 
 @media (max-width: 700px) {
@@ -480,11 +481,12 @@ button, .btn {
 }
 
 .input {
-  font-weight: 300;
+  padding: 0 0.5rem;
+  height: 2rem;
   width: 100%;
+  font-weight: 300;
   outline: none;
   overflow: auto;
-  padding: 0.3rem;
   border: 1px solid #222325;
   border-radius: 3px;
 }
@@ -685,13 +687,6 @@ body img {
 header {
   padding: 20vh 0;
   min-height: 100%;
-}
-header form {
-  align-items: center;
-  gap: 0.3rem;
-  min-width: 15rem;
-  width: 15vw;
-  margin: auto;
 }
 header .input {
   color: #f8f8f8;
@@ -948,6 +943,14 @@ footer img:hover {
   }
 }
 
+#login-form {
+  align-items: center;
+  gap: 0.3rem;
+  min-width: 15rem;
+  width: 15vw;
+  margin: auto;
+}
+
 .profile-div {
   font-size: 1.2rem;
   color: #f8f8f8;
@@ -960,12 +963,34 @@ footer img:hover {
 
 #profile-form-div {
   transition: all 0.4s;
+  margin: 1rem 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 0.5rem;
+}
+@media (max-width: 700px) {
+  #profile-form-div {
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+}
+
+.profile-form {
+  width: 17rem;
+  align-items: center;
+}
+.profile-form .input {
+  width: 100%;
+}
+.profile-form option {
+  color: #222325;
 }
 
 .error-msg {
   text-align: center;
   margin: auto;
-  padding: 0.3rem;
 }
 
 .form-error {
@@ -1242,10 +1267,6 @@ section, article {
     display: block;
   }
 }
-#register-form input:not([type=checkbox]), #register-form select {
-  padding: 0 0.5rem;
-  height: 2rem;
-}
 #register-form label {
   text-align: right;
   vertical-align: middle;
@@ -1337,6 +1358,7 @@ section, article {
 
 .table-container {
   overflow: auto;
+  margin: 1rem;
 }
 
 #table {

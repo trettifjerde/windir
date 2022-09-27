@@ -1,8 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 
-DAYNAMES = ['Пн', 'Вт', 'Ср', 'Чт' , 'Пт', 'Сб', 'Вс']
-
 class Spec(models.Model):
     name = models.CharField(max_length=50)
 
@@ -24,7 +22,7 @@ class WindirMember(AbstractBaseUser, PermissionsMixin):
     telegram = models.BooleanField(default=False)
     contact = models.CharField(max_length=50)
     dob = models.DateField()
-    utc = models.IntegerField(null=True, blank=True)
+    utc = models.CharField(default="", blank=True, max_length=50)
     hours = models.IntegerField()
     spec = models.ManyToManyField(Spec, blank=True)
     project = models.ManyToManyField(Project, blank=True)
@@ -44,17 +42,14 @@ class WindirMember(AbstractBaseUser, PermissionsMixin):
 
 class Game(models.Model):
     class Meta:
-        ordering = ['weekday']
+        ordering = ['date']
 
     project = models.ForeignKey(Project, null=True, blank=True, on_delete=models.CASCADE)
-    weekday = models.IntegerField(unique=True)
-    time = models.CharField(max_length=5)
+    date = models.DateTimeField()
     first = models.ManyToManyField(WindirMember, blank=True, related_name="game_first")
     second = models.ManyToManyField(WindirMember, blank=True, related_name="game_second")
 
     def __str__(self):
-        return f'{self.dayname()}: {self.project if self.project else "Отрядная"} в {self.time}'
-
-    def dayname(self):
-        return f'{DAYNAMES[self.weekday]}'
+        return f'{self.date.astimezone().strftime("%a, %H:%M")}: {self.project if self.project else "Отрядная"}'
+        
 

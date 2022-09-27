@@ -1,5 +1,6 @@
 {% extends 'windir/layout.html' %}
 {% load static %}
+{% load tz %}
 {% block main %}
 <main>
 	<h1>Расписание игр</h1>
@@ -18,8 +19,8 @@
 						{% if game.project.image %}<img src="{{ game.project.image.url }}">
 						{% else %}<img src="/media/project-imgs/windir.png">
 						{% endif %}
-						<div>{{ game.dayname }}</div>
-						<div>{{ game.time }}</div>
+						<div>{{ game.date|localtime|date:"D" }}</div>
+						<div>{{ game.date|localtime|date:"H:i" }}</div>
 					</td>
 					{% endfor %}
 				</tr>

@@ -47,15 +47,17 @@
                 <div class="error-msg"></div>
             </div>
             <div id="profile-form-div" class="hidden">
-                <form id="profile-form" autocomplete="off">
+                <form class="profile-form">
                     {% csrf_token %}
-                    <div class="error-msg"></div>
-                    <input class="input" type="password" name="old_pwd" id="old_pwd" placeholder="Текущий пароль" required>
-                    <input class="input" type="password" name="password" id="new_pwd" placeholder="Новый пароль" required>
-                    <input class="input" type="password" name="confirm" id="new_confirm" placeholder="Еще раз" 
-                    oninput="check_confirm('new_pwd', 'new_confirm')"
-                    onfocusout="check_confirm('new_pwd', 'new_confirm')" required>
-                    <button type="button" class="btn-std">Сменить</button>
+                    <input class="input" type="password" name="old_password" id="old_pwd" placeholder="Текущий пароль" required>
+                    <input class="input" type="password" name="new_password1" id="new_pwd" placeholder="Новый пароль" required>
+                    <input class="input" type="password" name="new_password2" id="new_confirm" placeholder="Еще раз" required>
+                    <button type="button" class="btn-std" onclick="changePass()">Сменить пароль</button>
+                </form>
+                <form class="profile-form">
+                    {% csrf_token %}
+                    <select class="input" name="utc"></select>
+                    <button type="button" class="btn-std" onclick="changeZone()">Сменить пояс</button>
                 </form>
             </div>
             {% else %}

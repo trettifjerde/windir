@@ -38,15 +38,6 @@ header {
     padding: 20vh 0;
     min-height: 100%;
 
-    form {
-        @extend %flex-column;
-        align-items: center;
-        gap: $form-gap;
-        min-width: 15rem;
-        width: 15vw;
-        margin: auto;
-    }
-
     .input
     {
         color: $light;
@@ -256,6 +247,15 @@ footer {
     }
 }
 
+#login-form {
+        @extend %flex-column;
+        align-items: center;
+        gap: $form-gap;
+        min-width: 15rem;
+        width: 15vw;
+        margin: auto;
+}
+
 .profile-div {
     font-size: 1.2rem;
     color: $light;
@@ -266,13 +266,33 @@ footer {
 
 #profile-form-div {
     transition: all .4s;
+    margin: 1rem 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 0.5rem;
+
+    @include mobile {
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+    }
+}
+
+.profile-form {
+
+    width: 17rem;
+    align-items: center;
+
+    .input {width: 100%;}
+
+    option {color: $dark;}
 }
 
 .error-msg {
     @extend %error-msg;
     text-align: center;
     margin: auto;
-    padding: 0.3rem;
 }
 
 .form-error {
@@ -549,11 +569,6 @@ section, article {
         }
     }
 
-    input:not([type="checkbox"]), select {
-        padding: 0 0.5rem;
-        height: 2rem;
-    }
-
     label {text-align: right; vertical-align: middle;}
 
     hr {
@@ -639,7 +654,9 @@ section, article {
 
 .table-container {
     overflow: auto;
+    margin: 1rem;
 }
+
 #table {
     min-width: 100%;
     table-layout: fixed;

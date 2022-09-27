@@ -57,31 +57,11 @@ function captchaAnswer(token)
         </div>
         <div>
             <label for="UTC">Часовой пояс</label>
-            <select class="input" id="UTC" name="UTC">
+            <select class="input" id="utc" name="utc">
                 <option disabled selected></option>
-                <option value="0">0 (Западная Европа)</option>
-                <option value="1">+1 (Центральная Европа)</option>
-                <option value="2">+2 (Восточная Европа)</option>
-                <option value="3">+3 (Москва) </option>
-                <option value="4">+4 (Самара, Волгоград)</option>
-                <option value="5">+5 (Екатеринбург)</option>
-                <option value="6">+6 (Омск, Астана)</option>
-                <option value="7">+7 (Новосибирск)</option>
-                <option value="8">+8 (Иркутск)</option>
-                <option value="9">+9 (Якутск)</option>
-                <option value="10">+10 (Владивосток)</option>
-                <option value="11">+11 (Магадан)</option>
-                <option value="12">+12 (Камчатка)</option>
-                <option value="-1">-1 (Кабо Верде)</option>
-                <option value="-2">-2 (острова Бразилии)</option>
-                <option value="-3">-3 (Бразилия, Аргентина)</option>
-                <option value="-4">-4 (Венесуэла, Чили)</option>
-                <option value="-5">-5 (Нью-Йорк, Торонто)</option>
-                <option value="-6">-6 (Чикаго, Мексика)</option>
-                <option value="-7">-7 (Денвер, Фарго)</option>
-                <option value="-8">-8 (Лос-Анджелес)</option>
-                <option value="-9">-9 (Аляска)</option>
-                <option value="-10">-10 (Гавайи)</option>
+                {% for z in timezones %}
+                <option value="{{ z }}">{{ z }}</option>
+                {% endfor %}
             </select>
         </div>
         <hr>

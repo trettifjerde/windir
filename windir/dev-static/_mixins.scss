@@ -166,6 +166,7 @@ $themes: (
 %error-msg {
     font-size: $font-size-sm;
     color: $red;
+    line-height: 2rem;
 }
 
 %img-mobile {
@@ -239,11 +240,12 @@ button, .btn {
 
 .input {
     @extend %transition-ease;
-    font-weight: 300;
+    padding: 0 0.5rem;
+    height: 2rem;
     width: 100%;
+    font-weight: 300;
     outline: none;
     overflow: auto;
-    padding: $form-gap;
     border: 1px solid $dark;
     border-radius: $border-radius;
 }

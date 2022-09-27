@@ -1,9 +1,20 @@
 import json
+import zoneinfo
+from datetime import timedelta
 from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
+from django.contrib.auth.forms import PasswordChangeForm
 from django.http import HttpResponse, Http404, JsonResponse
 from windir.models import Spec, Project, Game, WindirMember
 from windir.forms import MemberForm
+from django.utils import timezone
+
+timezones = sorted(
+        filter(
+            lambda z : z.startswith('Asia') or z.startswith('Europe'), 
+            zoneinfo.available_timezones()
+        ) 
+    )
 
 def is_ajax(function):
     def inner(request):
@@ -19,14 +30,16 @@ def index(request):
 @is_ajax
 def login_view(request):
     if request.method == "POST":
-        data = json.loads(request.body)
-        username = data["username"]
-        password = data["password"]
+        username = request.POST["username"]
+        password = request.POST["password"]
 
         user = authenticate(request, username=username, password=password)
 
         if user is not None:
             login(request, user)
+            request.session['django_timezone'] = user.utc
+            if (request.POST.get('remember')):
+                request.session.set_expiry(timedelta(days=60))
             return JsonResponse({'success': ''})
         else:
             return JsonResponse({'user-error': 'Неверный логин или пароль'})
@@ -55,7 +68,8 @@ def register_view(request):
             return JsonResponse({'errors': form.errors})
     return render(request, 'windir/register.html', {
         "specs": Spec.objects.all(), 
-        "projects": Project.objects.all()
+        "projects": Project.objects.all(),
+        "timezones": timezones
     })
 
 def profile(request):
@@ -108,3 +122,25 @@ def cells_info(request):
 def handler404(request, exception):
     return render(request, 'windir/404.html', status=404)
     
+@is_ajax
+def change_zone(request):
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        if data.get('utc') and request.user.is_authenticated:
+            request.user.utc = data['utc']
+            request.user.save()
+            request.session['django_timezone'] = data['utc']
+            return JsonResponse({'success': 'Часовой пояс успешно изменен'})
+    return JsonResponse({'timezones': timezones, 'selected': request.user.utc })
+
+@is_ajax
+def change_pass(request):
+    if request.method == 'POST' and request.user.is_authenticated:
+        form = PasswordChangeForm(user=request.user, data=request.POST)
+        if form.is_valid():
+            form.save()
+            update_session_auth_hash(request, form.user)
+            return JsonResponse({'success': 'Пароль успешно обновлен'})
+        else:
+            return JsonResponse(form.errors)
+    return JsonResponse({'errors': ['Произошла ошибка. Попробуйте позже или свяжитесь с администратором']})

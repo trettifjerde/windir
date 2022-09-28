@@ -4,10 +4,6 @@
 $footer-height: 3rem;
 
 body {
-    background: $bg-img;
-}
-
-body {
     display: grid;
     grid-template-areas:    'nav'
                             'content'
@@ -37,10 +33,15 @@ body {
 header {
     padding: 20vh 0;
     min-height: 100%;
+    background-image: $bg-img-url;
+    background-attachment: fixed;
+    background-repeat: repeat;
+    background-size: 15vw;
 
     .input
     {
         color: $light;
+        font-size: 0.9rem;
         background-color: transparent;
         border-radius: 0.4rem;
         border: 1px solid $light;
@@ -60,8 +61,7 @@ header {
 
     @include mobile {
         background-attachment: fixed;
-
-        form {width: 15rem;}
+        background-size: 30vh;
     }
 }
 
@@ -248,12 +248,10 @@ footer {
 }
 
 #login-form {
-        @extend %flex-column;
-        align-items: center;
-        gap: $form-gap;
-        min-width: 15rem;
-        width: 15vw;
-        margin: auto;
+    align-items: center;
+    gap: $form-gap;
+    width: 13rem;
+    margin: auto;
 }
 
 .profile-div {

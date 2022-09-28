@@ -315,12 +315,6 @@ template {
   display: none;
 }
 
-#login-form {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-}
-
 .two-imgs, .articles, .step, .skill, .title-div, #nav-links, #nav-btns {
   display: flex;
   flex-direction: row;
@@ -658,10 +652,6 @@ ol li::marker, ul li::marker {
 }
 
 body {
-  background: fixed 15vw repeat url("img/bg.jpg");
-}
-
-body {
   display: grid;
   grid-template-areas: "nav" "content" "cookie";
   grid-template-rows: auto 1fr auto;
@@ -687,9 +677,14 @@ body img {
 header {
   padding: 20vh 0;
   min-height: 100%;
+  background-image: url("img/bg.jpg");
+  background-attachment: fixed;
+  background-repeat: repeat;
+  background-size: 15vw;
 }
 header .input {
   color: #f8f8f8;
+  font-size: 0.9rem;
   background-color: transparent;
   border-radius: 0.4rem;
   border: 1px solid #f8f8f8;
@@ -706,9 +701,7 @@ header button {
 @media (max-width: 700px) {
   header {
     background-attachment: fixed;
-  }
-  header form {
-    width: 15rem;
+    background-size: 30vh;
   }
 }
 
@@ -730,8 +723,10 @@ header button {
   opacity: 1;
 }
 .btn-std:disabled {
-  background-color: transparent !important;
-  color: #222325;
+  background-color: transparent;
+  color: gray;
+  border-color: gray;
+  cursor: default;
 }
 
 nav {
@@ -946,8 +941,7 @@ footer img:hover {
 #login-form {
   align-items: center;
   gap: 0.3rem;
-  min-width: 15rem;
-  width: 15vw;
+  width: 13rem;
   margin: auto;
 }
 

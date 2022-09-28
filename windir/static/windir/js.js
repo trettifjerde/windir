@@ -295,6 +295,7 @@ function markFormInvalid(form, errors=null, msg=null) {
 async function changePass() {
     const form = event.target.form;
     const result = document.querySelector('.profile-div .error-msg');
+    result.innerHTML = '';
 
     let valid = check_confirm('new_pwd', 'new_confirm');
     for (const el of form.elements) {
@@ -328,8 +329,9 @@ async function changePass() {
 
 async function changeZone() {
     const form = event.target.form;
-    const res = await getData('/changezone/', 'POST', {utc: form.utc.value});
     const resultDiv = document.querySelector('.profile-div .error-msg');
+    resultDiv.innerHTML = '';
+    const res = await getData('/changezone/', 'POST', {utc: form.utc.value});
 
     if ('success' in res) {
         resultDiv.innerHTML = res.success;

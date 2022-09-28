@@ -8,7 +8,8 @@ $font-size-rg: 1.2rem;
 $font-size-sm: 0.9rem;
 $bold: 500;
 $border-radius: 3px;
-$bg-img: fixed 15vw repeat url("img/bg.jpg");
+$bg-img-url: url("img/bg.jpg");
+$bg-img: fixed 15vw repeat $bg-img-url;
 
 $scrollbar-width: 10px;
 
@@ -103,8 +104,10 @@ $themes: (
     }
 
     &:disabled {
-        background-color: transparent !important;
-        color: $dark;
+        background-color: transparent;
+        color: gray;
+        border-color: gray;
+        cursor: default;
     }
 }
 

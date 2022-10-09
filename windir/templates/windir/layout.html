@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}{{ title|default:"Windir"}}{% endblock %}</title>
-    <script src="{% static 'windir/js.js' %}"></script>
+    <script src="{% static 'windir/js-min.js' %}" defer></script>
     <link href="https://fonts.googleapis.com/css?family=Oswald:300,400&display=swap&subset=cyrillic" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Fira+Sans+Condensed&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'windir/styles.css' %}">
@@ -31,10 +31,6 @@
     <meta property="og:type"        content="website" />
     <meta property="og:url"         content="%%OGP_URL%%" />
     <meta property="og:image"       content="%%OGP_IMAGE%%"/>
-    <meta name="twitter:card"       content="summary_large_image" />
-    <meta name="twitter:image"      content="%%OGP_IMAGE%%" />
-    <meta name="twitter:site"       content="@WindirSquad" />
-    <meta name="twitter:creator"    content="@g-virus" />
 </head>
 <body>
     <div id="content">

@@ -2,6 +2,7 @@
 {% load static %}
 {% load tz %}
 {% block main %}
+<script src="{% static 'windir/table-min.js' %}" async></script>
 <main>
 	<h1>Расписание игр</h1>
 	<div class="c remark">Доступно для заполнения с воскресенья по среду (сброс таблицы в воскресенье в 16:00 по мск)</div>
@@ -49,8 +50,6 @@
 			{% endfor %}
 			</tbody>
 		</table>
-	</div>
-	<script src="{% static 'windir/table.js' %}" async></script>
-	
+	</div>	
 </main>
 {% endblock %}

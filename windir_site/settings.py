@@ -21,13 +21,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-+!2(9!9p8k+%sm)&38w5c#esg$x9uro6hsgv1x3k_^w=e^7==i'
-
+SECRET_KEY = os.environ.get('WINDIR_SC')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['10.10.0.240', '127.0.0.1']
-
+ALLOWED_HOSTS = ['127.0.0.1']
 
 # Application definition
 
@@ -97,7 +95,7 @@ PASSWORD_HASHERS = [
     'django.contrib.auth.hashers.ScryptPasswordHasher',
 ]
 
-'''AUTH_PASSWORD_VALIDATORS = [
+AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
     },
@@ -110,7 +108,7 @@ PASSWORD_HASHERS = [
     {
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
-]'''
+]
 
 
 # Internationalization

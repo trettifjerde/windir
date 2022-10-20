@@ -6,7 +6,7 @@ function loadImages() {
     const lazies = document.querySelectorAll('.lazy');
     if (lazies.length){
         lazies.forEach(img => {
-            if (document.querySelector('#content').scrollTop > img.offsetTop - 50)
+            if (document.querySelector('#content').scrollTop > img.offsetTop - window.innerHeight)
             {
                 img.src = img.dataset.src;
                 img.classList.remove('lazy');

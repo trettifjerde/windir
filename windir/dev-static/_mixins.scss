@@ -15,7 +15,7 @@ $scrollbar-width: 10px;
 
 $light: #f8f8f8;
 $dark: #222325;
-$gray: #d2d2d2;
+$gray: #e3e3e3;
 $light-trans: color.adjust($dark, $alpha: -0.7);
 $dark-trans: color.adjust($dark, $alpha: -0.3);
 $red: #db3c3c;
@@ -72,7 +72,6 @@ $themes: (
     margin-block: $size * 0.5;
     margin-inline: 0;
     font-weight: $bold;
-    text-shadow: -1px 0 5px $light, 0 1px 5px $light, 1px 0 5px $light, 0 -1px 5px $light;
 
     @if $size > 2.4rem {
         text-align: center;
